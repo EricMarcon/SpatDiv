@@ -2,7 +2,7 @@
 % Please edit documentation in R/Project.R
 \name{CheckSpatDivArguments}
 \alias{CheckSpatDivArguments}
-\title{CheckentropartArguments}
+\title{CheckSpatDivArguments}
 \usage{
 CheckSpatDivArguments()
 }
@@ -10,7 +10,7 @@ CheckSpatDivArguments()
 Returns \code{TRUE} or stops if a problem is detected.
 }
 \description{
-Checks the arguments of a function of the package entropart
+Checks the arguments of a function of the package SpatDiv
 }
 \details{
 The function compares the arguments passed to its parent function to the type they should be and performs some extra tests (\emph{e.g.} probabilities must be positive and sum to 1). It stops if an argument is not correct.

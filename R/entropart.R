@@ -31,11 +31,62 @@ function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns 
 
 
 
+#' Tsallis (HCDT) Entropy of a vector of individuals
+#'
+#' Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a probability vector.
+#'
+#' Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized entropy is a generalized measure of diversity (Jost, 2006).
+#' See \code{\link{Tsallis}} for more details.
+#'
+#' @param NorP A vector of factors.
+#' @inheritParams Tsallis.wmppp
+#'
+#' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
+#'
+#' @export
+#' @importFrom entropart Tsallis
+#' @method Tsallis factor
+#' @importFrom entropart bcTsallis
+#'
+#' @examples TODO
+Tsallis.factor <-
+function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
+{
+  return(entropart::bcTsallis(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
+}
+
+
+
+#' Tsallis (HCDT) Entropy of a vector of individuals
+#'
+#' Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a probability vector.
+#'
+#' Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized entropy is a generalized measure of diversity (Jost, 2006).
+#' See \code{\link{Tsallis}} for more details.
+#'
+#' @param NorP A vector of characters.
+#' @inheritParams Tsallis.wmppp
+#'
+#' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
+#'
+#' @export
+#' @importFrom entropart Tsallis
+#' @method Tsallis character
+#' @importFrom entropart bcTsallis
+#'
+#' @examples TODO
+Tsallis.character <-
+function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
+{
+  return(entropart::bcTsallis(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
+}
+
+
 #' HCDT diversity of a spatialized community
 #'
 #' \code{Diversity} calls \code{\link{Tsallis}} to calculate entropy and transforms it into diversity by calculating its deformed exponential.
 #'
-#' @inheritParams as.ProbaVector.wmppp
+#' @inheritParams Tsallis.wmppp
 #'
 #' @return A named number equal to the calculated diversity. The name is that of the bias correction used.
 #'
@@ -43,10 +94,54 @@ function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns 
 #' @importFrom entropart Diversity
 #' @method Diversity wmppp
 #' @importFrom entropart bcDiversity
-
+#'
 #' @examples TODO
 Diversity.wmppp <-
 function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
 {
   return (entropart::bcDiversity(Ns=as.AbdVector(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
+}
+
+
+
+#' HCDT diversity of a vector of individuals
+#'
+#' \code{Diversity} calls \code{\link{Tsallis}} to calculate entropy and transforms it into diversity by calculating its deformed exponential.
+#'
+#' @inheritParams Tsallis.factor
+#'
+#' @return A named number equal to the calculated diversity. The name is that of the bias correction used.
+#'
+#' @export
+#' @importFrom entropart Diversity
+#' @method Diversity factor
+#' @importFrom entropart bcDiversity
+#'
+#' @examples TODO
+Diversity.factor <-
+function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
+{
+  return (entropart::bcDiversity(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
+}
+
+
+
+#' HCDT diversity of a vector of individuals
+#'
+#' \code{Diversity} calls \code{\link{Tsallis}} to calculate entropy and transforms it into diversity by calculating its deformed exponential.
+#'
+#' @inheritParams Tsallis.factor
+#'
+#' @return A named number equal to the calculated diversity. The name is that of the bias correction used.
+#'
+#' @export
+#' @importFrom entropart Diversity
+#' @method Diversity character
+#' @importFrom entropart bcDiversity
+#'
+#' @examples TODO
+Diversity.character <-
+function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
+{
+  return (entropart::bcDiversity(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
 }

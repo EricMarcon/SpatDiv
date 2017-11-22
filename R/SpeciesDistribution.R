@@ -9,10 +9,11 @@
 #'
 #' \code{SpeciesDistribution} objects can be plotted. The \code{plot} method returns the estimated parameters of the fitted distribution. The broken stick has no parameter, so the maximum abundance is returned.
 #'
-#' @param x An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.
+#' @param x An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names, or a vector of factors or characters containing species names of each individual.
 #' @name SpeciesDistributions
 #' @return A vector of species abundances (\code{\link{AbdVector}}) or probabilities (\code{\link{ProbaVector}}).
 NULL
+
 
 
 #' @rdname SpeciesDistributions
@@ -22,7 +23,38 @@ NULL
 as.SpeciesDistribution.wmppp <-
 function (x)
 {
-  spD <- tapply(x$marks$PointType, INDEX=x$marks$PointType, FUN=length)
+  # Table counts the number of individuals per species. It returns an array (1d) that must be converted to a vector.
+  spD <- as.numeric(table(x$marks$PointType))
+  class(spD) <- c("SpeciesDistribution", class(spD))
+  return(spD)
+}
+
+
+
+#' @rdname SpeciesDistributions
+#' @export
+#' @importFrom entropart as.SpeciesDistribution
+#' @method as.SpeciesDistribution factor
+as.SpeciesDistribution.factor <-
+function (x)
+{
+  # Table counts the number of individuals per species. It returns an array (1d) that must be converted to a vector.
+  spD <- as.numeric(table(x))
+  class(spD) <- c("SpeciesDistribution", class(spD))
+  return(spD)
+}
+
+
+
+#' @rdname SpeciesDistributions
+#' @export
+#' @importFrom entropart as.SpeciesDistribution
+#' @method as.SpeciesDistribution character
+as.SpeciesDistribution.character <-
+function (x)
+{
+  # Table counts the number of individuals per species. It returns an array (1d) that must be converted to a vector.
+  spD <- as.numeric(table(x))
   class(spD) <- c("SpeciesDistribution", class(spD))
   return(spD)
 }
@@ -40,16 +72,52 @@ function (x)
 #' @importFrom entropart as.ProbaVector
 #' @method as.ProbaVector wmppp
 as.ProbaVector.wmppp  <-
-  function (x, Correction = "None", Unveiling = "None", RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang", CheckArguments = TRUE)
-  {
-    if (CheckArguments)
-      CheckentropartArguments()
+function (x, Correction = "None", Unveiling = "None", RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang", CheckArguments = TRUE)
+{
+  if (CheckArguments)
+    CheckentropartArguments()
 
-    spD <- as.SpeciesDistribution(x)
+  spD <- as.SpeciesDistribution.wmppp(x)
 
-    class(spD) <- c("ProbaVector", class(spD))
-    return(spD)
-  }
+  class(spD) <- c("ProbaVector", class(spD))
+  return(spD)
+}
+
+
+
+#' @rdname SpeciesDistributions
+#' @export
+#' @importFrom entropart as.ProbaVector
+#' @method as.ProbaVector factor
+as.ProbaVector.factor  <-
+function (x, Correction = "None", Unveiling = "None", RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang", CheckArguments = TRUE)
+{
+  if (CheckArguments)
+    CheckentropartArguments()
+
+  spD <- as.SpeciesDistribution.factor(x)
+
+  class(spD) <- c("ProbaVector", class(spD))
+  return(spD)
+}
+
+
+
+#' @rdname SpeciesDistributions
+#' @export
+#' @importFrom entropart as.ProbaVector
+#' @method as.ProbaVector character
+as.ProbaVector.character  <-
+function (x, Correction = "None", Unveiling = "None", RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang", CheckArguments = TRUE)
+{
+  if (CheckArguments)
+    CheckentropartArguments()
+
+  spD <- as.SpeciesDistribution.character(x)
+
+  class(spD) <- c("ProbaVector", class(spD))
+  return(spD)
+}
 
 
 
@@ -61,7 +129,37 @@ as.ProbaVector.wmppp  <-
 as.AbdVector.wmppp  <-
 function (x, Round = TRUE)
 {
-  spD <- as.SpeciesDistribution(x)
+  spD <- as.SpeciesDistribution.wmppp(x)
+
+  class(spD) <- c("AbdVector", class(spD))
+  return(spD)
+}
+
+
+
+#' @rdname SpeciesDistributions
+#' @export
+#' @importFrom entropart as.AbdVector
+#' @method as.AbdVector factor
+as.AbdVector.factor  <-
+function (x, Round = TRUE)
+{
+  spD <- as.SpeciesDistribution.factor(x)
+
+  class(spD) <- c("AbdVector", class(spD))
+  return(spD)
+}
+
+
+
+#' @rdname SpeciesDistributions
+#' @export
+#' @importFrom entropart as.AbdVector
+#' @method as.AbdVector character
+as.AbdVector.character  <-
+function (x, Round = TRUE)
+{
+  spD <- as.SpeciesDistribution.character(x)
 
   class(spD) <- c("AbdVector", class(spD))
   return(spD)

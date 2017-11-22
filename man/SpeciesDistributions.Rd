@@ -3,20 +3,42 @@
 \name{SpeciesDistributions}
 \alias{SpeciesDistributions}
 \alias{as.SpeciesDistribution.wmppp}
+\alias{as.SpeciesDistribution.factor}
+\alias{as.SpeciesDistribution.character}
 \alias{as.ProbaVector.wmppp}
+\alias{as.ProbaVector.factor}
+\alias{as.ProbaVector.character}
 \alias{as.AbdVector.wmppp}
+\alias{as.AbdVector.factor}
+\alias{as.AbdVector.character}
 \title{Species Distribution}
 \usage{
 \method{as.SpeciesDistribution}{wmppp}(x)
+
+\method{as.SpeciesDistribution}{factor}(x)
+
+\method{as.SpeciesDistribution}{character}(x)
 
 \method{as.ProbaVector}{wmppp}(x, Correction = "None", Unveiling = "None",
   RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang",
   CheckArguments = TRUE)
 
+\method{as.ProbaVector}{factor}(x, Correction = "None", Unveiling = "None",
+  RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang",
+  CheckArguments = TRUE)
+
+\method{as.ProbaVector}{character}(x, Correction = "None",
+  Unveiling = "None", RCorrection = "Chao1", JackOver = FALSE,
+  CEstimator = "ZhangHuang", CheckArguments = TRUE)
+
 \method{as.AbdVector}{wmppp}(x, Round = TRUE)
+
+\method{as.AbdVector}{factor}(x, Round = TRUE)
+
+\method{as.AbdVector}{character}(x, Round = TRUE)
 }
 \arguments{
-\item{x}{An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.}
+\item{x}{An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names, or a vector of factors or characters containing species names of each individual.}
 
 \item{Correction}{A string containing one of the possible corrections to estimate a probability distribution: \code{"None"} (no correction, the default value), \code{"Chao2013"}, \code{"Chao2015"} or \code{"ChaoShen"}.}
 

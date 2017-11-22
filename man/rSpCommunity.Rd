@@ -40,7 +40,7 @@ rSpCommunity(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
 }
 \value{
 An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names if \code{n}=1.
-        A list of \code{\link{wmppp.object}}s is returned if \code{n}>1.
+        An object of class "SpCommunities", which is a list of \code{\link{wmppp.object}}s, is returned if \code{n}>1.
 }
 \description{
 Random Spatialized Community
