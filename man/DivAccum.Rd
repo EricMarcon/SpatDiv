@@ -5,7 +5,8 @@
 \title{Diversity Accumulation}
 \usage{
 DivAccum(spCommunity, q.seq = seq(0, 2, by = 0.1), Correction = "None",
-  n.seq = 1:ceiling(spCommunity$n/10), r = NULL, CheckArguments = TRUE)
+  n.seq = 1:ceiling(spCommunity$n/10), r = NULL, H0 = FALSE,
+  Alpha = 0.05, Simulations = 50, CheckArguments = TRUE)
 }
 \arguments{
 \item{spCommunity}{A spatialized community (An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.)}
@@ -16,10 +17,16 @@ DivAccum(spCommunity, q.seq = seq(0, 2, by = 0.1), Correction = "None",
 
 \item{r}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
 
+\item{H0}{A spatialized community (An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.)}
+
+\item{Alpha}{The risk level of the envelope of the null hypothesis. Default is 5\%.}
+
+\item{Simulations}{The number of bootstraps to build confidence intervals. Default is 50.}
+
 \item{CheckArguments}{Logical; if \code{TRUE}, the function arguments are verified. Should be set to \code{FALSE} to save time when the arguments have been checked elsewhere.}
 }
 \value{
-A matrix containing diversity accumulation curves
+A 3-dimensional array containing diversity accumulation curves.
 }
 \description{
 Diversity Accumulation

@@ -24,7 +24,7 @@ rSpCommunity <-
 function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
          S = 300, Distribution = "lnorm", sd = 1, prob = 0.1, alpha=40,
          Spatial = "Binomial", win=spatstat::owin(),
-         Species,
+         Species = NULL,
          Sizes = "Uniform",
          CheckArguments = TRUE)
 {

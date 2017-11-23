@@ -1,0 +1,40 @@
+---
+title: "Introduction to SpatDiv"
+author:
+- name: Eric Marcon
+  affiliation: AgroParisTech, UMR EcoFoG
+  email: eric.marcon@ecofog.gf
+package: SpatDiv
+output:
+  BiocStyle::html_document
+abstract: |
+  Introduction to the package. Work in progress.
+vignette: |
+  %\VignetteIndexEntry{Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Getting started
+
+Install the `r Githubpkg("EricMarcon/SpatDiv")` package for _R_ from Github.
+
+
+# Demo
+
+Create a random, spatialized community with 100 individuals of 10 species.
+
+```{r rSpCommunity}
+library("SpatDiv")
+rSpCommunity(n=1, size=100, S=10) -> spCommunity
+plot(spCommunity, which.marks = "PointType")
+plot(as.AbdVector(spCommunity))
+```
+
+Compute the Diversity Accumulation Curve for 1 to 50 neighbors for orders 0, 1 and 2, with the theoretical, null-model curve.
+Plot it for Shannon diversity.
+
+```{r plotDivAccum}
+divAccum <- DivAccum(spCommunity, n.seq = 1:50, q.seq=0:2, H0=TRUE)
+plot(divAccum, q = 1)
+```

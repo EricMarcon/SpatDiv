@@ -7,11 +7,12 @@
 #' @inheritParams as.ProbaVector.wmppp
 #'
 #' @return A matrix containing average entropy. Columns
-#' @export
+#'
 #' @importFrom spatstat nnwhich
 #' @importFrom parallel mclapply
 #' @importFrom utils txtProgressBar
 #' @importFrom utils setTxtProgressBar
+#' @export
 #'
 #' @examples TODO
 EntAccum <-
@@ -52,6 +53,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), Correction = "None", n.seq = 1:ce
     rownames(qEntropies) <- q.seq
     colnames(qEntropies) <- c(1, 1+n.seq)
 
+    class(qEntropies) <- c("EntAccum", class(qEntropies))
     return(qEntropies)
 
   } else {
@@ -63,24 +65,107 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), Correction = "None", n.seq = 1:ce
 #' Diversity Accumulation
 #'
 #' @inheritParams EntAccum
+#' @param H0 A spatialized community (An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.)
+#' @param Alpha The risk level of the envelope of the null hypothesis. Default is 5\%.
+#' @param Simulations The number of bootstraps to build confidence intervals. Default is 50.
 #'
-#' @return A matrix containing diversity accumulation curves
+#' @return A 3-dimensional array containing diversity accumulation curves.
+
+#' @importFrom iNEXT iNEXT
+#' @importFrom utils txtProgressBar
+#' @importFrom utils setTxtProgressBar
 #' @export
 #'
 #' @examples TODO
 DivAccum <-
-  function(spCommunity, q.seq = seq(0,2,by=0.1), Correction = "None", n.seq = 1:ceiling(spCommunity$n/10), r = NULL, CheckArguments = TRUE)
-  {
-    if (CheckArguments)
-      CheckSpatDivArguments()
+function(spCommunity, q.seq = seq(0,2,by=0.1), Correction = "None", n.seq = 1:ceiling(spCommunity$n/10), r = NULL,
+         H0 = FALSE, Alpha = 0.05, Simulations = 50,
+         CheckArguments = TRUE)
+{
+  if (CheckArguments)
+    CheckSpatDivArguments()
 
-    # Get entropy
-    qDiversities <- EntAccum(spCommunity=spCommunity, q.seq=q.seq, Correction=Correction, n.seq=n.seq, r=r, CheckArguments=FALSE)
-
-    # Calculate Hill Numbers, by line
-    for (i in 1:length(q.seq)) {
-      qDiversities[i, ] <- entropart::expq(qDiversities[i, ], q.seq[i])
-    }
-
-    return(qDiversities)
+  # Prepare an array to store data
+  if (H0) {
+    qDiversities <- array(NA, dim=c(length(q.seq), 1+length(n.seq), 4), dimnames = list(q=q.seq, n=c(1, 1+n.seq), Values=c("Observed", "Theoretical", "Lower bound", "Upper bound")))
+  } else {
+    qDiversities <- array(NA, dim=c(length(q.seq), 1+length(n.seq), 1), dimnames = list(q=q.seq, n=c(1, 1+n.seq), Values="Observed"))
   }
+  # Get entropy
+  qDiversities[, , 1] <- EntAccum(spCommunity=spCommunity, q.seq=q.seq, Correction=Correction, n.seq=n.seq, r=r, CheckArguments=FALSE)
+
+  # Calculate Hill Numbers, by line, and the null distribution
+  if (H0) {
+    ProgressBar <- utils::txtProgressBar(min=0, max=length(q.seq))
+    Ns <- as.numeric(table(spCommunity$marks$PointType))
+  }
+  for (i in 1:length(q.seq)) {
+    qDiversities[i, , 1] <- entropart::expq(qDiversities[i, , 1], q.seq[i])
+    if (H0) {
+      H0Values <- suppressWarnings(iNEXT::iNEXT(Ns, q=as.numeric(q.seq[i]), size=c(1, 1+n.seq), conf=1-Alpha, nboot=Simulations)$iNextEst)
+      qDiversities[i, , 2] <- H0Values$qD
+      qDiversities[i, , 3] <- H0Values$qD.LCL
+      qDiversities[i, , 4] <- H0Values$qD.UCL
+      utils::setTxtProgressBar(ProgressBar, i)
+    }
+  }
+
+  class(qDiversities) <- c("DivAccum", class(qDiversities))
+  return(qDiversities)
+}
+
+
+
+#' Plot Diversity Accumulation
+#'
+#' @param A \code{\link{DivAccum}} object
+#' @param ... Further plotting arguments.
+#' @param q The order of Diversity
+#' @param type Plotting parameter. Default is "l".
+#' @param main Main title of the plot.
+#' @param xlab X-axis label.
+#' @param ylab Y-axis label.
+#' @param ylim Limits of the Y-axis, as a vector of two numeric values.
+#' @param LineWidth Width of the Diversity Accumulation Curve line.
+#' @param LineWidth Width of the Diversity Accumulation Curve line.
+#' @param ShadeColor The color of the shaded confidence envelope.
+#' @param BorderColor The color of the borders of the confidence envelope.
+#'
+#' @importFrom graphics plot
+#' @importFrom graphics lines
+#' @importFrom graphics lines
+#' @export
+#'
+#' @examples TODO
+plot.DivAccum <-
+function(x, ..., q = 0,
+         type = "l",  main = paste("Accumulation of Diversity of Order", q), xlab = "Sample size", ylab = "Diversity", ylim = NULL,
+         LineWidth = 2, ShadeColor = "grey75", BorderColor = "red")
+{
+  # Find the row in the accumulation table
+  Whichq <- which(dimnames(x)$q==q)
+  if (length(Whichq) != 1)
+    stop("The value of q does not correspond to any accumulation curve.")
+
+  if (is.null(ylim)) {
+    # Evaluate ylim if not set by an argument
+    ymin <- min(x[Whichq, , ])
+    ymax <- max(x[Whichq, , ])
+  } else {
+    ymin <- ylim[1]
+    ymax <- ylim[2]
+  }
+
+  # Prepare the plot
+  graphics::plot(x=dimnames(x)$n, y=x[Whichq, , 1], ylim=c(ymin, ymax),
+                 type=type, main=main, xlab=xlab, ylab=ylab)
+
+  # Confidence envelope
+  graphics::polygon(c(rev(dimnames(x)$n), dimnames(x)$n), c(rev(x[Whichq, , 4]), x[Whichq, , 3]), col=ShadeColor, border=FALSE)
+  # Add red lines on borders of polygon
+  graphics::lines(dimnames(x)$n, x[Whichq, , 4], col=BorderColor, lty=2)
+  graphics::lines(dimnames(x)$n, x[Whichq, , 3], col=BorderColor, lty=2)
+  # Redraw the SAC
+  graphics::lines(x=dimnames(x)$n, y=x[Whichq, , 1], lwd=LineWidth, ...)
+
+}

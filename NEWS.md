@@ -1,4 +1,4 @@
-# SpatDiv 0.1-0.9003
+# SpatDiv 0.1-1
 
 ## New features
 
@@ -8,4 +8,4 @@
 
 * `rSpCommunity()`generates a spatialized random community (in a `wmppp` object). In progress: limited to a binomial point process.
 
-* `EntAccum()` and `DivAccum()` calculate entropy and diversity accumulations curves.
+* `EntAccum()` and `DivAccum()` calculate entropy and diversity accumulations curves. DAC's can be plotted by `plot.DivAccum()`
