@@ -1,7 +1,7 @@
 Package: SpatDiv
 Type: Package
 Title: Spatially Explicit Measures of Diversity
-Version: 0.1-1
+Version: 0.1-1.9001
 Authors@R: c(
   person("Eric", "Marcon", email="eric.marcon@ecofog.gf", role=c("aut", "cre"))
   )

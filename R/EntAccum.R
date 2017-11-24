@@ -53,7 +53,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), Correction = "None", n.seq = 1:ce
     rownames(qEntropies) <- q.seq
     colnames(qEntropies) <- c(1, 1+n.seq)
 
-    class(qEntropies) <- c("EntAccum", class(qEntropies))
+    class(qEntropies) <- c("EntAccum", "Accumulation", class(qEntropies))
     return(qEntropies)
 
   } else {
@@ -110,15 +110,49 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), Correction = "None", n.seq = 1:ce
     }
   }
 
-  class(qDiversities) <- c("DivAccum", class(qDiversities))
+  class(qDiversities) <- c("DivAccum", "Accumulation", class(qDiversities))
   return(qDiversities)
+}
+
+
+
+#' Mixing index
+#'
+#' The mixing index is the ratio of observed diversity (effective number of species) to its theoretical, null-hypothesis value.
+#'
+#' @inheritParams DivAccum
+#'
+#' @return A 3-dimensional array containing mixing index curves.
+#' @export
+#'
+#' @examples TODO
+Mixing <-
+  function(spCommunity, q.seq = seq(0,2,by=0.1), Correction = "None", n.seq = 1:ceiling(spCommunity$n/10), r = NULL,
+           H0 = FALSE, Alpha = 0.05, Simulations = 50,
+           CheckArguments = TRUE)
+{
+  if (CheckArguments)
+    CheckSpatDivArguments()
+
+  # Get the diversity accumulation
+  qMixing <- DivAccum(spCommunity=spCommunity, q.seq=q.seq, Correction=Correction, n.seq=n.seq, r=r, H0=H0, Alpha=Alpha, Simulations=Simulations,CheckArguments=FALSE)
+
+  # Normalize it
+  qMixing[, , 1] <- qMixing[, , 1] / qMixing[, , 2]
+  qMixing[, , 3] <- qMixing[, , 3] / qMixing[, , 2]
+  qMixing[, , 4] <- qMixing[, , 4] / qMixing[, , 2]
+  qMixing[, , 2] <- 1
+
+  class(qMixing) <- c("Mixing", "Accumulation", class(qMixing))
+  return(qMixing)
+
 }
 
 
 
 #' Plot Diversity Accumulation
 #'
-#' @param A \code{\link{DivAccum}} object
+#' @param An \code{\link{Accumulation}} object that cat be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).
 #' @param ... Further plotting arguments.
 #' @param q The order of Diversity
 #' @param type Plotting parameter. Default is "l".
@@ -135,11 +169,12 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), Correction = "None", n.seq = 1:ce
 #' @importFrom graphics lines
 #' @importFrom graphics lines
 #' @export
+#' @method plot Accumulation
 #'
 #' @examples TODO
-plot.DivAccum <-
+plot.Accumulation <-
 function(x, ..., q = 0,
-         type = "l",  main = paste("Accumulation of Diversity of Order", q), xlab = "Sample size", ylab = "Diversity", ylim = NULL,
+         type = "l",  main = "Accumulation of ...", xlab = "Sample size", ylab = "Diversity...", ylim = NULL,
          LineWidth = 2, ShadeColor = "grey75", BorderColor = "red")
 {
   # Find the row in the accumulation table
@@ -154,6 +189,30 @@ function(x, ..., q = 0,
   } else {
     ymin <- ylim[1]
     ymax <- ylim[2]
+  }
+
+  if (main == "Accumulation of ...") {
+    # Prepare the main title
+    if (inherits(x, "EntAccum")) main <- paste("Accumulation of Entropy of order", q)
+    if (inherits(x, "DivAccum")) {
+      if (q == 0)
+        main <- "Secies Accumulation Curve"
+      else
+        main <- paste("Accumulation of Diversity of order", q)
+    }
+    if (inherits(x, "Mixing")) main <- paste("Mixing index of order", q)
+  }
+
+  if (ylab == "Diversity...") {
+    # Prepare Y-axis
+    if (inherits(x, "EntAccum")) ylab <-"Diversity"
+    if (inherits(x, "DivAccum")) {
+      if (q == 0)
+        ylab <- "Richness"
+      else
+        ylab <- "Diversity"
+    }
+    if (inherits(x, "Mixing")) ylab <- "Mixing index"
   }
 
   # Prepare the plot

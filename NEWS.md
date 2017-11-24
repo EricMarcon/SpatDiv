@@ -1,3 +1,12 @@
+# SpatDiv 0.1-1.9001
+
+## New features
+
+* `Mixing()` calculates the mixing index
+
+* `plot.Accumumation()` replaces `plot.DivAccum()` to allow printing `EntAccum`, `DivAccum` and `Mixing`objects.
+
+
 # SpatDiv 0.1-1
 
 ## New features
