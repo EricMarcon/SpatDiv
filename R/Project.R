@@ -4,6 +4,9 @@
 #'
 #' @name SpatDiv
 #' @docType package
+#' @import Rcpp
+#' @importFrom RcppParallel RcppParallelLibs
+#' @useDynLib SpatDiv, .registration = TRUE
 NULL
 
 
@@ -37,8 +40,8 @@ function() {
 
   ErrorFunction <- paste("Error in ", ParentFunction, ":")
 
-  # Find the arguments. match.fun does not work with entropart::function
-  ParentFunctionNoNS <- as.name(gsub("entropart::", "", as.character(ParentFunction)))
+  # Find the arguments. match.fun does not work with SpatDiv::function
+  ParentFunctionNoNS <- as.name(gsub("SpatDiv::", "", as.character(ParentFunction)))
   Args <- formals(match.fun(ParentFunctionNoNS))
 
   ErrorMessage <- function(Message, Argument) {
@@ -169,7 +172,22 @@ function() {
       ErrorMessage("prob must be between 0 and 1.", prob)
   }
 
-  # S
+  # r.seq
+  if (!is.na(names(Args["r.seq"]))) {
+    r.seq <- eval(expression(r.seq), parent.frame())
+    if (!is.null(r.seq)) {
+      if (!is.numeric(r.seq) && !is.vector(r.seq))
+        stop(paste(ErrorFunction, "r.seq must be a numeric vector"))
+      if (length(r.seq) < 2)
+        stop(paste(ErrorFunction, "r.seq has length", length(r.seq), "- must be at least 2"))
+      if (r.seq[1] != 0)
+        stop(paste(ErrorFunction, "First r.seq value must be 0"))
+      if (any(diff(r.seq) <= 0))
+        stop(paste(ErrorFunction, "successive values of r.seq must be increasing"))
+    }
+  }
+
+    # S
   if (!is.na(names(Args["S"]))) {
     S <- eval(expression(S), parent.frame())
     if (!is.numeric(S) | length(S)!=1)

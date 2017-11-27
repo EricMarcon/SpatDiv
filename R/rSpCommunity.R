@@ -39,7 +39,7 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
 
   # Sizes
   if (Sizes == "Uniform") {
-    Sizes <- rep(1, S)
+    Sizes <- rep(1, size)
   }
 
   # Spatial distribution

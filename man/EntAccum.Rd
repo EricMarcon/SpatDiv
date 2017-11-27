@@ -5,7 +5,8 @@
 \title{Entropy Accumulation}
 \usage{
 EntAccum(spCommunity, q.seq = seq(0, 2, by = 0.1), Correction = "None",
-  n.seq = 1:ceiling(spCommunity$n/10), r = NULL, CheckArguments = TRUE)
+  n.seq = 1:ceiling(spCommunity$n/10), r.seq = NULL,
+  CheckArguments = TRUE)
 }
 \arguments{
 \item{spCommunity}{A spatialized community (An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.)}
@@ -14,11 +15,11 @@ EntAccum(spCommunity, q.seq = seq(0, 2, by = 0.1), Correction = "None",
 
 \item{Correction}{A string containing one of the possible corrections to estimate a probability distribution: \code{"None"} (no correction, the default value), \code{"Chao2013"}, \code{"Chao2015"} or \code{"ChaoShen"}.}
 
-\item{r}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
-
 \item{CheckArguments}{Logical; if \code{TRUE}, the function arguments are verified. Should be set to \code{FALSE} to save time when the arguments have been checked elsewhere.}
 
 \item{n}{A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10\% of the individuals.}
+
+\item{r}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
 }
 \value{
 A matrix containing average entropy. Columns

@@ -1,10 +1,12 @@
-# SpatDiv 0.1-1.9001
+# SpatDiv 0.1-2
 
 ## New features
 
 * `Mixing()` calculates the mixing index
 
 * `plot.Accumumation()` replaces `plot.DivAccum()` to allow printing `EntAccum`, `DivAccum` and `Mixing`objects.
+
+* accumulation by distance (sample area) works. No edge-effect correction yet. Null hypothesis is "RandomLocation".
 
 
 # SpatDiv 0.1-1
