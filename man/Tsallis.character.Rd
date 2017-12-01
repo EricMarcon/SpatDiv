@@ -31,5 +31,5 @@ Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized ent
 See \code{\link{Tsallis}} for more details.
 }
 \examples{
-TODO
+#TODO
 }

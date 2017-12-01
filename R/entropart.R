@@ -22,7 +22,7 @@
 #' @method Tsallis wmppp
 #' @importFrom entropart bcTsallis
 #'
-#' @examples TODO
+#' @examples #TODO
 Tsallis.wmppp <-
 function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
 {
@@ -48,7 +48,7 @@ function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns 
 #' @method Tsallis factor
 #' @importFrom entropart bcTsallis
 #'
-#' @examples TODO
+#' @examples #TODO
 Tsallis.factor <-
 function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
 {
@@ -74,7 +74,7 @@ function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns 
 #' @method Tsallis character
 #' @importFrom entropart bcTsallis
 #'
-#' @examples TODO
+#' @examples #TODO
 Tsallis.character <-
 function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
 {
@@ -95,7 +95,7 @@ function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns 
 #' @method Diversity wmppp
 #' @importFrom entropart bcDiversity
 #'
-#' @examples TODO
+#' @examples #TODO
 Diversity.wmppp <-
 function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
 {
@@ -117,7 +117,7 @@ function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns 
 #' @method Diversity factor
 #' @importFrom entropart bcDiversity
 #'
-#' @examples TODO
+#' @examples #TODO
 Diversity.factor <-
 function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
 {
@@ -139,7 +139,7 @@ function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns 
 #' @method Diversity character
 #' @importFrom entropart bcDiversity
 #'
-#' @examples TODO
+#' @examples #TODO
 Diversity.character <-
 function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
 {

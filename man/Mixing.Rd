@@ -4,33 +4,47 @@
 \alias{Mixing}
 \title{Mixing index}
 \usage{
-Mixing(spCommunity, q.seq = seq(0, 2, by = 0.1), Correction = "None",
-  n.seq = 1:ceiling(spCommunity$n/10), r = NULL, H0 = FALSE,
-  Alpha = 0.05, Simulations = 50, CheckArguments = TRUE)
+Mixing(spCommunity, q.seq = seq(0, 2, by = 0.1), divCorrection = "None",
+  n.seq = 1:ceiling(spCommunity$n/10), r.seq = NULL,
+  spCorrection = "None", H0 = "None", Alpha = 0.05, Simulations = 50,
+  Individual = FALSE, ShowProgressBar = TRUE, CheckArguments = TRUE)
 }
 \arguments{
 \item{spCommunity}{A spatialized community (An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.)}
 
 \item{q.seq}{A numeric vector: the sequence of diversity orders to address. Default is from 0 to 2.}
 
-\item{Correction}{A string containing one of the possible corrections to estimate a probability distribution: \code{"None"} (no correction, the default value), \code{"Chao2013"}, \code{"Chao2015"} or \code{"ChaoShen"}.}
+\item{divCorrection}{A string containing one of the possible corrections to calculate diversity, see \code{\link{Tsallis}} for all possible values. \code{"None"} uses the plugin estimator. \code{"Best"} is the default value.}
 
-\item{r}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
+\item{n.seq}{A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10\% of the individuals.}
 
-\item{H0}{A spatialized community (An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.)}
+\item{r.seq}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
+
+\item{spCorrection}{The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window. 
+Does not apply if neihborhoods are defined by the number of neighbors. Default is "None".}
+
+\item{H0}{The null hypothesis to compare the distribution of `spCommunity` to. If "none", the default value, no null hypothesis is tested.
+"Binomial" means the community will be rarefied down to the number of neighbors of `n.seq`.
+"RandomLocation" means the points will we randomly permuted accross their actual locations.}
 
 \item{Alpha}{The risk level of the envelope of the null hypothesis. Default is 5\%.}
 
 \item{Simulations}{The number of bootstraps to build confidence intervals. Default is 50.}
 
+\item{Individual}{If `TRUE`, individual neighborhood entropies are returned.}
+
+\item{ShowProgressBar}{If `TRUE` (default), a progress bar is shown.}
+
 \item{CheckArguments}{Logical; if \code{TRUE}, the function arguments are verified. Should be set to \code{FALSE} to save time when the arguments have been checked elsewhere.}
 }
 \value{
-A 3-dimensional array containing mixing index curves.
+An "Accumulation" object that is a 3-D array containing mixing index values.
+The third dimension of the array is only of length 4: it contains observed mixing values, their value under the null hypothesis, and the lower of upper bounds of those values.
+The first two dimensions are respectively for $q$ values and the number of points of the neighborhood, starting from 1 (the point itself, with no neighbor).
 }
 \description{
 The mixing index is the ratio of observed diversity (effective number of species) to its theoretical, null-hypothesis value.
 }
 \examples{
-TODO
+#TODO
 }

@@ -17,6 +17,9 @@ NULL
 #' The function compares the arguments passed to its parent function to the type they should be and performs some extra tests (\emph{e.g.} probabilities must be positive and sum to 1). It stops if an argument is not correct.
 #'
 #' @return Returns \code{TRUE} or stops if a problem is detected.
+#' 
+#' @importFrom entropart is.MetaCommunity
+#' @importFrom entropart is.SpeciesDistribution
 #' @export
 #'
 #' @author Eric Marcon <Eric.Marcon@ecofog.gf>
@@ -54,7 +57,7 @@ function() {
   # MC
   if (!is.na(names(Args["MC"]))) {
     MC <- eval(expression(MC), parent.frame())
-    if (!is.MetaCommunity(MC))
+    if (!entropart::is.MetaCommunity(MC))
       ErrorMessage("MC must be a MetaCommunity object.", MC)
   }
 
@@ -112,7 +115,7 @@ function() {
       ErrorMessage("NorP must be numeric.", NorP)
     if (any(NorP < 0))
       ErrorMessage("All NorP values must be positive.", NorP)
-    if (!is.vector(NorP) & !is.SpeciesDistribution(NorP)) {
+    if (!is.vector(NorP) & !entropart::is.SpeciesDistribution(NorP)) {
       # NorP may be a true vector or a SpeciesDistribution. Then dim(NorP) is NULL, and nothing more has to be checked
       # or a "named vector" whose attributes are not "names". Then dim() returns the vector's length.
       if (length(dim(NorP)) != 1) {

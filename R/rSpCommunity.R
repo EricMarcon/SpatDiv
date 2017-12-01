@@ -19,7 +19,7 @@
 #'         An object of class "SpCommunities", which is a list of \code{\link{wmppp.object}}s, is returned if \code{n}>1.
 #' @export
 #'
-#' @examples TODO
+#' @examples #TODO
 rSpCommunity <-
 function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
          S = 300, Distribution = "lnorm", sd = 1, prob = 0.1, alpha=40,

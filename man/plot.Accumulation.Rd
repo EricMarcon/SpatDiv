@@ -5,11 +5,13 @@
 \title{Plot Diversity Accumulation}
 \usage{
 \method{plot}{Accumulation}(x, ..., q = 0, type = "l",
-  main = "Accumulation of ...", xlab = "Sample size",
+  main = "Accumulation of ...", xlab = "Sample size...",
   ylab = "Diversity...", ylim = NULL, LineWidth = 2,
   ShadeColor = "grey75", BorderColor = "red")
 }
 \arguments{
+\item{x}{An "Accumulation" object that cat be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).}
+
 \item{...}{Further plotting arguments.}
 
 \item{q}{The order of Diversity}
@@ -29,14 +31,10 @@
 \item{ShadeColor}{The color of the shaded confidence envelope.}
 
 \item{BorderColor}{The color of the borders of the confidence envelope.}
-
-\item{An}{\code{\link{Accumulation}} object that cat be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).}
-
-\item{LineWidth}{Width of the Diversity Accumulation Curve line.}
 }
 \description{
 Plot Diversity Accumulation
 }
 \examples{
-TODO
+#TODO
 }

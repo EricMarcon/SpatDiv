@@ -11,7 +11,7 @@ parallelCountNbd(r, NbSpecies, x, y, Type, Weight)
 
 \item{NbSpecies}{The number of species of the community.}
 
-\item{x, }{y The coordinates of the points.}
+\item{x, y}{The coordinates of the points.}
 
 \item{Type}{A vector containing the species of each point (as integer, i.e. the factor code).}
 

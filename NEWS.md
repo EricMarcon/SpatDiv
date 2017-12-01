@@ -1,3 +1,10 @@
+# SpatDiv 0.2-0
+
+## New features
+
+* `MapPlot()` to make maps.
+
+
 # SpatDiv 0.1-2
 
 ## New features

@@ -4,8 +4,9 @@
 \alias{EntAccum}
 \title{Entropy Accumulation}
 \usage{
-EntAccum(spCommunity, q.seq = seq(0, 2, by = 0.1), Correction = "None",
+EntAccum(spCommunity, q.seq = seq(0, 2, by = 0.1), divCorrection = "None",
   n.seq = 1:ceiling(spCommunity$n/10), r.seq = NULL,
+  spCorrection = "None", Individual = FALSE, ShowProgressBar = TRUE,
   CheckArguments = TRUE)
 }
 \arguments{
@@ -13,20 +14,29 @@ EntAccum(spCommunity, q.seq = seq(0, 2, by = 0.1), Correction = "None",
 
 \item{q.seq}{A numeric vector: the sequence of diversity orders to address. Default is from 0 to 2.}
 
-\item{Correction}{A string containing one of the possible corrections to estimate a probability distribution: \code{"None"} (no correction, the default value), \code{"Chao2013"}, \code{"Chao2015"} or \code{"ChaoShen"}.}
+\item{divCorrection}{A string containing one of the possible corrections to calculate diversity, see \code{\link{Tsallis}} for all possible values. \code{"None"} uses the plugin estimator. \code{"Best"} is the default value.}
+
+\item{n.seq}{A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10\% of the individuals.}
+
+\item{r.seq}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
+
+\item{spCorrection}{The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window. 
+Does not apply if neihborhoods are defined by the number of neighbors. Default is "None".}
+
+\item{Individual}{If `TRUE`, individual neighborhood entropies are returned.}
+
+\item{ShowProgressBar}{If `TRUE` (default), a progress bar is shown.}
 
 \item{CheckArguments}{Logical; if \code{TRUE}, the function arguments are verified. Should be set to \code{FALSE} to save time when the arguments have been checked elsewhere.}
-
-\item{n}{A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10\% of the individuals.}
-
-\item{r}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
 }
 \value{
-A matrix containing average entropy. Columns
+An "Accumulation" object that is a 3-D array containing average entropy.
+The third dimension of the array is only of length 1: it contains observed entropy.
+The first two dimensions are respectively for $q$ values and the number of points of the neighborhood, starting from 1 (the point itself, with no neighbor).
 }
 \description{
 Entropy Accumulation
 }
 \examples{
-TODO
+#TODO
 }

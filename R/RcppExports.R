@@ -7,7 +7,7 @@
 #'
 #' @param r The vector of distances to take into account.
 #' @param NbSpecies The number of species of the community.
-#' @param x, y The coordinates of the points.
+#' @param x,y The coordinates of the points.
 #' @param Type A vector containing the species of each point (as integer, i.e. the factor code).
 #' @param Weight A vector containing the weights of points.
 #' @export

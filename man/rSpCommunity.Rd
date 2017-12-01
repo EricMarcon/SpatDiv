@@ -46,5 +46,5 @@ An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} v
 Random Spatialized Community
 }
 \examples{
-TODO
+#TODO
 }

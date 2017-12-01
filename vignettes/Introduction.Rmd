@@ -42,6 +42,6 @@ plot(divAccum, q = 1)
 Compute and plot the mixing index of any order.
 
 ```{r Mixing}
-mixing <- Mixing(spCommunity, n.seq = 1:50, q.seq=0:2, H0=TRUE)
+mixing <- Mixing(spCommunity, n.seq = 1:50, q.seq=0:2, H0="Binomial")
 plot(mixing, q = 1)
 ```
