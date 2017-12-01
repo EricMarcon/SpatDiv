@@ -1,4 +1,7 @@
 #' Random Spatialized Community
+#' 
+#' This function extends \code{\link{rCommunity}} by spatializing the randomized community.
+#'
 #'
 #' @param n The number of communities to draw.
 #' @param size The number of individuals to draw in each community.
@@ -10,8 +13,8 @@
 #' @param prob The probability of success in each trial.
 #' @param alpha Fisher's alpha.
 #' @param Spatial TODO
-#' @param win TODO
-#' @param Species TODO
+#' @param win The window containing the point pattern. It is an \code{\link{owin}} object.
+#' @param Species A vector of characters or of factors containing the possible species.
 #' @param Sizes TODO
 #' @inheritParams as.ProbaVector.wmppp
 #'
@@ -19,7 +22,10 @@
 #'         An object of class "SpCommunities", which is a list of \code{\link{wmppp.object}}s, is returned if \code{n}>1.
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' spCommunity <- rSpCommunity(1, size=30, S=5)
+#' plot(spCommunity, which.marks = "PointType")
+#' 
 rSpCommunity <-
 function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
          S = 300, Distribution = "lnorm", sd = 1, prob = 0.1, alpha=40,

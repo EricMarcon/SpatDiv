@@ -7,19 +7,46 @@
 \usage{
 MapPlot(x, ...)
 
-\method{MapPlot}{Accumulation}(x, q, NeighborHood, Nbx = 128, Nby = 128,
-  Contour = TRUE, Palette = topo.colors(128, alpha = 1),
-  ContourColor = "dark red", ReturnObject = FALSE, ...,
-  CheckArguments = TRUE)
+\method{MapPlot}{Accumulation}(x, Order, NeighborHood, Nbx = 128, Nby = 128,
+  Contour = TRUE, Palette = grDevices::topo.colors(128, alpha = 1),
+  ContourColor = "dark red", ..., CheckArguments = TRUE)
 }
 \arguments{
 \item{x}{An object to map.}
 
 \item{...}{Further parameters.}
+
+\item{Order}{The order of diversity. It can be an integer, interpreted as the index of the rows of the Accumulation array, or a string, interpreted as the value of $q$.}
+
+\item{NeighborHood}{The neignborhood size. It can be an integer, interpreted as the index of the column of the Accumulation array, or a string, interpreted as the value of the number of neighobors or the distance.}
+
+\item{Nbx}{The number of columns (pixels) of the resulting map, 128 by default.}
+
+\item{Nby}{The number of rows (pixels) of the resulting map, 128 by default.}
+
+\item{Contour}{If \code{TRUE}, contours are added to the map.}
+
+\item{Palette}{The color palette of the map.}
+
+\item{ContourColor}{The color of the contour lines.}
+
+\item{CheckArguments}{Logical; if \code{TRUE}, the function arguments are verified. Should be set to \code{FALSE} to save time when the arguments have been checked elsewhere.}
 }
 \value{
 \code{MapPlot.Accumulation} returns an \code{\link{autoKrige}} object that can be used to produce alternative maps.
 }
 \description{
-Methods to map spatialized communities.
+Map Spatialized Communities
+}
+\details{
+Map an "Accum" object.
+}
+\examples{
+# Generate a random community
+spCommunity <- rSpCommunity(1, size=50, S=10)
+# Calculate the species accumulation curve
+accum <- DivAccum(spCommunity, q.seq=0, n.seq=4, Individual=TRUE)
+# Plot the local richness, accumulated up to 5 individuals.
+MapPlot(accum, Order="0", NeighborHood="5")
+
 }

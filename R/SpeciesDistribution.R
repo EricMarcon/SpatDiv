@@ -75,7 +75,7 @@ as.ProbaVector.wmppp  <-
 function (x, Correction = "None", Unveiling = "None", RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang", CheckArguments = TRUE)
 {
   if (CheckArguments)
-    CheckentropartArguments()
+    CheckSpatDivArguments()
 
   spD <- as.SpeciesDistribution.wmppp(x)
 
@@ -93,7 +93,7 @@ as.ProbaVector.factor  <-
 function (x, Correction = "None", Unveiling = "None", RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang", CheckArguments = TRUE)
 {
   if (CheckArguments)
-    CheckentropartArguments()
+    CheckSpatDivArguments()
 
   spD <- as.SpeciesDistribution.factor(x)
 
@@ -111,7 +111,7 @@ as.ProbaVector.character  <-
 function (x, Correction = "None", Unveiling = "None", RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang", CheckArguments = TRUE)
 {
   if (CheckArguments)
-    CheckentropartArguments()
+    CheckSpatDivArguments()
 
   spD <- as.SpeciesDistribution.character(x)
 

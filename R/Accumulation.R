@@ -21,9 +21,15 @@
 #' @importFrom utils setTxtProgressBar
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' # Generate a random community
+#' spCommunity <- rSpCommunity(1, size=50, S=3)
+#' # Calculate the accumulation of Shannon entropy 
+#' accum <- EntAccum(spCommunity, q.seq=1)
+#' plot(accum, q=1)
+#' 
 EntAccum <-
-function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/10), r.seq = NULL, spCorrection = "None", 
+function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2), r.seq = NULL, spCorrection = "None", 
          Individual = FALSE, ShowProgressBar = TRUE, CheckArguments = TRUE)
 {
   if (CheckArguments)
@@ -45,7 +51,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       qNeighborhoodEntropies <- NA
 
     # At each number of neighbors, calculate the entropy of all points' neighborhood for each q
-    for (k in n.seq) {
+    for (k in 1:length(n.seq)) {
       # Neighbor communities: 1 community per column
       NeighborCommunities <- apply(nNeighbors[, 1:(k+1)], 1, function(Neighbors) spCommunity$marks$PointType[Neighbors])
       # Calculate entropy of each neighborhood and all q values
@@ -118,8 +124,9 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 #'
 #' @inheritParams EntAccum
 #' @param H0 The null hypothesis to compare the distribution of `spCommunity` to. If "none", the default value, no null hypothesis is tested.
-#'        "Binomial" means the community will be rarefied down to the number of neighbors of `n.seq`.
+#'        "Multinomial" means the community will be rarefied down to the number of neighbors of `n.seq`.
 #'        "RandomLocation" means the points will we randomly permuted accross their actual locations.
+#'        "Binomial" means the points will we uniformly and independently drawn in the window (a binomial point process is a Poisson point process conditionally to the number of points).
 #' @param Alpha The risk level of the envelope of the null hypothesis. Default is 5\%.
 #' @param Simulations The number of bootstraps to build confidence intervals. Default is 50.
 #'
@@ -128,6 +135,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 #' The first two dimensions are respectively for $q$ values and the number of points of the neighborhood, starting from 1 (the point itself, with no neighbor).
 #'   
 #' @importFrom dbmss rRandomLocation
+#' @importFrom dbmss rRandomPositionK
 #' @importFrom iNEXT iNEXT
 #' @importFrom spatstat area
 #' @importFrom stats quantile
@@ -135,14 +143,23 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 #' @importFrom utils setTxtProgressBar
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' # Generate a random community
+#' spCommunity <- rSpCommunity(1, size=50, S=3)
+#' # Calculate the species accumulation curve and accumulation of Simpson diversity
+#' accum <- DivAccum(spCommunity, q.seq=c(0,2))
+#' plot(accum, q=0)
+#' plot(accum, q=2)
+#' 
 DivAccum <-
-function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/10), r.seq = NULL, spCorrection = "None",
+function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2), r.seq = NULL, spCorrection = "None",
          H0 = "None", Alpha = 0.05, Simulations = 50,
          Individual = FALSE, ShowProgressBar = TRUE, CheckArguments = TRUE)
 {
   if (CheckArguments)
     CheckSpatDivArguments()
+  # Flag to verify that H0 has been found
+  H0found <- TRUE
 
   # Prepare an array to store data
   if (is.null(r.seq)) {
@@ -159,16 +176,18 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
   divAccum <- EntAccum(spCommunity=spCommunity, q.seq=q.seq, divCorrection=divCorrection, n.seq=n.seq, r.seq=r.seq, spCorrection=spCorrection, 
                        Individual=Individual, ShowProgressBar=(ShowProgressBar & (H0 == "None" | H0 == "Binomial")), CheckArguments=FALSE)
   
-  if (H0 != "none") {
-   # Rename Accumulation
-   names(divAccum)[2] <- "Entropy"
-   # Put the entropy into a 4-D array. 4 z-values: observed, expected under H0, lower and upper bounds of H0.
-   divAccum$Accumulation <- rep(divAccum$Entropy, 4)
-   dim(divAccum$Accumulation) <- c(length(q.seq), nCols, 4)
-   dimnames(divAccum$Accumulation) <- list(q=q.seq, n=seq, c("Observed", "Theoretical", "Lower bound", "Upper bound"))
-   # if accumulation is along r, change the name
-   if (!is.null(r.seq)) names(dimnames(divAccum$Accumulation))[2] <- "r"
-   divAccum$Entropy <- NULL
+  if (H0 != "None") {
+    # H0 will have to be found
+    H0found <- FALSE
+    # Rename Accumulation
+    names(divAccum)[2] <- "Entropy"
+    # Put the entropy into a 4-D array. 4 z-values: observed, expected under H0, lower and upper bounds of H0.
+    divAccum$Accumulation <- rep(divAccum$Entropy, 4)
+    dim(divAccum$Accumulation) <- c(length(q.seq), nCols, 4)
+    dimnames(divAccum$Accumulation) <- list(q=q.seq, n=seq, c("Observed", "Theoretical", "Lower bound", "Upper bound"))
+    # if accumulation is along r, change the name
+    if (!is.null(r.seq)) names(dimnames(divAccum$Accumulation))[2] <- "r"
+    divAccum$Entropy <- NULL
   }
 
   # Calculate Hill Numbers, by row
@@ -179,9 +198,10 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
   }
   
   # Null distribution
-  if (H0 == "Binomial") {
+  if (H0 == "Multinomial") {
     # Rarefy the community with iNEXT
-    if (!is.null(r.seq)) stop("The 'Binomial' null hypothesis only applies to accumulation by number of neighbors.")
+    if (!is.null(r.seq)) stop("The 'Multinomial' null hypothesis only applies to accumulation by number of neighbors.")
+    H0found <- TRUE
     # Prepare a progress bar 
     if (ShowProgressBar) ProgressBar <- utils::txtProgressBar(min=0, max=length(q.seq))
     # Prepare the distribution of the abundances of species.
@@ -196,18 +216,19 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       if (ShowProgressBar) utils::setTxtProgressBar(ProgressBar, i)
     }
   }
-  if (H0 == "RandomLocation") {
-    if (is.null(r.seq)) stop("The 'RandomLocation' null hypothesis only applies to accumulation by distance.")
+  if (H0 == "RandomLocation" | H0 == "Binomial") {
+    H0found <- TRUE
     # Prepare a progress bar 
     if (ShowProgressBar) ProgressBar <- utils::txtProgressBar(min=0, max=Simulations)
-    # Prepare a 3-D array to store results. Rows are q, columns are r, z-values are for each simulation.
+    # Prepare a 3-D array to store results. Rows are q, columns are r or n, z-values are for each simulation.
     H0qDiversities <- array(0.0, dim=c(length(q.seq), nCols, Simulations))
     # Simulate communities according to H0
     for (i in (1:Simulations)) {
       # Random community
-      H0spCommunity <- dbmss::rRandomLocation(spCommunity, CheckArguments=FALSE)
+      if (H0 == "RandomLocation") H0spCommunity <- dbmss::rRandomLocation(spCommunity, CheckArguments=FALSE)
+      if (H0 == "Binomial") H0spCommunity <- dbmss::rRandomPositionK(spCommunity, CheckArguments=FALSE)
       # Calculate its accumulated diversity
-      H0qDiversities[, , i] <- DivAccum(H0spCommunity, q.seq=q.seq, divCorrection=divCorrection, n.seq=NULL, r.seq=r.seq, spCorrection=spCorrection, H0="None", Individual=FALSE, ShowProgressBar=FALSE, CheckArguments=FALSE)$Accumulation[, , 1]
+      H0qDiversities[, , i] <- DivAccum(H0spCommunity, q.seq=q.seq, divCorrection=divCorrection, n.seq=n.seq, r.seq=r.seq, spCorrection=spCorrection, H0="None", Individual=FALSE, ShowProgressBar=FALSE, CheckArguments=FALSE)$Accumulation[, , 1]
       if (ShowProgressBar) utils::setTxtProgressBar(ProgressBar, i)
     }
     # Calculate quantiles
@@ -219,6 +240,8 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
     }
   }
 
+  if (!H0found) stop("The value of 'H0' does not correspond to a valid null hypothesis.")
+  
   class(divAccum) <- c("DivAccum", "Accumulation")
   return(divAccum)
 }
@@ -237,10 +260,17 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 #'   
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' # Generate a random community
+#' spCommunity <- rSpCommunity(1, size=50, S=3)
+#' # Calculate mixing indices of order 0 and 1
+#' accum <- Mixing(spCommunity, q.seq=c(0,1))
+#' plot(accum, q=0)
+#' plot(accum, q=1)
+#' 
 Mixing <-
-  function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/10), r.seq = NULL, spCorrection = "None",
-           H0 = "None", Alpha = 0.05, Simulations = 50,
+  function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2), r.seq = NULL, spCorrection = "None",
+           H0 = ifelse(is.null(r.seq), "Multinomial", "Binomial"), Alpha = 0.05, Simulations = 50,
            Individual = FALSE, ShowProgressBar = TRUE, CheckArguments = TRUE)
 {
   if (CheckArguments)
@@ -276,6 +306,7 @@ Mixing <-
 #' @param xlab X-axis label.
 #' @param ylab Y-axis label.
 #' @param ylim Limits of the Y-axis, as a vector of two numeric values.
+#' @param lineH0 if \code{TRUE}, the values of the null hypothesis are plotted.
 #' @param LineWidth Width of the Diversity Accumulation Curve line.
 #' @param ShadeColor The color of the shaded confidence envelope.
 #' @param BorderColor The color of the borders of the confidence envelope.
@@ -290,7 +321,7 @@ Mixing <-
 plot.Accumulation <-
 function(x, ..., q = 0,
          type = "l",  main = "Accumulation of ...", xlab = "Sample size...", ylab = "Diversity...", ylim = NULL,
-         LineWidth = 2, ShadeColor = "grey75", BorderColor = "red")
+         lineH0 = TRUE, LineWidth = 2, ShadeColor = "grey75", BorderColor = "red")
 {
   # Find the row in the accumulation table
   Whichq <- which(dimnames(x$Accumulation)$q==q)
@@ -343,12 +374,17 @@ function(x, ..., q = 0,
   graphics::plot(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[Whichq, , 1], ylim=c(ymin, ymax),
                  type=type, main=main, xlab=xlab, ylab=ylab)
 
-  # Confidence envelope
-  graphics::polygon(c(rev(dimnames(x$Accumulation)[[2]]), dimnames(x$Accumulation)[[2]]), c(rev(x$Accumulation[Whichq, , 4]), x$Accumulation[Whichq, , 3]), col=ShadeColor, border=FALSE)
-  # Add red lines on borders of polygon
-  graphics::lines(dimnames(x$Accumulation)[[2]], x$Accumulation[Whichq, , 4], col=BorderColor, lty=2)
-  graphics::lines(dimnames(x$Accumulation)[[2]], x$Accumulation[Whichq, , 3], col=BorderColor, lty=2)
-  # Redraw the SAC
-  graphics::lines(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[Whichq, , 1], lwd=LineWidth, ...)
+  if (dim(x$Accumulation)[3] == 4) {
+    # Confidence envelope is available
+    graphics::polygon(c(rev(dimnames(x$Accumulation)[[2]]), dimnames(x$Accumulation)[[2]]), c(rev(x$Accumulation[Whichq, , 4]), x$Accumulation[Whichq, , 3]), col=ShadeColor, border=FALSE)
+    # Add red lines on borders of polygon
+    graphics::lines(dimnames(x$Accumulation)[[2]], x$Accumulation[Whichq, , 4], col=BorderColor, lty=2)
+    graphics::lines(dimnames(x$Accumulation)[[2]], x$Accumulation[Whichq, , 3], col=BorderColor, lty=2)
+    # Redraw the SAC
+    graphics::lines(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[Whichq, , 1], lwd=LineWidth, ...)
+    
+    # H0
+    if (lineH0) lines(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[Whichq, , 2], lty=2)
+  }
 
 }
