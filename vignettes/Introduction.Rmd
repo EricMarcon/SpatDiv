@@ -87,5 +87,5 @@ The multinomial null hypothesis is by far faster to compute than the others beca
 Map the local diversity accumulation or mixing index, for example the species accumulation in 10 points (9 neighbors and the central point).
 
 ```{r MapPlot}
-MapPlot(mixing, Order = "0", NeighborHood = "10")
+MapPlot(mixing, Order = 0, NeighborHood = 10)
 ```
