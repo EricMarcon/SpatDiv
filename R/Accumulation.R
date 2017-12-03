@@ -38,7 +38,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
   if (is.null(r.seq)) {
     # n nearest neighbors. Find them.
     nNeighbors <- spatstat::nnwhich(spCommunity, k=n.seq)
-    # Add the reference point to get a table: center points in line, neoghbors in columns, including the point itself in the first column
+    # Add the reference point to get a table: center points in line, neighbors in columns, including the point itself in the first column
     nNeighbors <- cbind(Reference=1:spCommunity$n, nNeighbors)
 
     # Prepare a progress bar and the result arrays
@@ -104,7 +104,6 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       # Mean entropy. If qNbEntropies is a vector (i.e. a single value of q is provided), transpose it to get a 1-row matrix.
       if (is.null(dim(qNbEntropies))) qNbEntropies <- t(qNbEntropies)
       qEntropies[, k, 1] <- apply(t(t(qNbEntropies)), 1, mean)
-      
       
       if (ShowProgressBar) utils::setTxtProgressBar(ProgressBar, k)
     }
@@ -174,7 +173,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
   
   # Get entropy
   divAccum <- EntAccum(spCommunity=spCommunity, q.seq=q.seq, divCorrection=divCorrection, n.seq=n.seq, r.seq=r.seq, spCorrection=spCorrection, 
-                       Individual=Individual, ShowProgressBar=(ShowProgressBar & (H0 == "None" | H0 == "Binomial")), CheckArguments=FALSE)
+                       Individual=Individual, ShowProgressBar=(ShowProgressBar & (H0 == "None" | H0 == "Multinomial")), CheckArguments=FALSE)
   
   if (H0 != "None") {
     # H0 will have to be found
