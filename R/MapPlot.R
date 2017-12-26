@@ -37,8 +37,7 @@ function (x, ...)
 #' @importFrom sp gridded
 #' @importFrom sp SpatialPoints
 #' @importFrom sp SpatialPointsDataFrame
-#' @importFrom spatstat duplicated
-#' @importFrom spatstat gridcenter
+#' @importFrom spatstat gridcentres
 #' @importFrom spatstat rjitter
 #' @importFrom spatstat inside.owin
 #' @method MapPlot Accumulation

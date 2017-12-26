@@ -13,46 +13,28 @@
 \alias{as.AbdVector.character}
 \title{Species Distribution}
 \usage{
-\method{as.SpeciesDistribution}{wmppp}(x)
+\method{as.SpeciesDistribution}{wmppp}(x, ...)
 
-\method{as.SpeciesDistribution}{factor}(x)
+\method{as.SpeciesDistribution}{factor}(x, ...)
 
-\method{as.SpeciesDistribution}{character}(x)
+\method{as.SpeciesDistribution}{character}(x, ...)
 
-\method{as.ProbaVector}{wmppp}(x, Correction = "None", Unveiling = "None",
-  RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang",
-  CheckArguments = TRUE)
+\method{as.ProbaVector}{wmppp}(x, ...)
 
-\method{as.ProbaVector}{factor}(x, Correction = "None", Unveiling = "None",
-  RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang",
-  CheckArguments = TRUE)
+\method{as.ProbaVector}{factor}(x, ...)
 
-\method{as.ProbaVector}{character}(x, Correction = "None",
-  Unveiling = "None", RCorrection = "Chao1", JackOver = FALSE,
-  CEstimator = "ZhangHuang", CheckArguments = TRUE)
+\method{as.ProbaVector}{character}(x, ...)
 
-\method{as.AbdVector}{wmppp}(x, Round = TRUE)
+\method{as.AbdVector}{wmppp}(x, ...)
 
-\method{as.AbdVector}{factor}(x, Round = TRUE)
+\method{as.AbdVector}{factor}(x, ...)
 
-\method{as.AbdVector}{character}(x, Round = TRUE)
+\method{as.AbdVector}{character}(x, ...)
 }
 \arguments{
 \item{x}{An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names, or a vector of factors or characters containing species names of each individual.}
 
-\item{Correction}{A string containing one of the possible corrections to estimate a probability distribution: \code{"None"} (no correction, the default value), \code{"Chao2013"}, \code{"Chao2015"} or \code{"ChaoShen"}.}
-
-\item{Unveiling}{A string containing one of the possible unveiling methods to estimate the probabilities of the unobserved species: \code{"None"} (default, no species is added), \code{"unif"} (uniform: all unobserved species have the same probability) or \code{"geom"} (geometric: the unobserved species distribution is geometric).}
-
-\item{RCorrection}{A string containing a correction recognized by \code{\link{Richness}} to evaluate the total number of species. \code{"Chao1"} is  the default value.}
-
-\item{JackOver}{If \code{TRUE}, retain the jackknife order immediately superior to the optimal one, usually resulting in the overestimation of the number of species. Default is \code{FALSE}. Ignored if \code{RCorrection} is not \code{"Jackknife"}.}
-
-\item{CEstimator}{A string containing an estimator recognized by \code{\link{Coverage}} to evaluate the sample coverage. \code{"ZhangHuang"} is the default value.}
-
-\item{CheckArguments}{Logical; if \code{TRUE}, the function arguments are verified. Should be set to \code{FALSE} to save time when the arguments have been checked elsewhere.}
-
-\item{Round}{Ignored since abundances are obtained by counting points.}
+\item{...}{Further arguments. Unsused.}
 }
 \value{
 A vector of species abundances (\code{\link{AbdVector}}) or probabilities (\code{\link{ProbaVector}}).

@@ -7,9 +7,10 @@
 \usage{
 MapPlot(x, ...)
 
-\method{MapPlot}{Accumulation}(x, Order, NeighborHood, Nbx = 128, Nby = 128,
-  Contour = TRUE, Palette = grDevices::topo.colors(128, alpha = 1),
-  ContourColor = "dark red", ..., CheckArguments = TRUE)
+\method{MapPlot}{Accumulation}(x, Order, NeighborHood, AllowJitter = TRUE,
+  Nbx = 128, Nby = 128, Contour = TRUE,
+  Palette = grDevices::topo.colors(128, alpha = 1), Contournlevels = 10,
+  Contourcol = "dark red", ..., CheckArguments = TRUE)
 }
 \arguments{
 \item{x}{An object to map.}
@@ -20,6 +21,8 @@ MapPlot(x, ...)
 
 \item{NeighborHood}{The neignborhood size. It can be an integer, interpreted as the index of the column of the Accumulation array, or a string, interpreted as the value of the number of neighobors or the distance.}
 
+\item{AllowJitter}{If \code{TRUE}, duplicated points are jittered to avoid their elimination by the krigeing procedure.}
+
 \item{Nbx}{The number of columns (pixels) of the resulting map, 128 by default.}
 
 \item{Nby}{The number of rows (pixels) of the resulting map, 128 by default.}
@@ -28,9 +31,9 @@ MapPlot(x, ...)
 
 \item{Palette}{The color palette of the map.}
 
-\item{ContourColor}{The color of the contour lines.}
+\item{Contournlevels}{The number of levels of contours.}
 
-\item{CheckArguments}{Logical; if \code{TRUE}, the function arguments are verified. Should be set to \code{FALSE} to save time when the arguments have been checked elsewhere.}
+\item{ContourColor}{The color of the contour lines.}
 }
 \value{
 \code{MapPlot.Accumulation} returns an \code{\link{autoKrige}} object that can be used to produce alternative maps.

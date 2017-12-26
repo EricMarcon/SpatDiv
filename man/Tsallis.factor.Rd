@@ -4,8 +4,8 @@
 \alias{Tsallis.factor}
 \title{Tsallis (HCDT) Entropy of a vector of individuals}
 \usage{
-\method{Tsallis}{factor}(NorP, q = 1, Correction = "Best",
-  CheckArguments = TRUE, Ps = NULL, Ns = NULL)
+\method{Tsallis}{factor}(NorP, q = 1, Correction = "Best", ...,
+  CheckArguments = TRUE)
 }
 \arguments{
 \item{NorP}{A vector of factors.}
@@ -14,11 +14,7 @@
 
 \item{Correction}{A string containing one of the possible corrections: \code{"None"} (no correction), \code{"ChaoShen"}, \code{"GenCov"}, \code{"Grassberger"}, \code{"Holste"}, \code{"Bonachela"}, \code{"ZhangGrabchak"}, or \code{"ChaoWangJost"}, \code{"Marcon"}, \code{"UnveilC"}, \code{"UnveiliC"}, \code{"UnveilJ"} or \code{"Best"}, the default value.  Currently, \code{"Best"} is \code{"ChaoWangJost"}.}
 
-\item{CheckArguments}{Logical; if \code{TRUE}, the function arguments are verified. Should be set to \code{FALSE} to save time when the arguments have been checked elsewhere.}
-
-\item{Ps}{Ignored}
-
-\item{Ns}{Ignored}
+\item{...}{Further arguments. Unsused.}
 }
 \value{
 A named number equal to the calculated entropy. The name is that of the bias correction used.

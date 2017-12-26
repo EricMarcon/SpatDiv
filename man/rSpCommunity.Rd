@@ -35,8 +35,6 @@ rSpCommunity(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
 \item{Species}{A vector of characters or of factors containing the possible species.}
 
 \item{Sizes}{TODO}
-
-\item{CheckArguments}{Logical; if \code{TRUE}, the function arguments are verified. Should be set to \code{FALSE} to save time when the arguments have been checked elsewhere.}
 }
 \value{
 An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names if \code{n}=1.

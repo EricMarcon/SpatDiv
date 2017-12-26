@@ -4,8 +4,8 @@
 \alias{Diversity.wmppp}
 \title{HCDT diversity of a spatialized community}
 \usage{
-\method{Diversity}{wmppp}(NorP, q = 1, Correction = "Best",
-  CheckArguments = TRUE, Ps = NULL, Ns = NULL)
+\method{Diversity}{wmppp}(NorP, q = 1, Correction = "Best", ...,
+  CheckArguments = TRUE)
 }
 \arguments{
 \item{NorP}{An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.}
@@ -14,11 +14,7 @@
 
 \item{Correction}{A string containing one of the possible corrections: \code{"None"} (no correction), \code{"ChaoShen"}, \code{"GenCov"}, \code{"Grassberger"}, \code{"Holste"}, \code{"Bonachela"}, \code{"ZhangGrabchak"}, or \code{"ChaoWangJost"}, \code{"Marcon"}, \code{"UnveilC"}, \code{"UnveiliC"}, \code{"UnveilJ"} or \code{"Best"}, the default value.  Currently, \code{"Best"} is \code{"ChaoWangJost"}.}
 
-\item{CheckArguments}{Logical; if \code{TRUE}, the function arguments are verified. Should be set to \code{FALSE} to save time when the arguments have been checked elsewhere.}
-
-\item{Ps}{Ignored}
-
-\item{Ns}{Ignored}
+\item{...}{Further arguments. Unsused.}
 }
 \value{
 A named number equal to the calculated diversity. The name is that of the bias correction used.
