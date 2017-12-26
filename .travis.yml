@@ -4,3 +4,6 @@ cache: packages
 
 r_packages:
  - devtools
+ 
+r_github_packages: 
+ - EricMarcon/entropart
