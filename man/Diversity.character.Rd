@@ -15,6 +15,8 @@
 \item{Correction}{A string containing one of the possible corrections: \code{"None"} (no correction), \code{"ChaoShen"}, \code{"GenCov"}, \code{"Grassberger"}, \code{"Holste"}, \code{"Bonachela"}, \code{"ZhangGrabchak"}, or \code{"ChaoWangJost"}, \code{"Marcon"}, \code{"UnveilC"}, \code{"UnveiliC"}, \code{"UnveilJ"} or \code{"Best"}, the default value.  Currently, \code{"Best"} is \code{"ChaoWangJost"}.}
 
 \item{...}{Further arguments. Unsused.}
+
+\item{CheckArguments}{If `TRUE` (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
 A named number equal to the calculated diversity. The name is that of the bias correction used.

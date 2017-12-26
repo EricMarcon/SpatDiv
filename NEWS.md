@@ -1,8 +1,10 @@
-# SpatDiv 0.2-0
+# SpatDiv 0.2-1
 
 ## New features
 
 * `MapPlot()` to make maps.
+
+* CI by Travis.
 
 
 # SpatDiv 0.1-2

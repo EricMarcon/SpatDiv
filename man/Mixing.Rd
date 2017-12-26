@@ -36,6 +36,8 @@ Does not apply if neihborhoods are defined by the number of neighbors. Default i
 \item{Individual}{If `TRUE`, individual neighborhood entropies are returned.}
 
 \item{ShowProgressBar}{If `TRUE` (default), a progress bar is shown.}
+
+\item{CheckArguments}{If `TRUE` (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
 An "Accumulation" object that is a 3-D array containing mixing index values.

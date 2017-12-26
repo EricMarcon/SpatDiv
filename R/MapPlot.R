@@ -18,15 +18,15 @@ function (x, ...)
 #' @rdname MapPlot
 #' 
 #' @inheritParams DivAccum
-#' @param Order The order of diversity. It can be an integer, interpreted as the index of the rows of the Accumulation array, or a string, interpreted as the value of $q$.
-#' @param NeighborHood The neignborhood size. It can be an integer, interpreted as the index of the column of the Accumulation array, or a string, interpreted as the value of the number of neighobors or the distance.
+#' @param Order The order of diversity. It can be a number or a character string, interpreted as the value of $q$.
+#' @param NeighborHood The neignborhood size. It can be a number or a character string, interpreted as the value of the number of neighobors or the distance.
 #' @param AllowJitter If \code{TRUE}, duplicated points are jittered to avoid their elimination by the krigeing procedure.
 #' @param Nbx The number of columns (pixels) of the resulting map, 128 by default.
 #' @param Nby The number of rows (pixels) of the resulting map, 128 by default.
 #' @param Palette The color palette of the map.
 #' @param Contour If \code{TRUE}, contours are added to the map.
 #' @param Contournlevels The number of levels of contours.
-#' @param ContourColor The color of the contour lines.
+#' @param Contourcol The color of the contour lines.
 #'
 #' @return \code{MapPlot.Accumulation} returns an \code{\link{autoKrige}} object that can be used to produce alternative maps.
 #' 
@@ -47,10 +47,11 @@ function (x, ...)
 #' # Generate a random community
 #' spCommunity <- rSpCommunity(1, size=50, S=10)
 #' # Calculate the species accumulation curve
-#' accum <- DivAccum(spCommunity, q.seq=0, n.seq=4, Individual=TRUE)
+#' accum <- DivAccum(spCommunity, q.seq=c(0,1), n.seq=4, Individual=TRUE)
 #' # Plot the local richness, accumulated up to 5 individuals.
-#' MapPlot(accum, Order="0", NeighborHood="5")
+#' MapPlot(accum, Order=0, NeighborHood=5)
 #' 
+#' @section TODO: MapPlot fails if q.seq is a scalar
 MapPlot.Accumulation <-
 function (x, Order, NeighborHood, AllowJitter = TRUE,
           Nbx = 128, Nby = 128, Contour = TRUE, 

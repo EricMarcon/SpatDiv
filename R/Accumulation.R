@@ -9,7 +9,7 @@
 #'        Does not apply if neihborhoods are defined by the number of neighbors. Default is "None".
 #' @param Individual If `TRUE`, individual neighborhood entropies are returned.
 #' @param ShowProgressBar If `TRUE` (default), a progress bar is shown.
-#' @inheritParams as.ProbaVector.wmppp
+#' @param CheckArguments If `TRUE` (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.
 #'
 #' @return An "Accumulation" object that is a 3-D array containing average entropy.
 #' The third dimension of the array is only of length 1: it contains observed entropy.

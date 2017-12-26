@@ -17,9 +17,9 @@ MapPlot(x, ...)
 
 \item{...}{Further parameters.}
 
-\item{Order}{The order of diversity. It can be an integer, interpreted as the index of the rows of the Accumulation array, or a string, interpreted as the value of $q$.}
+\item{Order}{The order of diversity. It can be a number or a character string, interpreted as the value of $q$.}
 
-\item{NeighborHood}{The neignborhood size. It can be an integer, interpreted as the index of the column of the Accumulation array, or a string, interpreted as the value of the number of neighobors or the distance.}
+\item{NeighborHood}{The neignborhood size. It can be a number or a character string, interpreted as the value of the number of neighobors or the distance.}
 
 \item{AllowJitter}{If \code{TRUE}, duplicated points are jittered to avoid their elimination by the krigeing procedure.}
 
@@ -33,7 +33,9 @@ MapPlot(x, ...)
 
 \item{Contournlevels}{The number of levels of contours.}
 
-\item{ContourColor}{The color of the contour lines.}
+\item{Contourcol}{The color of the contour lines.}
+
+\item{CheckArguments}{If `TRUE` (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
 \code{MapPlot.Accumulation} returns an \code{\link{autoKrige}} object that can be used to produce alternative maps.
@@ -44,12 +46,16 @@ Map Spatialized Communities
 \details{
 Map an "Accum" object.
 }
+\section{TODO}{
+ MapPlot fails if q.seq is a scalar
+}
+
 \examples{
 # Generate a random community
 spCommunity <- rSpCommunity(1, size=50, S=10)
 # Calculate the species accumulation curve
-accum <- DivAccum(spCommunity, q.seq=0, n.seq=4, Individual=TRUE)
+accum <- DivAccum(spCommunity, q.seq=c(0,1), n.seq=4, Individual=TRUE)
 # Plot the local richness, accumulated up to 5 individuals.
-MapPlot(accum, Order="0", NeighborHood="5")
+MapPlot(accum, Order=0, NeighborHood=5)
 
 }

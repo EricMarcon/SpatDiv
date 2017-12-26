@@ -12,7 +12,7 @@
 #' @param q A number: the order of entropy. Some corrections allow only a positive number. Default is 1 for Shannon entropy.
 #' @param Correction A string containing one of the possible corrections: \code{"None"} (no correction), \code{"ChaoShen"}, \code{"GenCov"}, \code{"Grassberger"}, \code{"Holste"}, \code{"Bonachela"}, \code{"ZhangGrabchak"}, or \code{"ChaoWangJost"}, \code{"Marcon"}, \code{"UnveilC"}, \code{"UnveiliC"}, \code{"UnveilJ"} or \code{"Best"}, the default value.  Currently, \code{"Best"} is \code{"ChaoWangJost"}.
 #' @param ... Further arguments. Unsused.
-#' @inheritParams as.ProbaVector.wmppp
+#' @inheritParams EntAccum
 #'
 #' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
 #'

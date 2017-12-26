@@ -16,7 +16,7 @@
 #' @param win The window containing the point pattern. It is an \code{\link{owin}} object.
 #' @param Species A vector of characters or of factors containing the possible species.
 #' @param Sizes TODO
-#' @inheritParams as.ProbaVector.wmppp
+#' @inheritParams EntAccum
 #'
 #' @return An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names if \code{n}=1.
 #'         An object of class "SpCommunities", which is a list of \code{\link{wmppp.object}}s, is returned if \code{n}>1.
