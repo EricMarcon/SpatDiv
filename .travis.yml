@@ -7,3 +7,7 @@ r_packages:
  
 r_github_packages: 
  - EricMarcon/entropart
+
+bioc_packages:
+ - BiocStyle
+
