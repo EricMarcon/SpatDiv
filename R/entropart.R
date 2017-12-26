@@ -11,8 +11,7 @@
 #' @param NorP An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.
 #' @param q A number: the order of entropy. Some corrections allow only a positive number. Default is 1 for Shannon entropy.
 #' @param Correction A string containing one of the possible corrections: \code{"None"} (no correction), \code{"ChaoShen"}, \code{"GenCov"}, \code{"Grassberger"}, \code{"Holste"}, \code{"Bonachela"}, \code{"ZhangGrabchak"}, or \code{"ChaoWangJost"}, \code{"Marcon"}, \code{"UnveilC"}, \code{"UnveiliC"}, \code{"UnveilJ"} or \code{"Best"}, the default value.  Currently, \code{"Best"} is \code{"ChaoWangJost"}.
-#' @param Ps Ignored
-#' @param Ns Ignored
+#' @param ... Further arguments. Unsused.
 #' @inheritParams as.ProbaVector.wmppp
 #'
 #' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
@@ -24,7 +23,7 @@
 #'
 #' @examples #TODO
 Tsallis.wmppp <-
-function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
+function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
   return(entropart::bcTsallis(Ns=as.AbdVector(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
 }
@@ -50,7 +49,7 @@ function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns 
 #'
 #' @examples #TODO
 Tsallis.factor <-
-function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
+function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
   return(entropart::bcTsallis(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
 }
@@ -76,7 +75,7 @@ function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns 
 #'
 #' @examples #TODO
 Tsallis.character <-
-function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
+function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
   return(entropart::bcTsallis(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
 }
@@ -97,7 +96,7 @@ function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns 
 #'
 #' @examples #TODO
 Diversity.wmppp <-
-function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
+function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
   return (entropart::bcDiversity(Ns=as.AbdVector(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
 }
@@ -119,7 +118,7 @@ function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns 
 #'
 #' @examples #TODO
 Diversity.factor <-
-function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
+function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
   return (entropart::bcDiversity(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
 }
@@ -141,7 +140,7 @@ function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns 
 #'
 #' @examples #TODO
 Diversity.character <-
-function(NorP, q = 1, Correction = "Best", CheckArguments = TRUE, Ps = NULL, Ns = NULL)
+function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
   return (entropart::bcDiversity(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
 }

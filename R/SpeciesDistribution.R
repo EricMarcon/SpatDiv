@@ -10,6 +10,7 @@
 #' \code{SpeciesDistribution} objects can be plotted. The \code{plot} method returns the estimated parameters of the fitted distribution. The broken stick has no parameter, so the maximum abundance is returned.
 #'
 #' @param x An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names, or a vector of factors or characters containing species names of each individual.
+#' @param ... Further arguments. Unsused.
 #' @name SpeciesDistributions
 #' @return A vector of species abundances (\code{\link{AbdVector}}) or probabilities (\code{\link{ProbaVector}}).
 NULL
@@ -21,7 +22,7 @@ NULL
 #' @importFrom entropart as.SpeciesDistribution
 #' @method as.SpeciesDistribution wmppp
 as.SpeciesDistribution.wmppp <-
-function (x)
+function (x, ...)
 {
   # Table counts the number of individuals per species. It returns an array (1d) that must be converted to a vector.
   spD <- as.numeric(table(x$marks$PointType))
@@ -36,7 +37,7 @@ function (x)
 #' @importFrom entropart as.SpeciesDistribution
 #' @method as.SpeciesDistribution factor
 as.SpeciesDistribution.factor <-
-function (x)
+function (x, ...)
 {
   # Table counts the number of individuals per species. It returns an array (1d) that must be converted to a vector.
   spD <- as.numeric(table(x))
@@ -51,7 +52,7 @@ function (x)
 #' @importFrom entropart as.SpeciesDistribution
 #' @method as.SpeciesDistribution character
 as.SpeciesDistribution.character <-
-function (x)
+function (x, ...)
 {
   # Table counts the number of individuals per species. It returns an array (1d) that must be converted to a vector.
   spD <- as.numeric(table(x))
@@ -62,21 +63,12 @@ function (x)
 
 
 #' @rdname SpeciesDistributions
-#' @param Correction A string containing one of the possible corrections to estimate a probability distribution: \code{"None"} (no correction, the default value), \code{"Chao2013"}, \code{"Chao2015"} or \code{"ChaoShen"}.
-#' @param Unveiling A string containing one of the possible unveiling methods to estimate the probabilities of the unobserved species: \code{"None"} (default, no species is added), \code{"unif"} (uniform: all unobserved species have the same probability) or \code{"geom"} (geometric: the unobserved species distribution is geometric).
-#' @param RCorrection A string containing a correction recognized by \code{\link{Richness}} to evaluate the total number of species. \code{"Chao1"} is  the default value.
-#' @param JackOver If \code{TRUE}, retain the jackknife order immediately superior to the optimal one, usually resulting in the overestimation of the number of species. Default is \code{FALSE}. Ignored if \code{RCorrection} is not \code{"Jackknife"}.
-#' @param CEstimator A string containing an estimator recognized by \code{\link{Coverage}} to evaluate the sample coverage. \code{"ZhangHuang"} is the default value.
-#' @param CheckArguments Logical; if \code{TRUE}, the function arguments are verified. Should be set to \code{FALSE} to save time when the arguments have been checked elsewhere.
 #' @export
 #' @importFrom entropart as.ProbaVector
 #' @method as.ProbaVector wmppp
 as.ProbaVector.wmppp  <-
-function (x, Correction = "None", Unveiling = "None", RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang", CheckArguments = TRUE)
+function (x, ...)
 {
-  if (CheckArguments)
-    CheckSpatDivArguments()
-
   spD <- as.SpeciesDistribution.wmppp(x)
 
   class(spD) <- c("ProbaVector", class(spD))
@@ -90,11 +82,8 @@ function (x, Correction = "None", Unveiling = "None", RCorrection = "Chao1", Jac
 #' @importFrom entropart as.ProbaVector
 #' @method as.ProbaVector factor
 as.ProbaVector.factor  <-
-function (x, Correction = "None", Unveiling = "None", RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang", CheckArguments = TRUE)
+function (x, ...)
 {
-  if (CheckArguments)
-    CheckSpatDivArguments()
-
   spD <- as.SpeciesDistribution.factor(x)
 
   class(spD) <- c("ProbaVector", class(spD))
@@ -108,11 +97,8 @@ function (x, Correction = "None", Unveiling = "None", RCorrection = "Chao1", Jac
 #' @importFrom entropart as.ProbaVector
 #' @method as.ProbaVector character
 as.ProbaVector.character  <-
-function (x, Correction = "None", Unveiling = "None", RCorrection = "Chao1", JackOver = FALSE, CEstimator = "ZhangHuang", CheckArguments = TRUE)
+function (x, ...)
 {
-  if (CheckArguments)
-    CheckSpatDivArguments()
-
   spD <- as.SpeciesDistribution.character(x)
 
   class(spD) <- c("ProbaVector", class(spD))
@@ -122,12 +108,11 @@ function (x, Correction = "None", Unveiling = "None", RCorrection = "Chao1", Jac
 
 
 #' @rdname SpeciesDistributions
-#' @param Round Ignored since abundances are obtained by counting points.
 #' @export
 #' @importFrom entropart as.AbdVector
 #' @method as.AbdVector wmppp
 as.AbdVector.wmppp  <-
-function (x, Round = TRUE)
+function (x, ...)
 {
   spD <- as.SpeciesDistribution.wmppp(x)
 
@@ -142,7 +127,7 @@ function (x, Round = TRUE)
 #' @importFrom entropart as.AbdVector
 #' @method as.AbdVector factor
 as.AbdVector.factor  <-
-function (x, Round = TRUE)
+function (x, ...)
 {
   spD <- as.SpeciesDistribution.factor(x)
 
@@ -157,7 +142,7 @@ function (x, Round = TRUE)
 #' @importFrom entropart as.AbdVector
 #' @method as.AbdVector character
 as.AbdVector.character  <-
-function (x, Round = TRUE)
+function (x, ...)
 {
   spD <- as.SpeciesDistribution.character(x)
 
