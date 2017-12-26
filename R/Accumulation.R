@@ -27,6 +27,9 @@
 #' # Calculate the accumulation of Shannon entropy 
 #' accum <- EntAccum(spCommunity, q.seq=1)
 #' plot(accum, q=1)
+#' # along distance
+#' accumR <- EntAccum(spCommunity, q.seq=1, r.seq=seq(0, .5, .05))
+#' plot(accumR, q=1)
 #' 
 EntAccum <-
 function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2), r.seq = NULL, spCorrection = "None", 
