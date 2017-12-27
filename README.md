@@ -7,4 +7,4 @@ Spatially Explicit Measures of Diversity
 
 This is a preliminary version of a package designed to measure spatially-explicit diversity.
 
-Refer to the [introduction vignette](https://EricMarcon.github.io/SpatDiv/)
+Refer to the [introduction vignette](https://EricMarcon.github.io/SpatDiv/introduction.html)
