@@ -5,6 +5,8 @@
 
 Spatially Explicit Measures of Diversity
 
+![Map of the mixing index](docs/mixingindex.png)
+
 This is a preliminary version of a package designed to measure spatially-explicit diversity.
 
-Refer to the [introduction vignette](https://EricMarcon.github.io/SpatDiv/introduction.html)
+Refer to the [introduction vignette](https://EricMarcon.github.io/SpatDiv/Introduction.html)
