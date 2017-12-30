@@ -7,7 +7,7 @@ output:
   packagedocs::package_docs:
     toc: true
     toc_collapse: false
-redirect: EricMarcon/SpatDiv
+redirect: https://ericmarcon.github.io/EricMarcon/SpatDiv
 vignette: |
   %\VignetteIndexEntry{SpatDiv Documentation}
   %\VignetteEngine{packagedocs::redirect}
