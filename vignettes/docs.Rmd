@@ -1,19 +1,30 @@
 ---
-title: "Introduction to SpatDiv"
-author:
-- name: Eric Marcon
-  affiliation: AgroParisTech, UMR EcoFoG
-  email: eric.marcon@ecofog.gf
-package: SpatDiv
+title: "SpatDiv Documentation"
+subtitle: "Spatially Explicit Measures of Diversity"
+author: ""
+copyright: ""
 output:
-  BiocStyle::html_document
-abstract: |
-  Introduction to the package.
+  packagedocs::package_docs:
+    toc: true
+    toc_collapse: false
+redirect: EricMarcon/SpatDiv
 vignette: |
-  %\VignetteIndexEntry{Introduction}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{SpatDiv Documentation}
+  %\VignetteEngine{packagedocs::redirect}
+navpills: |
+  <li class="active"><a href='docs.html'>Docs</a></li>
+  <li><a href='rd.html'>Package Ref</a></li>
 ---
+
+```{r global_options, include=FALSE}
+# R output pre blocks are styled by default to indicate output
+knitr::opts_chunk$set(comment = NA)
+
+# shorthand for rd_link() - see ?packagedocs::rd_link for more information
+rdl <- function(x) packagedocs::rd_link(deparse(substitute(x)))
+```
+
+This is a preliminary version of a package designed to measure spatially-explicit diversity.
 
 # Getting started
 
@@ -60,6 +71,7 @@ Save the local values for future use.
 mixing <- Mixing(spCommunity, n.seq = 1:50, q.seq=0:2, H0="Multinomial", Individual = TRUE)
 plot(mixing, q = 1)
 ```
+
 ### With respect to distance
 
 The same accumulation cuves can be computed by increasing the sample area around each point.

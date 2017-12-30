@@ -1,0 +1,20 @@
+---
+title: "SpatDiv Documentation"
+subtitle: "Spatially Explicit Measures of Diversity"
+author: ""
+copyright: ""
+output:
+  packagedocs::package_docs_rd:
+    toc: true
+    toc_collapse: false
+redirect: EricMarcon/SpatDiv/rd.html
+vignette: |
+  %\VignetteIndexEntry{SpatDiv Package Reference}
+  %\VignetteEngine{packagedocs::redirect}
+navpills: |
+  <li><a href='docs.html'>Docs</a></li>
+  <li class="active"><a href='rd.html'>Package Ref</a></li>
+---
+
+```{r auto-gen-child, child="auto-generated-rd.Rmd"}
+```

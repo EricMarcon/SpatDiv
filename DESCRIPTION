@@ -1,7 +1,7 @@
 Package: SpatDiv
 Type: Package
 Title: Spatially Explicit Measures of Diversity
-Version: 0.2-1
+Version: 0.3-0
 Authors@R: c(
   person("Eric", "Marcon", email="eric.marcon@ecofog.gf", role=c("aut", "cre"))
   )
@@ -12,7 +12,7 @@ LazyData: true
 RoxygenNote: 6.0.1
 Imports: automap, dbmss, iNEXT, parallel, RcppParallel, sp, spatstat
 Depends: R (>= 3.3.0), entropart, Rcpp (>= 0.12.14)
-Suggests: testthat, knitr, BiocStyle, rmarkdown
+Suggests: testthat, packagedocs
 LinkingTo: Rcpp, RcppParallel
 SystemRequirements: GNU make
-VignetteBuilder: knitr
+VignetteBuilder: packagedocs

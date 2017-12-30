@@ -1,3 +1,10 @@
+# SpatDiv 0.3-0
+
+## New features
+
+* Documentation by _packagedoc_.
+
+
 # SpatDiv 0.2-1
 
 ## New features
