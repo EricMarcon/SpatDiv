@@ -1,5 +1,5 @@
 ---
-title: "SpatDiv Documentation"
+title: "SpatDiv"
 subtitle: "Spatially Explicit Measures of Diversity"
 author: ""
 copyright: ""
@@ -7,18 +7,21 @@ output:
   packagedocs::package_docs:
     toc: true
     toc_collapse: false
-redirect: https://ericmarcon.github.io/EricMarcon/SpatDiv
+redirect: https://ericmarcon.github.io/SpatDiv
 vignette: |
   %\VignetteIndexEntry{SpatDiv Documentation}
   %\VignetteEngine{packagedocs::redirect}
 navpills: |
-  <li class="active"><a href='docs.html'>Docs</a></li>
+  <li class="active"><a href='index.html'>Docs</a></li>
   <li><a href='rd.html'>Package Ref</a></li>
+  <li><a href='https://github.com/EricMarcon/SpatDiv'>Github<i class='fa fa-github'></i></a></li>
 ---
 
 ```{r global_options, include=FALSE}
 # R output pre blocks are styled by default to indicate output
 knitr::opts_chunk$set(comment = NA)
+# possible crop=TRUE
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 
 # shorthand for rd_link() - see ?packagedocs::rd_link for more information
 rdl <- function(x) packagedocs::rd_link(deparse(substitute(x)))
@@ -28,7 +31,7 @@ This is a preliminary version of a package designed to measure spatially-explici
 
 # Getting started
 
-Install the `r Githubpkg("EricMarcon/SpatDiv")` package for _R_ from Github.
+Install the package for _R_ from Github.
 
 ```{r install, eval=FALSE}
 library("devtools")
@@ -98,6 +101,6 @@ The multinomial null hypothesis is by far faster to compute than the others beca
 
 Map the local diversity accumulation or mixing index, for example the species accumulation in 10 points (9 neighbors and the central point).
 
-```{r MapPlot}
+```{r MapPlot, crop=TRUE}
 MapPlot(mixing, Order = 0, NeighborHood = 10)
 ```
