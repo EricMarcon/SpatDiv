@@ -1,3 +1,14 @@
+# SpatDiv 0.3-1
+
+## New features
+
+* _ggplot_ support with `autoplot` methods.
+
+## Improvements
+
+* Tuned imports.
+
+
 # SpatDiv 0.3-0
 
 ## New features

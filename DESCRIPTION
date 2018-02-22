@@ -10,8 +10,8 @@ License: GNU General Public License
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
-Imports: automap, dbmss, iNEXT, parallel, RcppParallel, sp, spatstat
-Depends: R (>= 3.3.0), entropart, Rcpp (>= 0.12.14)
+Imports: automap, dbmss, graphics, iNEXT, parallel, RcppParallel, sp, spatstat, stats, utils
+Depends: R (>= 3.3.0), Rcpp (>= 0.12.14), entropart, ggplot2
 Suggests: testthat, packagedocs
 LinkingTo: Rcpp, RcppParallel
 SystemRequirements: GNU make
