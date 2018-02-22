@@ -15,10 +15,6 @@
 #' The third dimension of the array is only of length 1: it contains observed entropy.
 #' The first two dimensions are respectively for $q$ values and the number of points of the neighborhood, starting from 1 (the point itself, with no neighbor).
 #'
-#' @importFrom spatstat nnwhich
-#' @importFrom parallel mclapply
-#' @importFrom utils txtProgressBar
-#' @importFrom utils setTxtProgressBar
 #' @export
 #'
 #' @examples
@@ -136,13 +132,6 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 #' The third dimension of the array is only of length 4: it contains observed diversity, its value under the null hypothesis, and the lower of upper bounds of that value.
 #' The first two dimensions are respectively for $q$ values and the number of points of the neighborhood, starting from 1 (the point itself, with no neighbor).
 #'   
-#' @importFrom dbmss rRandomLocation
-#' @importFrom dbmss rRandomPositionK
-#' @importFrom iNEXT iNEXT
-#' @importFrom spatstat area
-#' @importFrom stats quantile
-#' @importFrom utils txtProgressBar
-#' @importFrom utils setTxtProgressBar
 #' @export
 #'
 #' @examples
@@ -314,22 +303,102 @@ Mixing <-
 #' @param BorderColor The color of the borders of the confidence envelope.
 #'
 #' @importFrom graphics plot
-#' @importFrom graphics lines
-#' @importFrom graphics lines
-#' @export
 #' @method plot Accumulation
+#' @export
 #'
-#' @examples #TODO
+#' @examples
+#' # Generate a random community
+#' spCommunity <- rSpCommunity(1, size=50, S=3)
+#' # Calculate mixing indices of order 0 and 1
+#' accum <- Mixing(spCommunity, q.seq=c(0,1))
+#' plot(accum, q=0)
 plot.Accumulation <-
 function(x, ..., q = 0,
          type = "l",  main = "Accumulation of ...", xlab = "Sample size...", ylab = "Diversity...", ylim = NULL,
          lineH0 = TRUE, LineWidth = 2, ShadeColor = "grey75", BorderColor = "red")
 {
+  # Prepare the parameters
+  h <- AccumulationPlothelper(x, q, type,  main, xlab, ylab, ylim)
+  
+  # Prepare the plot
+  graphics::plot(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[h$Whichq, , 1], ylim=c(h$ymin, h$ymax),
+                 type=h$type, main=h$main, xlab=h$xlab, ylab=h$ylab)
+
+  if (dim(x$Accumulation)[3] == 4) {
+    # Confidence envelope is available
+    graphics::polygon(c(rev(dimnames(x$Accumulation)[[2]]), dimnames(x$Accumulation)[[2]]), c(rev(x$Accumulation[h$Whichq, , 4]), x$Accumulation[h$Whichq, , 3]), col=ShadeColor, border=FALSE)
+    # Add red lines on borders of polygon
+    graphics::lines(dimnames(x$Accumulation)[[2]], x$Accumulation[h$Whichq, , 4], col=BorderColor, lty=2)
+    graphics::lines(dimnames(x$Accumulation)[[2]], x$Accumulation[h$Whichq, , 3], col=BorderColor, lty=2)
+    # Redraw the SAC
+    graphics::lines(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[h$Whichq, , 1], lwd=LineWidth, ...)
+    
+    # H0
+    if (lineH0) graphics::lines(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[h$Whichq, , 2], lty=2)
+  }
+}
+
+
+
+#' Plot Diversity Accumulation
+#'
+#' @inheritParams plot.Accumulation
+#'
+#' @importFrom ggplot2 autoplot
+#' @method autoplot Accumulation
+#' @export
+#'
+#' @examples
+#' # Generate a random community
+#' spCommunity <- rSpCommunity(1, size=50, S=3)
+#' # Calculate mixing indices of order 0 and 1
+#' accum <- Mixing(spCommunity, q.seq=c(0,1))
+#' autoplot(accum, q=0)
+autoplot.Accumulation <-
+function(x, ..., q = 0,
+         type = "l",  main = "Accumulation of ...", xlab = "Sample size...", ylab = "Diversity...", ylim = NULL,
+         lineH0 = TRUE, LineWidth = 2, ShadeColor = "grey75", BorderColor = "red")
+{
+  # Prepare the parameters
+  h <- AccumulationPlothelper(x, q, type,  main, xlab, ylab, ylim)
+  
+  # Prepare the data
+  df <- data.frame(x=as.numeric(dimnames(x$Accumulation)[[2]]), y=x$Accumulation[h$Whichq, , 1])
+  if (dim(x$Accumulation)[3] == 4) {
+    # Confidence envelope is available
+    df$low <- x$Accumulation[h$Whichq, , 3]
+    df$high <- x$Accumulation[h$Whichq, , 4]
+    if (lineH0) df$H0 <- x$Accumulation[h$Whichq, , 2]
+  }
+  
+  # Prepare the plot
+  thePlot <- ggplot(data=df, aes_(x=~x, y=~y)) +
+    geom_line()
+  
+  if (dim(x$Accumulation)[3] == 4) {
+    thePlot <- thePlot +
+      geom_ribbon(aes_(ymin=~low, ymax=~high), fill=ShadeColor, alpha=0.5) +
+      # Add red lines on borders of polygon
+      geom_line(aes_(y=~low), colour=BorderColor, linetype=2) +
+      geom_line(aes_(y=~high), colour=BorderColor, linetype=2)
+      
+    # H0
+    if (lineH0) {
+      thePlot <- thePlot +
+        geom_line(aes_(y=~H0), linetype=2)
+    }
+  }
+  return(thePlot)
+}
+# Helper to prepare parameters for plot and autoplot
+AccumulationPlothelper <- 
+function(x, q, type,  main, xlab, ylab, ylim)
+{
   # Find the row in the accumulation table
   Whichq <- which(dimnames(x$Accumulation)$q==q)
   if (length(Whichq) != 1)
     stop("The value of q does not correspond to any accumulation curve.")
-
+  
   if (is.null(ylim)) {
     # Evaluate ylim if not set by an argument
     ymin <- min(x$Accumulation[Whichq, , ])
@@ -338,7 +407,7 @@ function(x, ..., q = 0,
     ymin <- ylim[1]
     ymax <- ylim[2]
   }
-
+  
   if (main == "Accumulation of ...") {
     # Prepare the main title
     if (inherits(x, "EntAccum")) main <- paste("Accumulation of Entropy of order", q)
@@ -359,7 +428,7 @@ function(x, ..., q = 0,
       xlab <- "Distance from the central individual"
     }
   }
-
+  
   if (ylab == "Diversity...") {
     # Prepare Y-axis
     if (inherits(x, "EntAccum")) ylab <-"Diversity"
@@ -371,22 +440,5 @@ function(x, ..., q = 0,
     }
     if (inherits(x, "Mixing")) ylab <- "Mixing index"
   }
-
-  # Prepare the plot
-  graphics::plot(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[Whichq, , 1], ylim=c(ymin, ymax),
-                 type=type, main=main, xlab=xlab, ylab=ylab)
-
-  if (dim(x$Accumulation)[3] == 4) {
-    # Confidence envelope is available
-    graphics::polygon(c(rev(dimnames(x$Accumulation)[[2]]), dimnames(x$Accumulation)[[2]]), c(rev(x$Accumulation[Whichq, , 4]), x$Accumulation[Whichq, , 3]), col=ShadeColor, border=FALSE)
-    # Add red lines on borders of polygon
-    graphics::lines(dimnames(x$Accumulation)[[2]], x$Accumulation[Whichq, , 4], col=BorderColor, lty=2)
-    graphics::lines(dimnames(x$Accumulation)[[2]], x$Accumulation[Whichq, , 3], col=BorderColor, lty=2)
-    # Redraw the SAC
-    graphics::lines(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[Whichq, , 1], lwd=LineWidth, ...)
-    
-    # H0
-    if (lineH0) lines(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[Whichq, , 2], lty=2)
-  }
-
+  return(list(Whichq=Whichq, ymin=ymin, ymax=ymax, main=main, xlab=xlab, ylab=ylab))
 }

@@ -18,8 +18,6 @@ NULL
 #'
 #' @return Returns \code{TRUE} or stops if a problem is detected.
 #' 
-#' @importFrom entropart is.MetaCommunity
-#' @importFrom entropart is.SpeciesDistribution
 #' @export
 #'
 #' @author Eric Marcon <Eric.Marcon@ecofog.gf>

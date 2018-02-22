@@ -18,9 +18,9 @@ NULL
 
 
 #' @rdname SpeciesDistributions
-#' @export
 #' @importFrom entropart as.SpeciesDistribution
 #' @method as.SpeciesDistribution wmppp
+#' @export
 as.SpeciesDistribution.wmppp <-
 function (x, ...)
 {
@@ -33,9 +33,9 @@ function (x, ...)
 
 
 #' @rdname SpeciesDistributions
-#' @export
 #' @importFrom entropart as.SpeciesDistribution
 #' @method as.SpeciesDistribution factor
+#' @export
 as.SpeciesDistribution.factor <-
 function (x, ...)
 {
@@ -48,9 +48,9 @@ function (x, ...)
 
 
 #' @rdname SpeciesDistributions
-#' @export
 #' @importFrom entropart as.SpeciesDistribution
 #' @method as.SpeciesDistribution character
+#' @export
 as.SpeciesDistribution.character <-
 function (x, ...)
 {
@@ -63,9 +63,9 @@ function (x, ...)
 
 
 #' @rdname SpeciesDistributions
-#' @export
 #' @importFrom entropart as.ProbaVector
 #' @method as.ProbaVector wmppp
+#' @export
 as.ProbaVector.wmppp  <-
 function (x, ...)
 {
@@ -78,9 +78,9 @@ function (x, ...)
 
 
 #' @rdname SpeciesDistributions
-#' @export
 #' @importFrom entropart as.ProbaVector
 #' @method as.ProbaVector factor
+#' @export
 as.ProbaVector.factor  <-
 function (x, ...)
 {
@@ -93,9 +93,9 @@ function (x, ...)
 
 
 #' @rdname SpeciesDistributions
-#' @export
 #' @importFrom entropart as.ProbaVector
 #' @method as.ProbaVector character
+#' @export
 as.ProbaVector.character  <-
 function (x, ...)
 {
@@ -108,9 +108,9 @@ function (x, ...)
 
 
 #' @rdname SpeciesDistributions
-#' @export
 #' @importFrom entropart as.AbdVector
 #' @method as.AbdVector wmppp
+#' @export
 as.AbdVector.wmppp  <-
 function (x, ...)
 {
@@ -123,9 +123,9 @@ function (x, ...)
 
 
 #' @rdname SpeciesDistributions
-#' @export
 #' @importFrom entropart as.AbdVector
 #' @method as.AbdVector factor
+#' @export
 as.AbdVector.factor  <-
 function (x, ...)
 {
@@ -138,9 +138,9 @@ function (x, ...)
 
 
 #' @rdname SpeciesDistributions
-#' @export
 #' @importFrom entropart as.AbdVector
 #' @method as.AbdVector character
+#' @export
 as.AbdVector.character  <-
 function (x, ...)
 {

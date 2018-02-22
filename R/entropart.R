@@ -16,10 +16,9 @@
 #'
 #' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
 #'
-#' @export
 #' @importFrom entropart Tsallis
 #' @method Tsallis wmppp
-#' @importFrom entropart bcTsallis
+#' @export
 #'
 #' @examples #TODO
 Tsallis.wmppp <-
@@ -42,10 +41,9 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #'
 #' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
 #'
-#' @export
 #' @importFrom entropart Tsallis
 #' @method Tsallis factor
-#' @importFrom entropart bcTsallis
+#' @export
 #'
 #' @examples #TODO
 Tsallis.factor <-
@@ -68,10 +66,9 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #'
 #' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
 #'
-#' @export
 #' @importFrom entropart Tsallis
 #' @method Tsallis character
-#' @importFrom entropart bcTsallis
+#' @export
 #'
 #' @examples #TODO
 Tsallis.character <-
@@ -89,10 +86,9 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #'
 #' @return A named number equal to the calculated diversity. The name is that of the bias correction used.
 #'
-#' @export
 #' @importFrom entropart Diversity
 #' @method Diversity wmppp
-#' @importFrom entropart bcDiversity
+#' @export
 #'
 #' @examples #TODO
 Diversity.wmppp <-
@@ -111,10 +107,9 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #'
 #' @return A named number equal to the calculated diversity. The name is that of the bias correction used.
 #'
-#' @export
 #' @importFrom entropart Diversity
 #' @method Diversity factor
-#' @importFrom entropart bcDiversity
+#' @export
 #'
 #' @examples #TODO
 Diversity.factor <-
@@ -133,10 +128,9 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #'
 #' @return A named number equal to the calculated diversity. The name is that of the bias correction used.
 #'
-#' @export
 #' @importFrom entropart Diversity
 #' @method Diversity character
-#' @importFrom entropart bcDiversity
+#' @export
 #'
 #' @examples #TODO
 Diversity.character <-

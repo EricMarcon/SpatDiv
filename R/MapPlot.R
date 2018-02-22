@@ -30,16 +30,6 @@ function (x, ...)
 #'
 #' @return \code{MapPlot.Accumulation} returns an \code{\link{autoKrige}} object that can be used to produce alternative maps.
 #' 
-#' @importFrom automap autoKrige
-#' @importFrom graphics contour
-#' @importFrom graphics image
-#' @importFrom grDevices topo.colors
-#' @importFrom sp gridded
-#' @importFrom sp SpatialPoints
-#' @importFrom sp SpatialPointsDataFrame
-#' @importFrom spatstat gridcentres
-#' @importFrom spatstat rjitter
-#' @importFrom spatstat inside.owin
 #' @method MapPlot Accumulation
 #' @export
 #' 
