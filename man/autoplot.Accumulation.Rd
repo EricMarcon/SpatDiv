@@ -4,19 +4,17 @@
 \alias{autoplot.Accumulation}
 \title{Plot Diversity Accumulation}
 \usage{
-\method{autoplot}{Accumulation}(x, ..., q = 0, type = "l",
+\method{autoplot}{Accumulation}(object, ..., q = 0,
   main = "Accumulation of ...", xlab = "Sample size...",
-  ylab = "Diversity...", ylim = NULL, lineH0 = TRUE, LineWidth = 2,
+  ylab = "Diversity...", ylim = NULL, lineH0 = TRUE,
   ShadeColor = "grey75", BorderColor = "red")
 }
 \arguments{
-\item{x}{An "Accumulation" object that cat be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).}
+\item{object}{An "Accumulation" object that cat be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).}
 
 \item{...}{Further plotting arguments.}
 
 \item{q}{The order of Diversity}
-
-\item{type}{Plotting parameter. Default is "l".}
 
 \item{main}{Main title of the plot.}
 
@@ -27,8 +25,6 @@
 \item{ylim}{Limits of the Y-axis, as a vector of two numeric values.}
 
 \item{lineH0}{if \code{TRUE}, the values of the null hypothesis are plotted.}
-
-\item{LineWidth}{Width of the Diversity Accumulation Curve line.}
 
 \item{ShadeColor}{The color of the shaded confidence envelope.}
 

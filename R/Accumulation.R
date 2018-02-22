@@ -318,7 +318,7 @@ function(x, ..., q = 0,
          lineH0 = TRUE, LineWidth = 2, ShadeColor = "grey75", BorderColor = "red")
 {
   # Prepare the parameters
-  h <- AccumulationPlothelper(x, q, type,  main, xlab, ylab, ylim)
+  h <- AccumulationPlothelper(x, q, main, xlab, ylab, ylim)
   
   # Prepare the plot
   graphics::plot(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[h$Whichq, , 1], ylim=c(h$ymin, h$ymax),
@@ -342,6 +342,7 @@ function(x, ..., q = 0,
 
 #' Plot Diversity Accumulation
 #'
+#' @param object An "Accumulation" object that cat be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).
 #' @inheritParams plot.Accumulation
 #'
 #' @importFrom ggplot2 autoplot
@@ -355,44 +356,45 @@ function(x, ..., q = 0,
 #' accum <- Mixing(spCommunity, q.seq=c(0,1))
 #' autoplot(accum, q=0)
 autoplot.Accumulation <-
-function(x, ..., q = 0,
-         type = "l",  main = "Accumulation of ...", xlab = "Sample size...", ylab = "Diversity...", ylim = NULL,
-         lineH0 = TRUE, LineWidth = 2, ShadeColor = "grey75", BorderColor = "red")
+function(object, ..., q = 0,
+         main = "Accumulation of ...", xlab = "Sample size...", ylab = "Diversity...", ylim = NULL,
+         lineH0 = TRUE, ShadeColor = "grey75", BorderColor = "red")
 {
   # Prepare the parameters
-  h <- AccumulationPlothelper(x, q, type,  main, xlab, ylab, ylim)
+  h <- AccumulationPlothelper(object, q, main, xlab, ylab, ylim)
   
   # Prepare the data
-  df <- data.frame(x=as.numeric(dimnames(x$Accumulation)[[2]]), y=x$Accumulation[h$Whichq, , 1])
-  if (dim(x$Accumulation)[3] == 4) {
+  df <- data.frame(x=as.numeric(dimnames(object$Accumulation)[[2]]), y=object$Accumulation[h$Whichq, , 1])
+  if (dim(object$Accumulation)[3] == 4) {
     # Confidence envelope is available
-    df$low <- x$Accumulation[h$Whichq, , 3]
-    df$high <- x$Accumulation[h$Whichq, , 4]
-    if (lineH0) df$H0 <- x$Accumulation[h$Whichq, , 2]
+    df$low <- object$Accumulation[h$Whichq, , 3]
+    df$high <- object$Accumulation[h$Whichq, , 4]
+    if (lineH0) df$H0 <- object$Accumulation[h$Whichq, , 2]
   }
   
   # Prepare the plot
-  thePlot <- ggplot(data=df, aes_(x=~x, y=~y)) +
-    geom_line()
+  thePlot <- ggplot2::ggplot(data=df, ggplot2::aes_(x=~x, y=~y)) +
+    ggplot2::geom_line() +
+    ggplot2::labs(title=h$main, x=h$xlab, y=h$ylab)
   
-  if (dim(x$Accumulation)[3] == 4) {
+  if (dim(object$Accumulation)[3] == 4) {
     thePlot <- thePlot +
-      geom_ribbon(aes_(ymin=~low, ymax=~high), fill=ShadeColor, alpha=0.5) +
+      ggplot2::geom_ribbon(ggplot2::aes_(ymin=~low, ymax=~high), fill=ShadeColor, alpha=0.5) +
       # Add red lines on borders of polygon
-      geom_line(aes_(y=~low), colour=BorderColor, linetype=2) +
-      geom_line(aes_(y=~high), colour=BorderColor, linetype=2)
+      ggplot2::geom_line(ggplot2::aes_(y=~low), colour=BorderColor, linetype=2) +
+      ggplot2::geom_line(ggplot2::aes_(y=~high), colour=BorderColor, linetype=2)
       
     # H0
     if (lineH0) {
       thePlot <- thePlot +
-        geom_line(aes_(y=~H0), linetype=2)
+        ggplot2::geom_line(ggplot2::aes_(y=~H0), linetype=2)
     }
   }
   return(thePlot)
 }
 # Helper to prepare parameters for plot and autoplot
 AccumulationPlothelper <- 
-function(x, q, type,  main, xlab, ylab, ylim)
+function(x, q, main, xlab, ylab, ylim)
 {
   # Find the row in the accumulation table
   Whichq <- which(dimnames(x$Accumulation)$q==q)
