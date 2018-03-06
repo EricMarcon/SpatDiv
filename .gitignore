@@ -12,6 +12,7 @@
 /*.Rcheck/
 # RStudio files
 .Rproj.user/
+.Rprofile
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
@@ -29,5 +30,4 @@ src/*.so
 src/*.dll
 # Extras
 .#Extra
-.Rproj.user
 _gh-pages

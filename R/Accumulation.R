@@ -7,9 +7,9 @@
 #' @param r.seq A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.
 #' @param spCorrection The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window. 
 #'        Does not apply if neihborhoods are defined by the number of neighbors. Default is "None".
-#' @param Individual If `TRUE`, individual neighborhood entropies are returned.
-#' @param ShowProgressBar If `TRUE` (default), a progress bar is shown.
-#' @param CheckArguments If `TRUE` (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.
+#' @param Individual If \code{TRUE}, individual neighborhood entropies are returned.
+#' @param ShowProgressBar If \code{TRUE} (default), a progress bar is shown.
+#' @param CheckArguments If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.
 #'
 #' @return An "Accumulation" object that is a 3-D array containing average entropy.
 #' The third dimension of the array is only of length 1: it contains observed entropy.
@@ -392,7 +392,7 @@ function(object, ..., q = 0,
   }
   return(thePlot)
 }
-# Helper to prepare parameters for plot and autoplot
+# Helper to prepare parameters for plot and autoplot. Internal, not documented.
 AccumulationPlothelper <- 
 function(x, q, main, xlab, ylab, ylim)
 {
