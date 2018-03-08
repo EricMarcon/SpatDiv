@@ -4,7 +4,7 @@
 \alias{Shannon.character}
 \title{Shannon Entropy of a vector of individuals}
 \usage{
-\method{Shannon}{character}(NorP, q = 1, Correction = "Best", ...,
+\method{Shannon}{character}(NorP, Correction = "Best", ...,
   CheckArguments = TRUE)
 }
 \arguments{

@@ -4,7 +4,7 @@
 \alias{Simpson.factor}
 \title{Simpson Entropy of a vector of individuals}
 \usage{
-\method{Simpson}{factor}(NorP, q = 1, Correction = "Lande", ...,
+\method{Simpson}{factor}(NorP, Correction = "Lande", ...,
   CheckArguments = TRUE)
 }
 \arguments{

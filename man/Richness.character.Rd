@@ -8,9 +8,13 @@
   JackOver = FALSE, ..., CheckArguments = TRUE)
 }
 \arguments{
-\item{NorP}{A vector of factors.}
+\item{NorP}{An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.}
 
-\item{Correction}{A string containing one of the possible corrections: \code{"None"} (no correction), \code{"ChaoShen"}, \code{"GenCov"}, \code{"Grassberger"}, \code{"Holste"}, \code{"Bonachela"}, \code{"ZhangGrabchak"}, or \code{"ChaoWangJost"}, \code{"Marcon"}, \code{"UnveilC"}, \code{"UnveiliC"}, \code{"UnveilJ"} or \code{"Best"}, the default value.  Currently, \code{"Best"} is \code{"ChaoWangJost"}.}
+\item{Correction}{A string containing one of the possible corrections: \code{"None"} (no correction), \code{"Jackknife"}, \code{"iChao1"}, or \code{"Chao1"}, the default value.}
+
+\item{Alpha}{The risk level, 5\% by default, used to optimize the jackknife order.}
+
+\item{JackOver}{If \code{TRUE}, retain the jackknife order immediately superior to the optimal one, usually resulting in the overestimation of the number of species. Default is \code{FALSE}.}
 
 \item{...}{Further arguments. Unsused.}
 

@@ -191,7 +191,7 @@ function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., Check
 #'
 #' \code{Richness} is the number of species.
 #'
-#' @inheritParams Tsallis.factor
+#' @inheritParams Richness.wmppp
 #'
 #' @return A named number equal to the calculated diversity. The name is that of the bias correction used.
 #'
@@ -226,10 +226,10 @@ function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., Check
 #'
 #' @examples #TODO
 Shannon.wmppp <-
-  function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
-  {
-    return(entropart::bcShannon(Ns=as.AbdVector(NorP), Correction=Correction, CheckArguments=CheckArguments))
-  }
+function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
+{
+  return(entropart::bcShannon(Ns=as.AbdVector(NorP), Correction=Correction, CheckArguments=CheckArguments))
+}
 
 
 
@@ -249,10 +249,10 @@ Shannon.wmppp <-
 #'
 #' @examples #TODO
 Shannon.factor <-
-  function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
-  {
-    return(entropart::bcShannon(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
-  }
+function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
+{
+  return(entropart::bcShannon(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
+}
 
 
 
@@ -272,10 +272,10 @@ Shannon.factor <-
 #'
 #' @examples #TODO
 Shannon.character <-
-  function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
-  {
-    return(entropart::bcShannon(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
-  }
+function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
+{
+  return(entropart::bcShannon(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
+}
 
 
 
@@ -297,10 +297,10 @@ Shannon.character <-
 #'
 #' @examples #TODO
 Simpson.wmppp <-
-  function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
-  {
-    return(entropart::bcSimpson(Ns=as.AbdVector(NorP), Correction=Correction, CheckArguments=CheckArguments))
-  }
+function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
+{
+  return(entropart::bcSimpson(Ns=as.AbdVector(NorP), Correction=Correction, CheckArguments=CheckArguments))
+}
 
 
 
@@ -320,10 +320,10 @@ Simpson.wmppp <-
 #'
 #' @examples #TODO
 Simpson.factor <-
-  function(NorP, q = 1, Correction = "Lande", ..., CheckArguments = TRUE)
-  {
-    return(entropart::bcSimpson(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
-  }
+function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
+{
+  return(entropart::bcSimpson(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
+}
 
 
 
@@ -343,7 +343,7 @@ Simpson.factor <-
 #'
 #' @examples #TODO
 Simpson.character <-
-  function(NorP, q = 1, Correction = "Lande", ..., CheckArguments = TRUE)
-  {
-    return(entropart::bcSimpson(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
-  }
+function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
+{
+  return(entropart::bcSimpson(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
+}
