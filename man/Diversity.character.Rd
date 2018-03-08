@@ -16,7 +16,7 @@
 
 \item{...}{Further arguments. Unsused.}
 
-\item{CheckArguments}{If `TRUE` (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
+\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
 A named number equal to the calculated diversity. The name is that of the bias correction used.

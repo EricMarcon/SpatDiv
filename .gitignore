@@ -31,3 +31,4 @@ src/*.dll
 # Extras
 .#Extra
 _gh-pages
+.Rproj.user

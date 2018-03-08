@@ -138,3 +138,71 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
   return (entropart::bcDiversity(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
 }
+
+
+
+#' Richness of a spatialized community
+#'
+#' \code{Richness} is the number of species.
+#'
+#' @inheritParams Tsallis.wmppp
+#' @param Correction A string containing one of the possible corrections: \code{"None"} (no correction), \code{"Jackknife"}, \code{"iChao1"}, or \code{"Chao1"}, the default value.
+#' @param Alpha The risk level, 5\% by default, used to optimize the jackknife order.
+#' @param JackOver If \code{TRUE}, retain the jackknife order immediately superior to the optimal one, usually resulting in the overestimation of the number of species. Default is \code{FALSE}.
+#' 
+#' @return A named number equal to the calculated diversity. The name is that of the bias correction used.
+#'
+#' @importFrom entropart Richness
+#' @method Richness wmppp
+#' @export
+#'
+#' @examples #TODO
+Richness.wmppp <-
+function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., CheckArguments = TRUE)
+{
+  return (entropart::bcRichness(Ns=as.AbdVector(NorP), Correction=Correction, Alpha=Alpha, JackOver=JackOver, CheckArguments=CheckArguments))
+}
+
+
+
+#' Richness of a vector of individuals
+#'
+#' \code{Richness} is the number of species.
+#' 
+#' @inheritParams Richness.wmppp
+#'
+#' @return A named number equal to the calculated diversity. The name is that of the bias correction used.
+#'
+#' @importFrom entropart Richness
+#' @method Richness factor
+#' @export
+#'
+#' @examples #TODO
+Richness.factor <-
+function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., CheckArguments = TRUE)
+{
+  return (entropart::bcRichness(Ns=table(NorP), Correction=Correction, Alpha=Alpha, JackOver=JackOver, CheckArguments=CheckArguments))
+}
+
+
+
+#' Richness of a vector of individuals
+#'
+#' \code{Richness} is the number of species.
+#'
+#' @inheritParams Tsallis.factor
+#'
+#' @return A named number equal to the calculated diversity. The name is that of the bias correction used.
+#'
+#' @importFrom entropart Richness
+#' @method Richness character
+#' @export
+#'
+#' @examples #TODO
+Richness.character <-
+function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., CheckArguments = TRUE)
+{
+  return (entropart::bcRichness(Ns=table(NorP), Correction=Correction, Alpha=Alpha, JackOver=JackOver, CheckArguments=CheckArguments))
+}
+
+

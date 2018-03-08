@@ -22,11 +22,11 @@ EntAccum(spCommunity, q.seq = seq(0, 2, by = 0.1), divCorrection = "None",
 \item{spCorrection}{The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window. 
 Does not apply if neihborhoods are defined by the number of neighbors. Default is "None".}
 
-\item{Individual}{If `TRUE`, individual neighborhood entropies are returned.}
+\item{Individual}{If \code{TRUE}, individual neighborhood entropies are returned.}
 
-\item{ShowProgressBar}{If `TRUE` (default), a progress bar is shown.}
+\item{ShowProgressBar}{If \code{TRUE} (default), a progress bar is shown.}
 
-\item{CheckArguments}{If `TRUE` (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
+\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
 An "Accumulation" object that is a 3-D array containing average entropy.
