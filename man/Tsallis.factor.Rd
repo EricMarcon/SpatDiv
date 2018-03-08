@@ -22,7 +22,7 @@
 A named number equal to the calculated entropy. The name is that of the bias correction used.
 }
 \description{
-Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a probability vector.
+Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a vector of individuals
 }
 \details{
 Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized entropy is a generalized measure of diversity (Jost, 2006).

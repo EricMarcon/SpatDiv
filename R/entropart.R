@@ -3,7 +3,7 @@
 
 #' Tsallis (HCDT) Entropy of a spatialized community
 #'
-#' Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a probability vector.
+#' Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a spatialized community.
 #'
 #' Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized entropy is a generalized measure of diversity (Jost, 2006).
 #' See \code{\link{Tsallis}} for more details.
@@ -31,7 +31,7 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 
 #' Tsallis (HCDT) Entropy of a vector of individuals
 #'
-#' Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a probability vector.
+#' Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a vector of individuals
 #'
 #' Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized entropy is a generalized measure of diversity (Jost, 2006).
 #' See \code{\link{Tsallis}} for more details.
@@ -56,7 +56,7 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 
 #' Tsallis (HCDT) Entropy of a vector of individuals
 #'
-#' Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a probability vector.
+#' Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a vector of individuals.
 #'
 #' Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized entropy is a generalized measure of diversity (Jost, 2006).
 #' See \code{\link{Tsallis}} for more details.
@@ -76,6 +76,7 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
   return(entropart::bcTsallis(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
 }
+
 
 
 #' HCDT diversity of a spatialized community
@@ -206,3 +207,72 @@ function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., Check
 }
 
 
+
+#' Shannon Entropy of a spatialized community
+#'
+#' Calculates the Shannon entropy of a probability vector.
+#'
+#'
+#' @param NorP An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.
+#' @param Correction A string containing one of the possible corrections: see \code{\link{Shannon}}.
+#' 
+#' @inheritParams Tsallis.wmppp
+#'
+#' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
+#'
+#' @importFrom entropart Shannon
+#' @method Shannon wmppp
+#' @export
+#'
+#' @examples #TODO
+Shannon.wmppp <-
+  function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
+  {
+    return(entropart::bcShannon(Ns=as.AbdVector(NorP), Correction=Correction, CheckArguments=CheckArguments))
+  }
+
+
+
+#' Shannon Entropy of a vector of individuals
+#'
+#' Calculates the Shannon entropy of a vector of individuals.
+#'
+#'
+#' @param NorP A vector of factors.
+#' @inheritParams Shannon.wmppp
+#'
+#' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
+#'
+#' @importFrom entropart Shannon
+#' @method Shannon factor
+#' @export
+#'
+#' @examples #TODO
+Shannon.factor <-
+  function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
+  {
+    return(entropart::bcShannon(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
+  }
+
+
+
+#' Tsallis (HCDT) Entropy of a vector of individuals
+#'
+#' Calculates the Shannon entropy of a vector of individuals.
+#'
+#'
+#' @param NorP A vector of characters.
+#' @inheritParams Shannon.wmppp
+#'
+#' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
+#'
+#' @importFrom entropart Shannon
+#' @method Shannon character
+#' @export
+#'
+#' @examples #TODO
+Shannon.character <-
+  function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
+  {
+    return(entropart::bcShannon(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
+  }
