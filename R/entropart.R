@@ -256,7 +256,7 @@ Shannon.factor <-
 
 
 
-#' Tsallis (HCDT) Entropy of a vector of individuals
+#' Shannon Entropy of a vector of individuals
 #'
 #' Calculates the Shannon entropy of a vector of individuals.
 #'
@@ -275,4 +275,75 @@ Shannon.character <-
   function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
   {
     return(entropart::bcShannon(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
+  }
+
+
+
+#' Simpson Entropy of a spatialized community
+#'
+#' Calculates the Simpson entropy of a probability vector.
+#'
+#'
+#' @param NorP An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.
+#' @param Correction A string containing one of the possible corrections: see \code{\link{Simpson}}.
+#' 
+#' @inheritParams Tsallis.wmppp
+#'
+#' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
+#'
+#' @importFrom entropart Simpson
+#' @method Simpson wmppp
+#' @export
+#'
+#' @examples #TODO
+Simpson.wmppp <-
+  function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
+  {
+    return(entropart::bcSimpson(Ns=as.AbdVector(NorP), Correction=Correction, CheckArguments=CheckArguments))
+  }
+
+
+
+#' Simpson Entropy of a vector of individuals
+#'
+#' Calculates the Simpson entropy of a vector of individuals.
+#'
+#'
+#' @param NorP A vector of factors.
+#' @inheritParams Simpson.wmppp
+#'
+#' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
+#'
+#' @importFrom entropart Simpson
+#' @method Simpson factor
+#' @export
+#'
+#' @examples #TODO
+Simpson.factor <-
+  function(NorP, q = 1, Correction = "Lande", ..., CheckArguments = TRUE)
+  {
+    return(entropart::bcSimpson(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
+  }
+
+
+
+#' Simpson Entropy of a vector of individuals
+#'
+#' Calculates the Simpson entropy of a vector of individuals.
+#'
+#'
+#' @param NorP A vector of characters.
+#' @inheritParams Simpson.wmppp
+#'
+#' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
+#'
+#' @importFrom entropart Simpson
+#' @method Simpson character
+#' @export
+#'
+#' @examples #TODO
+Simpson.character <-
+  function(NorP, q = 1, Correction = "Lande", ..., CheckArguments = TRUE)
+  {
+    return(entropart::bcSimpson(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
   }

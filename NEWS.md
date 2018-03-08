@@ -1,3 +1,9 @@
+# SpatDiv 0.3-2
+
+## New features
+
+* `Richness`, `Shannon` and `Simpson` methods.
+
 # SpatDiv 0.3-1
 
 ## New features
