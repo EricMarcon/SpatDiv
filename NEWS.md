@@ -1,8 +1,18 @@
+# SpatDiv 0.3-3
+
+## New features
+
+* `Paracou6` datasets.
+
+* Examples.
+
+
 # SpatDiv 0.3-2
 
 ## New features
 
 * `Richness`, `Shannon` and `Simpson` methods.
+
 
 # SpatDiv 0.3-1
 

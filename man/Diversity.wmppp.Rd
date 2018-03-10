@@ -25,5 +25,6 @@ A named number equal to the calculated diversity. The name is that of the bias c
 \code{Diversity} calls \code{\link{Tsallis}} to calculate entropy and transforms it into diversity by calculating its deformed exponential.
 }
 \examples{
-#TODO
+Diversity(Paracou6)
+
 }

@@ -23,5 +23,6 @@ A named number equal to the calculated entropy. The name is that of the bias cor
 Calculates the Shannon entropy of a probability vector.
 }
 \examples{
-#TODO
+Shannon(Paracou6)
+ 
 }

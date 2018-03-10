@@ -20,7 +20,9 @@
 #' @method Tsallis wmppp
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' Tsallis(Paracou6)
+#' 
 Tsallis.wmppp <-
 function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
@@ -45,11 +47,13 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #' @method Tsallis factor
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' Tsallis(Paracou6$marks$PointType)
+#' 
 Tsallis.factor <-
 function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcTsallis(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::bcTsallis(Ns=as.numeric(table(NorP)), q=q, Correction=Correction, CheckArguments=CheckArguments))
 }
 
 
@@ -70,11 +74,14 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #' @method Tsallis character
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' SpeciesList <- as.character(Paracou6$marks$PointType)
+#' Tsallis(SpeciesList)
+#' 
 Tsallis.character <-
 function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcTsallis(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::bcTsallis(Ns=as.numeric(table(NorP)), q=q, Correction=Correction, CheckArguments=CheckArguments))
 }
 
 
@@ -91,7 +98,9 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #' @method Diversity wmppp
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' Diversity(Paracou6)
+#' 
 Diversity.wmppp <-
 function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
@@ -112,11 +121,13 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #' @method Diversity factor
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' Diversity(Paracou6$marks$PointType)
+#' 
 Diversity.factor <-
 function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return (entropart::bcDiversity(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
+  return (entropart::bcDiversity(Ns=as.numeric(table(NorP)), q=q, Correction=Correction, CheckArguments=CheckArguments))
 }
 
 
@@ -133,7 +144,10 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #' @method Diversity character
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' SpeciesList <- as.character(Paracou6$marks$PointType)
+#' Diversity(SpeciesList)
+#' 
 Diversity.character <-
 function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
@@ -157,7 +171,9 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #' @method Richness wmppp
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' Richness(Paracou6, Correction="Jackknife")
+#' 
 Richness.wmppp <-
 function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., CheckArguments = TRUE)
 {
@@ -178,11 +194,13 @@ function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., Check
 #' @method Richness factor
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' Richness(Paracou6$marks$PointType, Correction="Jackknife")
+#' 
 Richness.factor <-
 function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., CheckArguments = TRUE)
 {
-  return (entropart::bcRichness(Ns=table(NorP), Correction=Correction, Alpha=Alpha, JackOver=JackOver, CheckArguments=CheckArguments))
+  return (entropart::bcRichness(Ns=as.numeric(table(NorP)), Correction=Correction, Alpha=Alpha, JackOver=JackOver, CheckArguments=CheckArguments))
 }
 
 
@@ -199,11 +217,14 @@ function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., Check
 #' @method Richness character
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' SpeciesList <- as.character(Paracou6$marks$PointType)
+#' Richness(SpeciesList, Correction="Jackknife")
+#' 
 Richness.character <-
 function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., CheckArguments = TRUE)
 {
-  return (entropart::bcRichness(Ns=table(NorP), Correction=Correction, Alpha=Alpha, JackOver=JackOver, CheckArguments=CheckArguments))
+  return (entropart::bcRichness(Ns=as.numeric(table(NorP)), Correction=Correction, Alpha=Alpha, JackOver=JackOver, CheckArguments=CheckArguments))
 }
 
 
@@ -224,7 +245,9 @@ function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., Check
 #' @method Shannon wmppp
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' Shannon(Paracou6)
+#'  
 Shannon.wmppp <-
 function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 {
@@ -247,11 +270,13 @@ function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 #' @method Shannon factor
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' Shannon(Paracou6$marks$PointType)
+#' 
 Shannon.factor <-
 function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcShannon(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::bcShannon(Ns=as.numeric(table(NorP)), Correction=Correction, CheckArguments=CheckArguments))
 }
 
 
@@ -270,11 +295,14 @@ function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 #' @method Shannon character
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' SpeciesList <- as.character(Paracou6$marks$PointType)
+#' Shannon(SpeciesList)
+#' 
 Shannon.character <-
 function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcShannon(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::bcShannon(Ns=as.numeric(table(NorP)), Correction=Correction, CheckArguments=CheckArguments))
 }
 
 
@@ -295,7 +323,9 @@ function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 #' @method Simpson wmppp
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' Simpson(Paracou6)
+#' 
 Simpson.wmppp <-
 function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
 {
@@ -318,11 +348,13 @@ function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
 #' @method Simpson factor
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' Simpson(Paracou6$marks$PointType)
+#' 
 Simpson.factor <-
 function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcSimpson(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::bcSimpson(Ns=as.numeric(table(NorP)), Correction=Correction, CheckArguments=CheckArguments))
 }
 
 
@@ -341,9 +373,12 @@ function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
 #' @method Simpson character
 #' @export
 #'
-#' @examples #TODO
+#' @examples
+#' SpeciesList <- as.character(Paracou6$marks$PointType)
+#' Simpson(SpeciesList)
+#' 
 Simpson.character <-
 function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcSimpson(Ns=table(NorP), Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::bcSimpson(Ns=as.numeric(table(NorP)), Correction=Correction, CheckArguments=CheckArguments))
 }

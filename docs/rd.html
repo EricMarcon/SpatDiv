@@ -6,7 +6,7 @@
 
   
   
-  <title>SpatDiv Documentation</title>
+  <title>SpatDiv</title>
 
     <script src="rd_files/jquery-1.11.3/jquery.min.js"></script>
   <link href="rd_files/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet" />
@@ -45,7 +45,7 @@
           <span class="icon-bar"></span>
         </button>
                 <a href="index.html" class="navbar-brand page-scroll">
-        SpatDiv Documentation - Spatially Explicit Measures of Diversity
+        SpatDiv - Spatially Explicit Measures of Diversity
         </a>
       </div>
             <nav class="collapse navbar-collapse" role="navigation">
@@ -57,7 +57,7 @@
 <a href='rd.html'>Package Ref</a>
 </li>
 <li>
-<a href='https://github.com/ericmarcon/SpatDiv'>Github <i class='fa fa-github'></i></a>
+<a href='https://github.com/ericmarcon/SpatDiv'>Github<i class='fa fa-github'></i></a>
 </li>
         </ul>
       </nav>
@@ -110,7 +110,7 @@ Spatially Explicit Measures of Diversity
 <strong>Authors:</strong> <a href="mailto:eric.marcon@ecofog.gf">Eric Marcon</a> [aut, cre]
 </p>
 <p>
-<strong>Version:</strong> 0.3-0
+<strong>Version:</strong> 0.3-2
 </p>
 <p>
 <strong>License:</strong> GNU General Public License
@@ -125,13 +125,13 @@ Measures of diversity of spatialized communities, that can be considered as gene
 Depends
 </h4>
 <p>
-R (&gt;= 3.3.0), entropart, Rcpp (&gt;= 0.12.14)
+R (&gt;= 3.3.0), Rcpp (&gt;= 0.12.14), entropart, ggplot2
 </p>
 <h4>
 Imports
 </h4>
 <p>
-automap, dbmss, iNEXT, parallel, RcppParallel, sp, spatstat
+automap, dbmss, graphics, iNEXT, parallel, RcppParallel, sp, spatstat, stats, utils
 </p>
 <h4>
 Suggests
@@ -349,6 +349,11 @@ accum &lt;- EntAccum(spCommunity, q.seq=1)</code></pre>
 <pre><code>## ===========================================================================</code></pre>
 <pre class="r"><code>plot(accum, q=1)</code></pre>
 <p><img src="rd_files/figure-html/EntAccum_id_3-1.png" width="624" /></p>
+<pre class="r"><code># along distance
+accumR &lt;- EntAccum(spCommunity, q.seq=1, r.seq=seq(0, .5, .05))</code></pre>
+<pre><code>## ===========================================================================</code></pre>
+<pre class="r"><code>plot(accumR, q=1)</code></pre>
+<p><img src="rd_files/figure-html/EntAccum_id_3-2.png" width="624" /></p>
 </div>
 <div id="mixing" class="section level2">
 <h2>Mixing</h2>
@@ -551,7 +556,13 @@ The color of the borders of the confidence envelope.
 <h4>
 Examples
 </h4>
-<pre class="r"><code>#TODO</code></pre>
+<pre class="r"><code># Generate a random community
+spCommunity &lt;- rSpCommunity(1, size=50, S=3)
+# Calculate mixing indices of order 0 and 1
+accum &lt;- Mixing(spCommunity, q.seq=c(0,1))</code></pre>
+<pre><code>## ======================================================================================================================================================</code></pre>
+<pre class="r"><code>plot(accum, q=0)</code></pre>
+<p><img src="rd_files/figure-html/plot.Accumulation_id_5-1.png" width="624" /></p>
 </div>
 </div>
 <div id="maps" class="section level1">
@@ -869,7 +880,7 @@ Details
 Tsallis (HCDT) Entropy of a vector of individuals
 </h3>
 <p class="rd-p">
-Calculates the HCDT, also known as Tsallis entropy of order <span class="math inline"><em>q</em></span> of a probability vector.
+Calculates the HCDT, also known as Tsallis entropy of order <span class="math inline"><em>q</em></span> of a vector of individuals.
 </p>
 <h4>
 Usage
@@ -927,7 +938,10 @@ Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized ent
 <h4>
 Examples
 </h4>
-<pre class="r"><code>#TODO</code></pre>
+<pre class="r"><code>SpeciesList &lt;- as.character(Paracou6$marks$PointType)
+Tsallis(SpeciesList)</code></pre>
+<pre><code>## ChaoWangJost 
+##     4.678361</code></pre>
 </div>
 <div id="tsallis.factor" class="section level2">
 <h2>Tsallis.factor</h2>
@@ -936,7 +950,7 @@ Examples
 Tsallis (HCDT) Entropy of a vector of individuals
 </h3>
 <p class="rd-p">
-Calculates the HCDT, also known as Tsallis entropy of order <span class="math inline"><em>q</em></span> of a probability vector.
+Calculates the HCDT, also known as Tsallis entropy of order <span class="math inline"><em>q</em></span> of a vector of individuals
 </p>
 <h4>
 Usage
@@ -994,7 +1008,9 @@ Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized ent
 <h4>
 Examples
 </h4>
-<pre class="r"><code>#TODO</code></pre>
+<pre class="r"><code>Tsallis(Paracou6$marks$PointType)</code></pre>
+<pre><code>## ChaoWangJost 
+##     4.678361</code></pre>
 </div>
 <div id="tsallis.wmppp" class="section level2">
 <h2>Tsallis.wmppp</h2>
@@ -1003,7 +1019,7 @@ Examples
 Tsallis (HCDT) Entropy of a spatialized community
 </h3>
 <p class="rd-p">
-Calculates the HCDT, also known as Tsallis entropy of order <span class="math inline"><em>q</em></span> of a probability vector.
+Calculates the HCDT, also known as Tsallis entropy of order <span class="math inline"><em>q</em></span> of a spatialized community.
 </p>
 <h4>
 Usage
@@ -1061,7 +1077,9 @@ Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized ent
 <h4>
 Examples
 </h4>
-<pre class="r"><code>#TODO</code></pre>
+<pre class="r"><code>Tsallis(Paracou6)</code></pre>
+<pre><code>## ChaoWangJost 
+##     4.678361</code></pre>
 </div>
 <div id="diversity.character" class="section level2">
 <h2>Diversity.character</h2>
@@ -1122,7 +1140,10 @@ A named number equal to the calculated diversity. The name is that of the bias c
 <h4>
 Examples
 </h4>
-<pre class="r"><code>#TODO</code></pre>
+<pre class="r"><code>SpeciesList &lt;- as.character(Paracou6$marks$PointType)
+Diversity(SpeciesList)</code></pre>
+<pre><code>## ChaoWangJost 
+##     107.5936</code></pre>
 </div>
 <div id="diversity.factor" class="section level2">
 <h2>Diversity.factor</h2>
@@ -1183,7 +1204,9 @@ A named number equal to the calculated diversity. The name is that of the bias c
 <h4>
 Examples
 </h4>
-<pre class="r"><code>#TODO</code></pre>
+<pre class="r"><code>Diversity(Paracou6$marks$PointType)</code></pre>
+<pre><code>## ChaoWangJost 
+##     107.5936</code></pre>
 </div>
 <div id="diversity.wmppp" class="section level2">
 <h2>Diversity.wmppp</h2>
@@ -1244,7 +1267,9 @@ A named number equal to the calculated diversity. The name is that of the bias c
 <h4>
 Examples
 </h4>
-<pre class="r"><code>#TODO</code></pre>
+<pre class="r"><code>Diversity(Paracou6)</code></pre>
+<pre><code>## ChaoWangJost 
+##     107.5936</code></pre>
 </div>
 </div>
 <div id="utilities" class="section level1">

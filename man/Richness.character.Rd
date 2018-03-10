@@ -27,5 +27,7 @@ A named number equal to the calculated diversity. The name is that of the bias c
 \code{Richness} is the number of species.
 }
 \examples{
-#TODO
+SpeciesList <- as.character(Paracou6$marks$PointType)
+Richness(SpeciesList, Correction="Jackknife")
+
 }
