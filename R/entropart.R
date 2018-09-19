@@ -151,7 +151,7 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 Diversity.character <-
 function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return (entropart::bcDiversity(Ns=table(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
+  return (entropart::bcDiversity(Ns=as.numeric(table(NorP)), q=q, Correction=Correction, CheckArguments=CheckArguments))
 }
 
 
