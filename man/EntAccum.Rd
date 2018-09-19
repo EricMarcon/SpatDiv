@@ -4,9 +4,10 @@
 \alias{EntAccum}
 \title{Entropy Accumulation}
 \usage{
-EntAccum(spCommunity, q.seq = seq(0, 2, by = 0.1), divCorrection = "None",
-  n.seq = 1:ceiling(spCommunity$n/2), r.seq = NULL, spCorrection = "None",
-  Individual = FALSE, ShowProgressBar = TRUE, CheckArguments = TRUE)
+EntAccum(spCommunity, q.seq = seq(0, 2, by = 0.1),
+  divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2),
+  r.seq = NULL, spCorrection = "None", Individual = FALSE,
+  ShowProgressBar = TRUE, CheckArguments = TRUE)
 }
 \arguments{
 \item{spCommunity}{A spatialized community (An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.)}

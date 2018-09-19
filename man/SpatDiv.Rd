@@ -8,3 +8,10 @@
 \description{
 Spatially Explicit Measures of Diversity
 }
+\details{
+This package extends the \emph{entropart} package \insertCite{Marcon2014c}{SpatDiv}.
+It provides spatially explicit measures of diversity such as the mixing index.
+}
+\references{
+\insertAllCited{}
+}

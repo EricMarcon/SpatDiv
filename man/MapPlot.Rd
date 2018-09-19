@@ -7,10 +7,11 @@
 \usage{
 MapPlot(x, ...)
 
-\method{MapPlot}{Accumulation}(x, Order, NeighborHood, AllowJitter = TRUE,
-  Nbx = 128, Nby = 128, Contour = TRUE,
-  Palette = grDevices::topo.colors(128, alpha = 1), Contournlevels = 10,
-  Contourcol = "dark red", ..., CheckArguments = TRUE)
+\method{MapPlot}{Accumulation}(x, Order, NeighborHood,
+  AllowJitter = TRUE, Nbx = 128, Nby = 128, Contour = TRUE,
+  Palette = grDevices::topo.colors(128, alpha = 1),
+  Contournlevels = 10, Contourcol = "dark red", ...,
+  CheckArguments = TRUE)
 }
 \arguments{
 \item{x}{An object to map.}
