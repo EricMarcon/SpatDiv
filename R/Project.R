@@ -1,12 +1,18 @@
 #' SpatDiv
 #'
 #' Spatially Explicit Measures of Diversity
+#' 
+#' This package extends the \emph{entropart} package \insertCite{Marcon2014c}{SpatDiv}.
+#' It provides spatially explicit measures of diversity such as the mixing index.
 #'
 #' @name SpatDiv
 #' @docType package
 #' @import Rcpp
 #' @importFrom RcppParallel RcppParallelLibs
+#' @importFrom Rdpack reprompt
 #' @useDynLib SpatDiv, .registration = TRUE
+#' @references
+#' \insertAllCited{}
 NULL
 
 #' Paracou plot 6
