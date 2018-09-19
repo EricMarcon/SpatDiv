@@ -3,7 +3,8 @@ Type: Package
 Title: Spatially Explicit Measures of Diversity
 Version: 0.3-3
 Authors@R: c(
-  person("Eric", "Marcon", email="eric.marcon@ecofog.gf", role=c("aut", "cre"))
+  person("Eric", "Marcon", email="eric.marcon@ecofog.gf", role=c("aut", "cre")),
+  person("Alain", "Rousteau", email="alain.rousteau@univ-antillles.fr", role=c("aut"))
   )
 Description: Measures of diversity of spatialized communities, that can be considered as generalizations of Species Accumulation Curves.
 License: GNU General Public License
