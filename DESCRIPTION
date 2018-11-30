@@ -7,6 +7,8 @@ Authors@R: c(
   person("Alain", "Rousteau", email="alain.rousteau@univ-antillles.fr", role=c("aut"))
   )
 Description: Measures of diversity of spatialized communities, that can be considered as generalizations of Species Accumulation Curves.
+URL: https://github.com/EricMarcon/SpatDiv
+BugReports: https://github.com/EricMarcon/SpatDiv/issues
 License: GNU General Public License
 Encoding: UTF-8
 LazyData: true
