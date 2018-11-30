@@ -1,0 +1,40 @@
+url: https://ericmarcon.github.io/SpatDiv/
+
+development:
+  mode: auto
+
+reference:
+  - title: Package summary
+    contents:
+    - starts_with("SpatDiv")
+  - title: Data
+    contents:
+    - Paracou6
+    - rSpCommunity
+  - title: Diversity Accumulation
+    contents:
+    - DivAccum
+    - EntAccum
+    - Mixing
+    - ends_with("Accumulation")
+  - title: Maps
+    contents:
+    - starts_with("MapPlot")
+  - title: Entropy and Diversity
+    desc: Methods to calculate diversity extending package _entropart_.
+    contents:
+    - starts_with("Tsallis")
+    - starts_with("Diversity")
+    - starts_with("Richness")
+    - starts_with("Shannon")
+    - starts_with("Simpson")
+  - title: Species Distributions
+    desc: Utilities to build `SpeciesDistributions` objects extending package _entropart_.
+    contents:
+    - SpeciesDistributions
+    - starts_with("as.SpeciesDistribution")
+    - starts_with("as.ProbaVector")
+    - starts_with("as.AbdVector")
+  - title: Utilities
+    contents:
+    - parallelCountNbd

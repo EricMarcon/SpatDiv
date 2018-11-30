@@ -2,8 +2,14 @@
 
 ## New features
 
-* `Paracou6` datasets.
+* Vignettes by _pkgdown_.
 
+
+# SpatDiv 0.3-3
+
+## New features
+
+* `Paracou6` datasets.
 * Examples.
 
 
@@ -37,18 +43,9 @@
 ## New features
 
 * `MapPlot()` to make maps.
-
 * CI by Travis.
-
-
-# SpatDiv 0.1-2
-
-## New features
-
 * `Mixing()` calculates the mixing index
-
 * `plot.Accumumation()` replaces `plot.DivAccum()` to allow printing `EntAccum`, `DivAccum` and `Mixing`objects.
-
 * accumulation by distance (sample area) works. No edge-effect correction yet. Null hypothesis is "RandomLocation".
 
 

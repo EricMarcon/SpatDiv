@@ -1,3 +1,5 @@
+^Meta$
+^doc$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\_sgbak$
@@ -13,3 +15,7 @@ vignettes/Introduction_cache/
 vignettes/Introduction_files/
 docs/
 ^_gh-pages$
+^pkgdown$
+vignettes/articles/
+vignettes/SpatDiv_cache/
+vignettes/SpatDiv_files/
