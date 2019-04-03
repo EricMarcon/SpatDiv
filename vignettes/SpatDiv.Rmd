@@ -61,6 +61,11 @@ plot(mixing, q = 1)
 The same accumulation cuves can be computed by increasing the sample area around each point.
 The argument \code{r.seq} contains the vector of radii of those circular plots.
 
+```{r plotDivAccum2, fig.width=6}
+divAccum <- DivAccum(spCommunity, r.seq = seq(0, .5, by=.1), q.seq=0:2, spCorrection = "Extrapolation", H0="Binomial")
+plot(divAccum, q = 1)
+```
+
 
 ### Null hypotheses
 
