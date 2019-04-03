@@ -41,7 +41,8 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
     nNeighbors <- cbind(Reference=1:spCommunity$n, nNeighbors)
 
     # Prepare a progress bar and the result arrays
-    if (ShowProgressBar) ProgressBar <- utils::txtProgressBar(min=0, max=length(n.seq))
+    if (ShowProgressBar) 
+      ProgressBar <- utils::txtProgressBar(min=0, max=length(n.seq))
     qEntropies <- array(0.0, dim=c(length(q.seq), 1+length(n.seq), 1), dimnames = list(q=q.seq, n=c(1, 1+n.seq), Values="Observed"))
     # Individual values
     if (Individual) 
@@ -56,9 +57,11 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       # Calculate entropy of each neighborhood and all q values
       qNbEntropies <-  apply(NeighborCommunities, 2, function(Community) sapply(q.seq, function(q) Tsallis(Community, q=q, Correction=divCorrection)))
       # Keep individual neighborhood values
-      if (Individual) qNeighborhoodEntropies[, k+1, ] <- qNbEntropies
+      if (Individual) 
+        qNeighborhoodEntropies[, k+1, ] <- qNbEntropies
       # Mean entropy. If qNbEntropies is a vector (i.e. a single value of q is provided), transpose it to get a 1-row matrix.
-      if (is.null(dim(qNbEntropies))) qNbEntropies <- t(qNbEntropies)
+      if (is.null(dim(qNbEntropies))) 
+        qNbEntropies <- t(qNbEntropies)
       qEntropies[, k+1, 1] <- apply(t(t(qNbEntropies)), 1, mean)
       if (ShowProgressBar) utils::setTxtProgressBar(ProgressBar, k)
     }
@@ -79,32 +82,56 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
     dim(rNeighbors) <- c(spCommunity$n, length(r.seq), NbSpecies)
 
     # Prepare a progress bar and the result arrays
-    if (ShowProgressBar) ProgressBar <- utils::txtProgressBar(min=1, max=length(r.seq))
+    if (ShowProgressBar) 
+      ProgressBar <- utils::txtProgressBar(min=1, max=length(r.seq))
     qEntropies <- array(0.0, dim=c(length(q.seq), length(r.seq), 1), dimnames = list(q=q.seq, r=r.seq, Values="Observed"))
     # Individual values
     if (Individual) 
       qNeighborhoodEntropies <- array(0.0, dim=c(length(q.seq), length(r.seq), spCommunity$n), dimnames = list(q=q.seq, r=r.seq, Point=row.names(spCommunity$marks)))
     else
       qNeighborhoodEntropies <- NA
-    
+
     # At each distance, calculate the entropy of all points' neighborhood for each q
-    for (k in 2:length(r.seq)) {
-      # Neighbor communities: 1 community per column
-      NeighborCommunities <- sapply(1:NbSpecies, function(i) rowSums(rNeighbors[, 1:k, i]))
+    for (r in 2:length(r.seq)) {
+      # Neighbor communities of each point at distance r: 1 community per column
+      NeighborCommunities <- sapply(1:NbSpecies, function(i) rowSums(rNeighbors[, 1:r, i]))
       # Calculate entropy of each community and all q values
       if (spCorrection == "None") {
         # No edge-effect correction
-        qNbEntropies <-  apply(NeighborCommunities, 1, function(Community) sapply(q.seq, function(q) Tsallis(Community, q=q, Correction=divCorrection)))
+        qNbEntropies <-  apply(NeighborCommunities, 1, function(Community) vapply(q.seq, function(q) Tsallis(Community, q=q, Correction=divCorrection), 0.0))
       } else {
-        # TODO
+         if (spCorrection == "Extrapolation") {
+           # Number of neighbors of each point
+           nNeighbors <- rowSums(NeighborCommunities)
+           # Edge effects
+           Extrapolation <- integer(spCommunity$n)
+           for (i in 1:spCommunity$n) {
+             # Intersection between the point's neighborhood and the window
+             Intersection <- spatstat::area(spatstat::intersect.owin(spCommunity$window, spatstat::disc(radius=r.seq[r], centre=c(spCommunity$x[i], spCommunity$y[i]))))
+             # Extrapolation ratio is that of the whole disc to the part of the disc inside the window
+             Extrapolation[i] <- as.integer(nNeighbors[i] * pi * r.seq[r]^2 /Intersection)
+           }
+           # Prepare an array to store the results
+           qNbEntropies <- array(0.0, dim=c(length(q.seq), nrow(NeighborCommunities)))
+           for (Community in 1:nrow(NeighborCommunities)) {
+             for (q in 1:length(q.seq)) {
+               # Suppress the warnings for Coverage=0 every time neighbors are singletons only.
+               suppressWarnings(qNbEntropies[q, Community] <- entropart:::Tsallis.numeric(NeighborCommunities[Community, ], q=q.seq[q], Level=Extrapolation[Community]))
+             }
+           }
+         } else {
+           stop("The edge-effect correction argument spCorrection has not been recognized.")
+         }
       }
       # Keep individual neighborhood values
-      if (Individual) qNeighborhoodEntropies[, k, ] <- qNbEntropies
+      if (Individual) 
+        qNeighborhoodEntropies[, r, ] <- qNbEntropies
       # Mean entropy. If qNbEntropies is a vector (i.e. a single value of q is provided), transpose it to get a 1-row matrix.
-      if (is.null(dim(qNbEntropies))) qNbEntropies <- t(qNbEntropies)
-      qEntropies[, k, 1] <- apply(t(t(qNbEntropies)), 1, mean)
+      if (is.null(dim(qNbEntropies))) 
+        qNbEntropies <- t(qNbEntropies)
+      qEntropies[, r, 1] <- apply(t(t(qNbEntropies)), 1, mean)
       
-      if (ShowProgressBar) utils::setTxtProgressBar(ProgressBar, k)
+      if (ShowProgressBar) utils::setTxtProgressBar(ProgressBar, r)
     }
     # Entropy at r=0 is 0. This is the default value of the arrays so don't run.
     #  qEntropies[, 1, 1] <- 0
@@ -392,6 +419,9 @@ function(object, ..., q = 0,
   }
   return(thePlot)
 }
+
+
+
 # Helper to prepare parameters for plot and autoplot. Internal, not documented.
 AccumulationPlothelper <- 
 function(x, q, main, xlab, ylab, ylim)
