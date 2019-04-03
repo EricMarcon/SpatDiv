@@ -203,7 +203,7 @@ function() {
     }
   }
 
-    # S
+  # S
   if (!is.na(names(Args["S"]))) {
     S <- eval(expression(S), parent.frame())
     if (!is.numeric(S) | length(S)!=1)
