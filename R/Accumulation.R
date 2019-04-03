@@ -41,8 +41,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
     nNeighbors <- cbind(Reference=1:spCommunity$n, nNeighbors)
 
     # Prepare a progress bar and the result arrays
-    if (ShowProgressBar) 
-      ProgressBar <- utils::txtProgressBar(min=0, max=length(n.seq))
+    ProgressBar <- utils::txtProgressBar(min=0, max=length(n.seq))
     qEntropies <- array(0.0, dim=c(length(q.seq), 1+length(n.seq), 1), dimnames = list(q=q.seq, n=c(1, 1+n.seq), Values="Observed"))
     # Individual values
     if (Individual) 
@@ -63,8 +62,10 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       if (is.null(dim(qNbEntropies))) 
         qNbEntropies <- t(qNbEntropies)
       qEntropies[, k+1, 1] <- apply(t(t(qNbEntropies)), 1, mean)
-      if (ShowProgressBar) utils::setTxtProgressBar(ProgressBar, k)
+      if (ShowProgressBar & interactive()) 
+        utils::setTxtProgressBar(ProgressBar, k)
     }
+    close(ProgressBar)
     # Entropy of a single individual is 0. This is the default value of the arrays so don't run.
     #  qEntropies[, 1, 1] <- 0
     #  if (Individual) qNeighborhoodEntropies[, 1, ] <- 0
@@ -82,8 +83,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
     dim(rNeighbors) <- c(spCommunity$n, length(r.seq), NbSpecies)
 
     # Prepare a progress bar and the result arrays
-    if (ShowProgressBar) 
-      ProgressBar <- utils::txtProgressBar(min=1, max=length(r.seq))
+    ProgressBar <- utils::txtProgressBar(min=1, max=length(r.seq))
     qEntropies <- array(0.0, dim=c(length(q.seq), length(r.seq), 1), dimnames = list(q=q.seq, r=r.seq, Values="Observed"))
     # Individual values
     if (Individual) 
@@ -130,9 +130,10 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       if (is.null(dim(qNbEntropies))) 
         qNbEntropies <- t(qNbEntropies)
       qEntropies[, r, 1] <- apply(t(t(qNbEntropies)), 1, mean)
-      
-      if (ShowProgressBar) utils::setTxtProgressBar(ProgressBar, r)
+      if (ShowProgressBar & interactive()) 
+        utils::setTxtProgressBar(ProgressBar, r)
     }
+    close(ProgressBar)
     # Entropy at r=0 is 0. This is the default value of the arrays so don't run.
     #  qEntropies[, 1, 1] <- 0
     #  if (Individual) qNeighborhoodEntropies[, 1, ] <- 0
@@ -231,7 +232,8 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       divAccum$Accumulation[i, , 2] <- H0Values$qD
       divAccum$Accumulation[i, , 3] <- H0Values$qD.LCL
       divAccum$Accumulation[i, , 4] <- H0Values$qD.UCL
-      if (ShowProgressBar) utils::setTxtProgressBar(ProgressBar, i)
+      if (ShowProgressBar & interactive())
+        utils::setTxtProgressBar(ProgressBar, i)
     }
   }
   if (H0 == "RandomLocation" | H0 == "Binomial") {
@@ -247,7 +249,8 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       if (H0 == "Binomial") H0spCommunity <- dbmss::rRandomPositionK(spCommunity, CheckArguments=FALSE)
       # Calculate its accumulated diversity
       H0qDiversities[, , i] <- DivAccum(H0spCommunity, q.seq=q.seq, divCorrection=divCorrection, n.seq=n.seq, r.seq=r.seq, spCorrection=spCorrection, H0="None", Individual=FALSE, ShowProgressBar=FALSE, CheckArguments=FALSE)$Accumulation[, , 1]
-      if (ShowProgressBar) utils::setTxtProgressBar(ProgressBar, i)
+      if (ShowProgressBar & interactive())
+        utils::setTxtProgressBar(ProgressBar, i)
     }
     # Calculate quantiles
     for (q in 1:length(q.seq)) {
