@@ -33,7 +33,7 @@ plot(spCommunity, which.marks = "PointType")
 Plot a rank-abundance curve.
 
 ```{r Whittaker}
-plot(as.AbdVector(spCommunity))
+autoplot(as.AbdVector(spCommunity))
 ```
 
 ## Diversity accumulation
@@ -45,7 +45,7 @@ Plot it for Shannon diversity.
 
 ```{r plotDivAccum, fig.width=6}
 divAccum <- DivAccum(spCommunity, n.seq = 1:50, q.seq=0:2, H0="Multinomial")
-plot(divAccum, q = 1)
+autoplot(divAccum, q = 1)
 ```
 
 Compute and plot the mixing index of any order.
@@ -53,7 +53,7 @@ Save the local values for future use.
 
 ```{r Mixing, fig.width=6}
 mixing <- Mixing(spCommunity, n.seq = 1:50, q.seq=0:2, H0="Multinomial", Individual = TRUE)
-plot(mixing, q = 1)
+autoplot(mixing, q = 1)
 ```
 
 ### With respect to distance
@@ -63,7 +63,7 @@ The argument \code{r.seq} contains the vector of radii of those circular plots.
 
 ```{r plotDivAccum2, fig.width=6}
 divAccum <- DivAccum(spCommunity, r.seq = seq(0, .5, by=.1), q.seq=0:2, spCorrection = "Extrapolation", H0="Binomial")
-plot(divAccum, q = 1)
+autoplot(divAccum, q = 1)
 ```
 
 

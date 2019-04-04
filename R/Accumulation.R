@@ -98,7 +98,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       # Calculate entropy of each community and all q values
       if (spCorrection == "None") {
         # No edge-effect correction
-        qNbEntropies <-  apply(NeighborCommunities, 1, function(Community) vapply(q.seq, function(q) Tsallis(Community, q=q, Correction=divCorrection), 0.0))
+        qNbEntropies <-  apply(NeighborCommunities, 1, function(Community) vapply(q.seq, function(q) entropart::bcTsallis(Community, q=q, Correction=divCorrection, CheckArguments=FALSE), 0.0))
       } else {
          if (spCorrection == "Extrapolation") {
            # Number of neighbors of each point
@@ -116,7 +116,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
            for (Community in 1:nrow(NeighborCommunities)) {
              for (q in 1:length(q.seq)) {
                # Suppress the warnings for Coverage=0 every time neighbors are singletons only.
-               suppressWarnings(qNbEntropies[q, Community] <- entropart:::Tsallis.numeric(NeighborCommunities[Community, ], q=q.seq[q], Level=Extrapolation[Community]))
+               suppressWarnings(qNbEntropies[q, Community] <- entropart:::Tsallis.numeric(NeighborCommunities[Community, ], q=q.seq[q], Level=Extrapolation[Community], CheckArguments=FALSE))
              }
            }
          } else {
@@ -222,7 +222,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
     if (!is.null(r.seq)) stop("The 'Multinomial' null hypothesis only applies to accumulation by number of neighbors.")
     H0found <- TRUE
     # Prepare a progress bar 
-    if (ShowProgressBar) ProgressBar <- utils::txtProgressBar(min=0, max=length(q.seq))
+    ProgressBar <- utils::txtProgressBar(min=0, max=length(q.seq))
     # Prepare the distribution of the abundances of species.
     Ns <- as.numeric(table(spCommunity$marks$PointType))
     for (i in 1:length(q.seq)) {
@@ -235,11 +235,12 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       if (ShowProgressBar & interactive())
         utils::setTxtProgressBar(ProgressBar, i)
     }
+    close(ProgressBar)
   }
   if (H0 == "RandomLocation" | H0 == "Binomial") {
     H0found <- TRUE
     # Prepare a progress bar 
-    if (ShowProgressBar) ProgressBar <- utils::txtProgressBar(min=0, max=Simulations)
+    ProgressBar <- utils::txtProgressBar(min=0, max=Simulations)
     # Prepare a 3-D array to store results. Rows are q, columns are r or n, z-values are for each simulation.
     H0qDiversities <- array(0.0, dim=c(length(q.seq), nCols, Simulations))
     # Simulate communities according to H0
@@ -252,6 +253,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       if (ShowProgressBar & interactive())
         utils::setTxtProgressBar(ProgressBar, i)
     }
+    close(ProgressBar)
     # Calculate quantiles
     for (q in 1:length(q.seq)) {
       for (r in 1:length(r.seq)) {

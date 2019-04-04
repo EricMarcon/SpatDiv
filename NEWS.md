@@ -1,14 +1,15 @@
+# SpatDiv 0.4-0
+
+## New features
+
+* Diversity accumulation with respect to distance, with edge-effect corrections.
+
+
 # SpatDiv 0.3-3
 
 ## New features
 
 * Vignettes by _pkgdown_.
-
-
-# SpatDiv 0.3-3
-
-## New features
-
 * `Paracou6` datasets.
 * Examples.
 
