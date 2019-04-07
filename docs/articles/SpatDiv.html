@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SpatDiv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -118,11 +118,11 @@ remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocument
 <h3 class="hasAnchor">
 <a href="#with-respect-to-the-number-of-indiduals" class="anchor"></a>With respect to the number of indiduals</h3>
 <p>Compute the Diversity Accumulation Curve for 1 to 50 neighbors for orders 0, 1 and 2, with the theoretical, null-model curve. Plot it for Shannon diversity.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">divAccum &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DivAccum.html">DivAccum</a></span>(spCommunity, <span class="dt">n.seq =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>, <span class="dt">q.seq=</span><span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">H0=</span><span class="st">"Multinomial"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">divAccum &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DivAccum.html">DivAccum</a></span>(spCommunity, <span class="dt">n.seq=</span><span class="dv">1</span><span class="op">:</span><span class="dv">50</span>, <span class="dt">q.seq=</span><span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">H0=</span><span class="st">"Multinomial"</span>, <span class="dt">NumberOfSimulations=</span><span class="dv">1000</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(divAccum, <span class="dt">q =</span> <span class="dv">1</span>)</code></pre></div>
 <p><img src="SpatDiv_files/figure-html/plotDivAccum-1.png" width="576"></p>
 <p>Compute and plot the mixing index of any order. Save the local values for future use.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mixing &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Mixing.html">Mixing</a></span>(spCommunity, <span class="dt">n.seq =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>, <span class="dt">q.seq=</span><span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">H0=</span><span class="st">"Multinomial"</span>, <span class="dt">Individual =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mixing &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Mixing.html">Mixing</a></span>(spCommunity, <span class="dt">n.seq=</span><span class="dv">1</span><span class="op">:</span><span class="dv">50</span>, <span class="dt">q.seq=</span><span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">H0=</span><span class="st">"Multinomial"</span>, <span class="dt">NumberOfSimulations=</span><span class="dv">1000</span>, <span class="dt">Individual=</span><span class="ot">TRUE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(mixing, <span class="dt">q =</span> <span class="dv">1</span>)</code></pre></div>
 <p><img src="SpatDiv_files/figure-html/Mixing-1.png" width="576"></p>
 </div>
@@ -140,7 +140,7 @@ remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocument
 <p>The actual accumulation curves of diversity and mixing index can be compared to null models with their confidence intervals. Values of the argument  can be:</p>
 <ul>
 <li><p>“None”: No null model is run.</p></li>
-<li><p>“Multinomial”: The accumulation follows a multinomial sampling, with respect to the number of individuals only. The theoretical value and confidence envelope are calculated by the <em>iNEXT</em> package.</p></li>
+<li><p>“Multinomial”: The accumulation follows a multinomial sampling, with respect to the number of individuals only. The theoretical value and confidence envelope are calculated by the <em>entropart</em> package.</p></li>
 <li><p>“Binomial”: The individuals are relocated in the window uniformly and independently.</p></li>
 <li><p>“RandomLocation”: The individuals are relocated accross their actual locations.</p></li>
 </ul>

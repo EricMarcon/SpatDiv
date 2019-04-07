@@ -24,7 +24,7 @@ remotes::install_github("EricMarcon/SpatDiv")
 
 Create a random, spatialized community with 100 individuals of 10 species.
 
-```{r rSpCommunity}
+```{r rSpCommunity, message=FALSE}
 library("SpatDiv")
 rSpCommunity(n=1, size=100, S=10) -> spCommunity
 plot(spCommunity, which.marks = "PointType")
@@ -44,7 +44,7 @@ Compute the Diversity Accumulation Curve for 1 to 50 neighbors for orders 0, 1 a
 Plot it for Shannon diversity.
 
 ```{r plotDivAccum, fig.width=6}
-divAccum <- DivAccum(spCommunity, n.seq = 1:50, q.seq=0:2, H0="Multinomial")
+divAccum <- DivAccum(spCommunity, n.seq=1:50, q.seq=0:2, H0="Multinomial", NumberOfSimulations=1000)
 autoplot(divAccum, q = 1)
 ```
 
@@ -52,7 +52,7 @@ Compute and plot the mixing index of any order.
 Save the local values for future use.
 
 ```{r Mixing, fig.width=6}
-mixing <- Mixing(spCommunity, n.seq = 1:50, q.seq=0:2, H0="Multinomial", Individual = TRUE)
+mixing <- Mixing(spCommunity, n.seq=1:50, q.seq=0:2, H0="Multinomial", NumberOfSimulations=1000, Individual=TRUE)
 autoplot(mixing, q = 1)
 ```
 
@@ -74,7 +74,7 @@ Values of the argument \code{H0} can be:
 
 - "None": No null model is run.
 
-- "Multinomial": The accumulation follows a multinomial sampling, with respect to the number of individuals only. The theoretical value and confidence envelope are calculated by the _iNEXT_ package.
+- "Multinomial": The accumulation follows a multinomial sampling, with respect to the number of individuals only. The theoretical value and confidence envelope are calculated by the _entropart_ package.
 
 - "Binomial": The individuals are relocated in the window uniformly and independently.
 

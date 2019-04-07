@@ -154,7 +154,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 #'        "RandomLocation" means the points will we randomly permuted accross their actual locations.
 #'        "Binomial" means the points will we uniformly and independently drawn in the window (a binomial point process is a Poisson point process conditionally to the number of points).
 #' @param Alpha The risk level of the envelope of the null hypothesis. Default is 5\%.
-#' @param Simulations The number of bootstraps to build confidence intervals. Default is 50.
+#' @param NumberOfSimulations The number of bootstraps to build confidence intervals. Default is 100.
 #'
 #' @return An "Accumulation" object that is a 3-D array containing average diversity.
 #' The third dimension of the array is only of length 4: it contains observed diversity, its value under the null hypothesis, and the lower of upper bounds of that value.
@@ -172,7 +172,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 #' 
 DivAccum <-
 function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2), r.seq = NULL, spCorrection = "None",
-         H0 = "None", Alpha = 0.05, Simulations = 50,
+         H0 = "None", Alpha = 0.05, NumberOfSimulations = 100,
          Individual = FALSE, ShowProgressBar = TRUE, CheckArguments = TRUE)
 {
   if (CheckArguments)
@@ -182,7 +182,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 
   # Prepare an array to store data
   if (is.null(r.seq)) {
-    # Neighborhoods defined as the number of neighbors + a comlumn for no neighbor.
+    # Neighborhoods defined as the number of neighbors + a column for no neighbor.
     nCols <- 1+length(n.seq)
     seq <- c(1, n.seq+1)
   } else {
@@ -218,20 +218,20 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
   
   # Null distribution
   if (H0 == "Multinomial") {
-    # Rarefy the community with iNEXT
+    # Rarefy the community
     if (!is.null(r.seq)) stop("The 'Multinomial' null hypothesis only applies to accumulation by number of neighbors.")
     H0found <- TRUE
     # Prepare a progress bar 
     ProgressBar <- utils::txtProgressBar(min=0, max=length(q.seq))
     # Prepare the distribution of the abundances of species.
-    Ns <- as.numeric(table(spCommunity$marks$PointType))
+    Ns <- as.AbdVector(spCommunity)
     for (i in 1:length(q.seq)) {
       # Rarefy the who community to the sizes of neighborhoods
-      H0Values <- suppressWarnings(iNEXT::iNEXT(Ns, q=as.numeric(q.seq[i]), size=seq, conf=1-Alpha, nboot=Simulations)$iNextEst)
-      # Extract the results from the object returnes by iNEXT.
-      divAccum$Accumulation[i, , 2] <- H0Values$qD
-      divAccum$Accumulation[i, , 3] <- H0Values$qD.LCL
-      divAccum$Accumulation[i, , 4] <- H0Values$qD.UCL
+      H0Values <- entropart::DivAC(Ns, q=as.numeric(q.seq[i]), n.seq=seq, NumberOfSimulations=NumberOfSimulations, Alpha=Alpha, ShowProgressBar=FALSE, CheckArguments=FALSE)
+      # Extract the results from the object returned
+      divAccum$Accumulation[i, , 2] <- H0Values$y
+      divAccum$Accumulation[i, , 3] <- H0Values$low
+      divAccum$Accumulation[i, , 4] <- H0Values$high
       if (ShowProgressBar & interactive())
         utils::setTxtProgressBar(ProgressBar, i)
     }
@@ -240,11 +240,11 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
   if (H0 == "RandomLocation" | H0 == "Binomial") {
     H0found <- TRUE
     # Prepare a progress bar 
-    ProgressBar <- utils::txtProgressBar(min=0, max=Simulations)
+    ProgressBar <- utils::txtProgressBar(min=0, max=NumberOfSimulations)
     # Prepare a 3-D array to store results. Rows are q, columns are r or n, z-values are for each simulation.
-    H0qDiversities <- array(0.0, dim=c(length(q.seq), nCols, Simulations))
+    H0qDiversities <- array(0.0, dim=c(length(q.seq), nCols, NumberOfSimulations))
     # Simulate communities according to H0
-    for (i in (1:Simulations)) {
+    for (i in (1:NumberOfSimulations)) {
       # Random community
       if (H0 == "RandomLocation") H0spCommunity <- dbmss::rRandomLocation(spCommunity, CheckArguments=FALSE)
       if (H0 == "Binomial") H0spCommunity <- dbmss::rRandomPositionK(spCommunity, CheckArguments=FALSE)
@@ -293,7 +293,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 #' 
 Mixing <-
   function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2), r.seq = NULL, spCorrection = "None",
-           H0 = ifelse(is.null(r.seq), "Multinomial", "Binomial"), Alpha = 0.05, Simulations = 50,
+           H0 = ifelse(is.null(r.seq), "Multinomial", "Binomial"), Alpha = 0.05, NumberOfSimulations = 100,
            Individual = FALSE, ShowProgressBar = TRUE, CheckArguments = TRUE)
 {
   if (CheckArguments)
@@ -301,7 +301,7 @@ Mixing <-
 
   # Get the diversity accumulation
   qMixing <- DivAccum(spCommunity=spCommunity, q.seq=q.seq, divCorrection=divCorrection, n.seq=n.seq, r.seq=r.seq, spCorrection=spCorrection, 
-                      H0=H0, Alpha=Alpha, Simulations=Simulations, Individual=Individual, ShowProgressBar=ShowProgressBar, CheckArguments=FALSE)
+                      H0=H0, Alpha=Alpha, NumberOfSimulations=NumberOfSimulations, Individual=Individual, ShowProgressBar=ShowProgressBar, CheckArguments=FALSE)
 
   # Normalize it
   qMixing$Accumulation[, , 1] <- qMixing$Accumulation[, , 1] / qMixing$Accumulation[, , 2]

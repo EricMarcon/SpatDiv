@@ -7,7 +7,7 @@
 Mixing(spCommunity, q.seq = seq(0, 2, by = 0.1),
   divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2),
   r.seq = NULL, spCorrection = "None", H0 = ifelse(is.null(r.seq),
-  "Multinomial", "Binomial"), Alpha = 0.05, Simulations = 50,
+  "Multinomial", "Binomial"), Alpha = 0.05, NumberOfSimulations = 100,
   Individual = FALSE, ShowProgressBar = TRUE, CheckArguments = TRUE)
 }
 \arguments{
@@ -31,7 +31,7 @@ Does not apply if neihborhoods are defined by the number of neighbors. Default i
 
 \item{Alpha}{The risk level of the envelope of the null hypothesis. Default is 5\%.}
 
-\item{Simulations}{The number of bootstraps to build confidence intervals. Default is 50.}
+\item{NumberOfSimulations}{The number of bootstraps to build confidence intervals. Default is 100.}
 
 \item{Individual}{If \code{TRUE}, individual neighborhood entropies are returned.}
 
