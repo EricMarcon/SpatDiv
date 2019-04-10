@@ -5,7 +5,7 @@
 #'
 #' Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a spatialized community.
 #'
-#' Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized entropy is a generalized measure of diversity (Jost, 2006).
+#' Tsallis \insertCite{Havrda1967,Daroczy1970,Tsallis1988}{SpatDiv} generalized entropy is a generalized measure of diversity \insertCite{Jost2006}{SpatDiv}.
 #' See \code{\link{Tsallis}} for more details.
 #'
 #' @param NorP An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.
@@ -20,6 +20,8 @@
 #' @method Tsallis wmppp
 #' @export
 #'
+#' @references
+#' \insertAllCited{}
 #' @examples
 #' Tsallis(Paracou6)
 #' 
@@ -35,7 +37,7 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #'
 #' Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a vector of individuals
 #'
-#' Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized entropy is a generalized measure of diversity (Jost, 2006).
+#' Tsallis \insertCite{Havrda1967,Daroczy1970,Tsallis1988}{SpatDiv} generalized entropy is a generalized measure of diversity \insertCite{Jost2006}{SpatDiv}.
 #' See \code{\link{Tsallis}} for more details.
 #'
 #' @param NorP A vector of factors.
@@ -47,6 +49,8 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #' @method Tsallis factor
 #' @export
 #'
+#' @references
+#' \insertAllCited{}
 #' @examples
 #' Tsallis(Paracou6$marks$PointType)
 #' 
@@ -62,7 +66,7 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #'
 #' Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a vector of individuals.
 #'
-#' Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized entropy is a generalized measure of diversity (Jost, 2006).
+#' Tsallis \insertCite{Havrda1967,Daroczy1970,Tsallis1988}{SpatDiv} generalized entropy is a generalized measure of diversity \insertCite{Jost2006}{SpatDiv}.
 #' See \code{\link{Tsallis}} for more details.
 #'
 #' @param NorP A vector of characters.
@@ -74,6 +78,8 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #' @method Tsallis character
 #' @export
 #'
+#' @references
+#' \insertAllCited{}
 #' @examples
 #' SpeciesList <- as.character(Paracou6$marks$PointType)
 #' Tsallis(SpeciesList)

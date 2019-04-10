@@ -25,10 +25,13 @@ A named number equal to the calculated entropy. The name is that of the bias cor
 Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a spatialized community.
 }
 \details{
-Tsallis (Havrda and Charvat, 1967; Daroczy, 1970; Tsallis, 1988) generalized entropy is a generalized measure of diversity (Jost, 2006).
+Tsallis \insertCite{Havrda1967,Daroczy1970,Tsallis1988}{SpatDiv} generalized entropy is a generalized measure of diversity \insertCite{Jost2006}{SpatDiv}.
 See \code{\link{Tsallis}} for more details.
 }
 \examples{
 Tsallis(Paracou6)
 
+}
+\references{
+\insertAllCited{}
 }

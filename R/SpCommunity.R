@@ -6,7 +6,7 @@
 #' @param n The number of communities to draw.
 #' @param size The number of individuals to draw in each community.
 #' @param NorP A numeric vector or a two-column matrix. Contains either abundances or probabilities. Two-column matrices should contain the observed abundances (or probabilities) in the first column and the expected ones in the second column, to allow using beta diversity functions.
-#' @param BootstrapMethod  The method used to obtain the probabilities to generate bootstrapped communities from observed abundances. If \code{"Marcon"}, the probabilities are simply the abundances divided by the total number of individuals (Marcon \emph{et al.}, 2012). If \code{"Chao2013"} or \code{"Chao2015"} (by default), a more sophisticated approach is used (see \code{\link{as.ProbaVector}}) following Chao \emph{et al.} (2013) or Chao \emph{et al.} (2015).
+#' @param BootstrapMethod  The method used to obtain the probabilities to generate bootstrapped communities from observed abundances. If \code{"Marcon"}, the probabilities are simply the abundances divided by the total number of individuals \insertCite{Marcon2012a}{SpatDiv}. If \code{"Chao2013"} or \code{"Chao2015"} (by default), a more sophisticated approach is used (see \code{\link{as.ProbaVector}}) following \insertCite{Chao2013;textual}{SpatDiv} or \insertCite{Chao2015;textual}{SpatDiv}.
 #' @param S The number of species.
 #' @param Distribution The distribution of species frequencies. May be \code{"lnorm"} (log-normal), \code{"lseries"} (log-series), \code{"geom"} (geometric) or \code{"bstick"} (broken stick).
 #' @param sd The simulated distribution standard deviation. For the log-normal distribution, this is the standard deviation on the log scale.
@@ -22,6 +22,8 @@
 #'         An object of class "SpCommunities", which is a list of \code{\link{wmppp.object}}s, is returned if \code{n}>1.
 #' @export
 #'
+#' @references
+#' \insertAllCited{}
 #' @examples
 #' spCommunity <- rSpCommunity(1, size=30, S=5)
 #' plot(spCommunity, which.marks = "PointType")
