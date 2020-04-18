@@ -2,11 +2,11 @@ language: r
 cache: packages
 
 r_packages:
- - devtools
- - covr
+  - covr
+  - pkgdown
  
 r_github_packages: 
- - EricMarcon/entropart
+  - EricMarcon/entropart
 
 after_success:
   - Rscript -e 'library(covr); codecov(type ="all")'
