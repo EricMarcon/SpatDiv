@@ -1,5 +1,4 @@
-language: R
-sudo: false
+language: r
 cache: packages
 
 r_packages:
@@ -9,8 +8,24 @@ r_packages:
 r_github_packages: 
  - EricMarcon/entropart
 
-bioc_packages:
- - BiocStyle
-
 after_success:
   - Rscript -e 'library(covr); codecov(type ="all")'
+  - mkdir docs
+#  - git fetch origin gh-pages:gh-pages                 # Comment out for release
+#  - git --work-tree=docs checkout gh-pages -- .        # Comment out for release
+  - travis_wait 60 Rscript -e 'pkgdown::build_site()'
+  - touch docs/.nojekyll
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+#  keep_history: true                                   # Comment out for release
+  token: $GITHUB_TOKEN
+  on:
+    branch: master
+    local_dir: docs
+
+notifications:
+  email:
+    recipients:
+      - e.marcon@free.fr
