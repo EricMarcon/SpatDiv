@@ -23,7 +23,7 @@ deploy:
   token: $GITHUB_TOKEN
   on:
     branch: master
-    local_dir: docs
+  local_dir: docs
 
 notifications:
   email:
