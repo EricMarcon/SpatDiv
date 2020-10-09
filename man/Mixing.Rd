@@ -4,32 +4,41 @@
 \alias{Mixing}
 \title{Mixing index}
 \usage{
-Mixing(spCommunity, q.seq = seq(0, 2, by = 0.1),
-  divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2),
-  r.seq = NULL, spCorrection = "None", H0 = ifelse(is.null(r.seq),
-  "Multinomial", "Binomial"), Alpha = 0.05, NumberOfSimulations = 100,
-  Individual = FALSE, ShowProgressBar = TRUE, CheckArguments = TRUE)
+Mixing(
+  spCommunity,
+  q.seq = seq(0, 2, by = 0.1),
+  divCorrection = "None",
+  n.seq = 1:ceiling(spCommunity$n/2),
+  r.seq = NULL,
+  spCorrection = "None",
+  H0 = ifelse(is.null(r.seq), "Multinomial", "Binomial"),
+  Alpha = 0.05,
+  NumberOfSimulations = 100,
+  Individual = FALSE,
+  ShowProgressBar = TRUE,
+  CheckArguments = TRUE
+)
 }
 \arguments{
-\item{spCommunity}{A spatialized community (An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.)}
+\item{spCommunity}{A spatialized community (A \link{wmppp.object} with \code{PointType} values as species names.)}
 
 \item{q.seq}{A numeric vector: the sequence of diversity orders to address. Default is from 0 to 2.}
 
-\item{divCorrection}{A string containing one of the possible corrections to calculate diversity, see \code{\link{Tsallis}} for all possible values. \code{"None"} uses the plugin estimator. \code{"Best"} is the default value.}
+\item{divCorrection}{A string containing one of the possible corrections to calculate diversity, see \link{Tsallis} for all possible values. \code{"None"} uses the plugin estimator. \code{"Best"} is the default value.}
 
-\item{n.seq}{A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10\% of the individuals.}
+\item{n.seq}{A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10\\% of the individuals.}
 
 \item{r.seq}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
 
-\item{spCorrection}{The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window. 
+\item{spCorrection}{The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window.
 Does not apply if neihborhoods are defined by the number of neighbors. Default is "None".}
 
-\item{H0}{The null hypothesis to compare the distribution of `spCommunity` to. If "none", the default value, no null hypothesis is tested.
-"Multinomial" means the community will be rarefied down to the number of neighbors of `n.seq`.
+\item{H0}{The null hypothesis to compare the distribution of \code{spCommunity} to. If "none", the default value, no null hypothesis is tested.
+"Multinomial" means the community will be rarefied down to the number of neighbors of \code{n.seq}.
 "RandomLocation" means the points will we randomly permuted accross their actual locations.
 "Binomial" means the points will we uniformly and independently drawn in the window (a binomial point process is a Poisson point process conditionally to the number of points).}
 
-\item{Alpha}{The risk level of the envelope of the null hypothesis. Default is 5\%.}
+\item{Alpha}{The risk level of the envelope of the null hypothesis. Default is 5\\%.}
 
 \item{NumberOfSimulations}{The number of bootstraps to build confidence intervals. Default is 100.}
 

@@ -4,13 +4,12 @@
 \alias{Simpson.factor}
 \title{Simpson Entropy of a vector of individuals}
 \usage{
-\method{Simpson}{factor}(NorP, Correction = "Lande", ...,
-  CheckArguments = TRUE)
+\method{Simpson}{factor}(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
 }
 \arguments{
 \item{NorP}{A vector of factors.}
 
-\item{Correction}{A string containing one of the possible corrections: see \code{\link{Simpson}}.}
+\item{Correction}{A string containing one of the possible corrections: see \link{Simpson}.}
 
 \item{...}{Further arguments. Unsused.}
 

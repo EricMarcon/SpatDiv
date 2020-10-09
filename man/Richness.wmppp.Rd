@@ -4,15 +4,21 @@
 \alias{Richness.wmppp}
 \title{Richness of a spatialized community}
 \usage{
-\method{Richness}{wmppp}(NorP, Correction = "Chao1", Alpha = 0.05,
-  JackOver = FALSE, ..., CheckArguments = TRUE)
+\method{Richness}{wmppp}(
+  NorP,
+  Correction = "Chao1",
+  Alpha = 0.05,
+  JackOver = FALSE,
+  ...,
+  CheckArguments = TRUE
+)
 }
 \arguments{
-\item{NorP}{An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.}
+\item{NorP}{An object of class \link[dbmss:wmppp]{dbmss::wmppp}, with \code{PointType} values as species names.}
 
 \item{Correction}{A string containing one of the possible corrections: \code{"None"} (no correction), \code{"Jackknife"}, \code{"iChao1"}, or \code{"Chao1"}, the default value.}
 
-\item{Alpha}{The risk level, 5\% by default, used to optimize the jackknife order.}
+\item{Alpha}{The risk level, 5\\% by default, used to optimize the jackknife order.}
 
 \item{JackOver}{If \code{TRUE}, retain the jackknife order immediately superior to the optimal one, usually resulting in the overestimation of the number of species. Default is \code{FALSE}.}
 

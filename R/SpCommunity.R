@@ -1,25 +1,25 @@
 #' Random Spatialized Community
 #' 
-#' This function extends \code{\link{rCommunity}} by spatializing the randomized community.
+#' This function extends [rCommunity] by spatializing the randomized community.
 #'
 #'
 #' @param n The number of communities to draw.
 #' @param size The number of individuals to draw in each community.
 #' @param NorP A numeric vector or a two-column matrix. Contains either abundances or probabilities. Two-column matrices should contain the observed abundances (or probabilities) in the first column and the expected ones in the second column, to allow using beta diversity functions.
-#' @param BootstrapMethod  The method used to obtain the probabilities to generate bootstrapped communities from observed abundances. If \code{"Marcon"}, the probabilities are simply the abundances divided by the total number of individuals \insertCite{Marcon2012a}{SpatDiv}. If \code{"Chao2013"} or \code{"Chao2015"} (by default), a more sophisticated approach is used (see \code{\link{as.ProbaVector}}) following \insertCite{Chao2013;textual}{SpatDiv} or \insertCite{Chao2015;textual}{SpatDiv}.
+#' @param BootstrapMethod  The method used to obtain the probabilities to generate bootstrapped communities from observed abundances. If `"Marcon"`, the probabilities are simply the abundances divided by the total number of individuals \insertCite{Marcon2012a}{SpatDiv}. If `"Chao2013"` or `"Chao2015"` (by default), a more sophisticated approach is used (see [as.ProbaVector]) following \insertCite{Chao2013;textual}{SpatDiv} or \insertCite{Chao2015;textual}{SpatDiv}.
 #' @param S The number of species.
-#' @param Distribution The distribution of species frequencies. May be \code{"lnorm"} (log-normal), \code{"lseries"} (log-series), \code{"geom"} (geometric) or \code{"bstick"} (broken stick).
+#' @param Distribution The distribution of species frequencies. May be `"lnorm"` (log-normal), `"lseries"` (log-series), `"geom"` (geometric) or `"bstick"` (broken stick).
 #' @param sd The simulated distribution standard deviation. For the log-normal distribution, this is the standard deviation on the log scale.
 #' @param prob The probability of success in each trial.
 #' @param alpha Fisher's alpha.
 #' @param Spatial TODO
-#' @param win The window containing the point pattern. It is an \code{\link{owin}} object.
+#' @param win The window containing the point pattern. It is an [owin] object.
 #' @param Species A vector of characters or of factors containing the possible species.
 #' @param Sizes TODO
 #' @inheritParams EntAccum
 #'
-#' @return An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names if \code{n}=1.
-#'         An object of class "SpCommunities", which is a list of \code{\link{wmppp.object}}s, is returned if \code{n}>1.
+#' @return An object of class [dbmss::wmppp], with `PointType` values as species names if `n`=1.
+#'         An object of class "SpCommunities", which is a list of [dbmss::wmppp]s, is returned if `n`>1.
 #' @export
 #'
 #' @references

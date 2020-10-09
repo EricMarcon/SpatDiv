@@ -4,13 +4,12 @@
 \alias{Shannon.character}
 \title{Shannon Entropy of a vector of individuals}
 \usage{
-\method{Shannon}{character}(NorP, Correction = "Best", ...,
-  CheckArguments = TRUE)
+\method{Shannon}{character}(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 }
 \arguments{
 \item{NorP}{A vector of characters.}
 
-\item{Correction}{A string containing one of the possible corrections: see \code{\link{Shannon}}.}
+\item{Correction}{A string containing one of the possible corrections: see \link{Shannon}.}
 
 \item{...}{Further arguments. Unsused.}
 

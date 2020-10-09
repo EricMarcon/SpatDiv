@@ -4,11 +4,10 @@
 \alias{Diversity.wmppp}
 \title{HCDT diversity of a spatialized community}
 \usage{
-\method{Diversity}{wmppp}(NorP, q = 1, Correction = "Best", ...,
-  CheckArguments = TRUE)
+\method{Diversity}{wmppp}(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 }
 \arguments{
-\item{NorP}{An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.}
+\item{NorP}{An object of class \link[dbmss:wmppp]{dbmss::wmppp}, with \code{PointType} values as species names.}
 
 \item{q}{A number: the order of entropy. Some corrections allow only a positive number. Default is 1 for Shannon entropy.}
 
@@ -22,7 +21,7 @@
 A named number equal to the calculated diversity. The name is that of the bias correction used.
 }
 \description{
-\code{Diversity} calls \code{\link{Tsallis}} to calculate entropy and transforms it into diversity by calculating its deformed exponential.
+\code{Diversity} calls \link{Tsallis} to calculate entropy and transforms it into diversity by calculating its deformed exponential.
 }
 \examples{
 Diversity(Paracou6)

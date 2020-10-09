@@ -4,13 +4,21 @@
 \alias{autoplot.Accumulation}
 \title{Plot Diversity Accumulation}
 \usage{
-\method{autoplot}{Accumulation}(object, ..., q = 0,
-  main = "Accumulation of ...", xlab = "Sample size...",
-  ylab = "Diversity...", ylim = NULL, lineH0 = TRUE,
-  ShadeColor = "grey75", BorderColor = "red")
+\method{autoplot}{Accumulation}(
+  object,
+  ...,
+  q = 0,
+  main = "Accumulation of ...",
+  xlab = "Sample size...",
+  ylab = "Diversity...",
+  ylim = NULL,
+  lineH0 = TRUE,
+  ShadeColor = "grey75",
+  BorderColor = "red"
+)
 }
 \arguments{
-\item{object}{An "Accumulation" object that cat be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).}
+\item{object}{An "Accumulation" object that cat be accumulation of diversity (\link{DivAccum}), entropy (\link{EntAccum}) or the Mixing index (\link{Mixing}).}
 
 \item{...}{Further plotting arguments.}
 

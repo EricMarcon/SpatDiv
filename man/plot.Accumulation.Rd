@@ -4,10 +4,20 @@
 \alias{plot.Accumulation}
 \title{Plot Diversity Accumulation}
 \usage{
-\method{plot}{Accumulation}(x, ..., q = 0, type = "l",
-  main = "Accumulation of ...", xlab = "Sample size...",
-  ylab = "Diversity...", ylim = NULL, lineH0 = TRUE, LineWidth = 2,
-  ShadeColor = "grey75", BorderColor = "red")
+\method{plot}{Accumulation}(
+  x,
+  ...,
+  q = 0,
+  type = "l",
+  main = "Accumulation of ...",
+  xlab = "Sample size...",
+  ylab = "Diversity...",
+  ylim = NULL,
+  lineH0 = TRUE,
+  LineWidth = 2,
+  ShadeColor = "grey75",
+  BorderColor = "red"
+)
 }
 \arguments{
 \item{x}{An "Accumulation" object that cat be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).}

@@ -4,8 +4,7 @@
 \alias{Diversity.character}
 \title{HCDT diversity of a vector of individuals}
 \usage{
-\method{Diversity}{character}(NorP, q = 1, Correction = "Best", ...,
-  CheckArguments = TRUE)
+\method{Diversity}{character}(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 }
 \arguments{
 \item{NorP}{A vector of factors.}
@@ -22,7 +21,7 @@
 A named number equal to the calculated diversity. The name is that of the bias correction used.
 }
 \description{
-\code{Diversity} calls \code{\link{Tsallis}} to calculate entropy and transforms it into diversity by calculating its deformed exponential.
+\code{Diversity} calls \link{Tsallis}  to calculate entropy and transforms it into diversity by calculating its deformed exponential.
 }
 \examples{
 SpeciesList <- as.character(Paracou6$marks$PointType)

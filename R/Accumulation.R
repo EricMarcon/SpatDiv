@@ -1,15 +1,15 @@
 #' Entropy Accumulation
 #'
-#' @param spCommunity A spatialized community (An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.)
-#' @param divCorrection A string containing one of the possible corrections to calculate diversity, see \code{\link{Tsallis}} for all possible values. \code{"None"} uses the plugin estimator. \code{"Best"} is the default value.
+#' @param spCommunity A spatialized community (A [wmppp.object] with `PointType` values as species names.)
+#' @param divCorrection A string containing one of the possible corrections to calculate diversity, see [Tsallis] for all possible values. `"None"` uses the plugin estimator. `"Best"` is the default value.
 #' @param q.seq A numeric vector: the sequence of diversity orders to address. Default is from 0 to 2.
 #' @param n.seq A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10\% of the individuals.
-#' @param r.seq A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.
+#' @param r.seq A vector of distances. If `NULL` accumulation is along `n`, else neighbors are accumulated in circles of radius `r`.
 #' @param spCorrection The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window. 
 #'        Does not apply if neihborhoods are defined by the number of neighbors. Default is "None".
-#' @param Individual If \code{TRUE}, individual neighborhood entropies are returned.
-#' @param ShowProgressBar If \code{TRUE} (default), a progress bar is shown.
-#' @param CheckArguments If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.
+#' @param Individual If `TRUE`, individual neighborhood entropies are returned.
+#' @param ShowProgressBar If `TRUE` (default), a progress bar is shown.
+#' @param CheckArguments If `TRUE` (default), the function arguments are verified. Should be set to `FALSE` to save time in simulations for example, when the arguments have been checked elsewhere.
 #'
 #' @return An "Accumulation" object that is a 3-D array containing average entropy.
 #' The third dimension of the array is only of length 1: it contains observed entropy.
@@ -329,7 +329,7 @@ Mixing <-
 #' @param xlab X-axis label.
 #' @param ylab Y-axis label.
 #' @param ylim Limits of the Y-axis, as a vector of two numeric values.
-#' @param lineH0 if \code{TRUE}, the values of the null hypothesis are plotted.
+#' @param lineH0 if `TRUE`, the values of the null hypothesis are plotted.
 #' @param LineWidth Width of the Diversity Accumulation Curve line.
 #' @param ShadeColor The color of the shaded confidence envelope.
 #' @param BorderColor The color of the borders of the confidence envelope.
@@ -374,7 +374,7 @@ function(x, ..., q = 0,
 
 #' Plot Diversity Accumulation
 #'
-#' @param object An "Accumulation" object that cat be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).
+#' @param object An "Accumulation" object that cat be accumulation of diversity ([DivAccum]), entropy ([EntAccum]) or the Mixing index ([Mixing]).
 #' @inheritParams plot.Accumulation
 #'
 #' @importFrom ggplot2 autoplot

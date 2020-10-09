@@ -7,11 +7,20 @@
 \usage{
 MapPlot(x, ...)
 
-\method{MapPlot}{Accumulation}(x, Order, NeighborHood,
-  AllowJitter = TRUE, Nbx = 128, Nby = 128, Contour = TRUE,
+\method{MapPlot}{Accumulation}(
+  x,
+  Order,
+  NeighborHood,
+  AllowJitter = TRUE,
+  Nbx = 128,
+  Nby = 128,
+  Contour = TRUE,
   Palette = grDevices::topo.colors(128, alpha = 1),
-  Contournlevels = 10, Contourcol = "dark red", ...,
-  CheckArguments = TRUE)
+  Contournlevels = 10,
+  Contourcol = "dark red",
+  ...,
+  CheckArguments = TRUE
+)
 }
 \arguments{
 \item{x}{An object to map.}
@@ -39,7 +48,7 @@ MapPlot(x, ...)
 \item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
-\code{MapPlot.Accumulation} returns an \code{\link{autoKrige}} object that can be used to produce alternative maps.
+\code{MapPlot.Accumulation} returns an \link{autoKrige} object that can be used to produce alternative maps.
 }
 \description{
 Map Spatialized Communities

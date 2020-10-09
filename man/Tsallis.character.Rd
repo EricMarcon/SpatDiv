@@ -4,8 +4,7 @@
 \alias{Tsallis.character}
 \title{Tsallis (HCDT) Entropy of a vector of individuals}
 \usage{
-\method{Tsallis}{character}(NorP, q = 1, Correction = "Best", ...,
-  CheckArguments = TRUE)
+\method{Tsallis}{character}(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 }
 \arguments{
 \item{NorP}{A vector of characters.}
@@ -22,11 +21,11 @@
 A named number equal to the calculated entropy. The name is that of the bias correction used.
 }
 \description{
-Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a vector of individuals.
+Calculates the HCDT, also known as Tsallis entropy of order $q$ of a vector of individuals.
 }
 \details{
 Tsallis \insertCite{Havrda1967,Daroczy1970,Tsallis1988}{SpatDiv} generalized entropy is a generalized measure of diversity \insertCite{Jost2006}{SpatDiv}.
-See \code{\link{Tsallis}} for more details.
+See \link{Tsallis} for more details.
 }
 \examples{
 SpeciesList <- as.character(Paracou6$marks$PointType)

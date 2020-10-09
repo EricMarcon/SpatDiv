@@ -20,15 +20,15 @@ function (x, ...)
 #' @inheritParams DivAccum
 #' @param Order The order of diversity. It can be a number or a character string, interpreted as the value of $q$.
 #' @param NeighborHood The neignborhood size. It can be a number or a character string, interpreted as the value of the number of neighobors or the distance.
-#' @param AllowJitter If \code{TRUE}, duplicated points are jittered to avoid their elimination by the krigeing procedure.
+#' @param AllowJitter If `TRUE`, duplicated points are jittered to avoid their elimination by the krigeing procedure.
 #' @param Nbx The number of columns (pixels) of the resulting map, 128 by default.
 #' @param Nby The number of rows (pixels) of the resulting map, 128 by default.
 #' @param Palette The color palette of the map.
-#' @param Contour If \code{TRUE}, contours are added to the map.
+#' @param Contour If `TRUE`, contours are added to the map.
 #' @param Contournlevels The number of levels of contours.
 #' @param Contourcol The color of the contour lines.
 #'
-#' @return \code{MapPlot.Accumulation} returns an \code{\link{autoKrige}} object that can be used to produce alternative maps.
+#' @return `MapPlot.Accumulation` returns an [autoKrige] object that can be used to produce alternative maps.
 #' 
 #' @method MapPlot Accumulation
 #' @export

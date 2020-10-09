@@ -4,13 +4,12 @@
 \alias{Simpson.wmppp}
 \title{Simpson Entropy of a spatialized community}
 \usage{
-\method{Simpson}{wmppp}(NorP, Correction = "Lande", ...,
-  CheckArguments = TRUE)
+\method{Simpson}{wmppp}(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
 }
 \arguments{
-\item{NorP}{An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.}
+\item{NorP}{An object of class \link[dbmss:wmppp]{dbmss::wmppp}, with \code{PointType} values as species names.}
 
-\item{Correction}{A string containing one of the possible corrections: see \code{\link{Simpson}}.}
+\item{Correction}{A string containing one of the possible corrections: see \link{Simpson}.}
 
 \item{...}{Further arguments. Unsused.}
 

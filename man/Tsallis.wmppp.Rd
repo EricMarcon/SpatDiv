@@ -4,11 +4,10 @@
 \alias{Tsallis.wmppp}
 \title{Tsallis (HCDT) Entropy of a spatialized community}
 \usage{
-\method{Tsallis}{wmppp}(NorP, q = 1, Correction = "Best", ...,
-  CheckArguments = TRUE)
+\method{Tsallis}{wmppp}(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 }
 \arguments{
-\item{NorP}{An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.}
+\item{NorP}{An object of class \link[dbmss:wmppp]{dbmss::wmppp}, with \code{PointType} values as species names.}
 
 \item{q}{A number: the order of entropy. Some corrections allow only a positive number. Default is 1 for Shannon entropy.}
 
@@ -22,11 +21,11 @@
 A named number equal to the calculated entropy. The name is that of the bias correction used.
 }
 \description{
-Calculates the HCDT, also known as Tsallis entropy of order \eqn{q} of a spatialized community.
+Calculates the HCDT, also known as Tsallis entropy of order $q$ of a spatialized community.
 }
 \details{
 Tsallis \insertCite{Havrda1967,Daroczy1970,Tsallis1988}{SpatDiv} generalized entropy is a generalized measure of diversity \insertCite{Jost2006}{SpatDiv}.
-See \code{\link{Tsallis}} for more details.
+See \link{Tsallis} for more details.
 }
 \examples{
 Tsallis(Paracou6)

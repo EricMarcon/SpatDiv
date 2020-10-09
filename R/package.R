@@ -2,7 +2,7 @@
 #'
 #' Spatially Explicit Measures of Diversity
 #' 
-#' This package extends the \emph{entropart} package \insertCite{Marcon2014c}{SpatDiv}.
+#' This package extends the **entropart** package \insertCite{Marcon2014c}{SpatDiv}.
 #' It provides spatially explicit measures of diversity such as the mixing index.
 #'
 #' @name SpatDiv
@@ -17,11 +17,11 @@ NULL
 
 #' Paracou plot 6
 #'
-#' This dataset is from Paracou field station, French Guiana, managed by \href{http://www.cirad.fr}{Cirad}.
+#' This dataset is from Paracou field station, French Guiana, managed by [Cirad](http://www.cirad.fr).
 #' It contains the position, species and basal area of all trees above 10 cm diameter at breast height (DBH) in a 6.25ha plot.
 #'
-#' @format An object of class \code{\link{wmppp}}.
-#' @source Permanent data census of Paracou: \url{http://paracou.cirad.fr/}
+#' @format An object of class [dbmss::wmppp].
+#' @source Permanent data census of Paracou: <http://paracou.cirad.fr/>
 "Paracou6"
 
 
@@ -31,7 +31,7 @@ NULL
 #'
 #' The function compares the arguments passed to its parent function to the type they should be and performs some extra tests (\emph{e.g.} probabilities must be positive and sum to 1). It stops if an argument is not correct.
 #'
-#' @return Returns \code{TRUE} or stops if a problem is detected.
+#' @return Returns `TRUE` or stops if a problem is detected.
 #' 
 #' @export
 #'

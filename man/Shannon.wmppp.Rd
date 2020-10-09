@@ -4,13 +4,12 @@
 \alias{Shannon.wmppp}
 \title{Shannon Entropy of a spatialized community}
 \usage{
-\method{Shannon}{wmppp}(NorP, Correction = "Best", ...,
-  CheckArguments = TRUE)
+\method{Shannon}{wmppp}(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 }
 \arguments{
-\item{NorP}{An object of class "wmppp" (\code{\link{wmppp.object}}), with \code{PointType} values as species names.}
+\item{NorP}{An object of class \link[dbmss:wmppp]{dbmss::wmppp}, with \code{PointType} values as species names.}
 
-\item{Correction}{A string containing one of the possible corrections: see \code{\link{Shannon}}.}
+\item{Correction}{A string containing one of the possible corrections: see \link{Shannon}.}
 
 \item{...}{Further arguments. Unsused.}
 
