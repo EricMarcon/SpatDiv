@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   SpatDiv: SpatDiv.html
-last_built: 2020-12-26T21:55Z
+last_built: 2020-12-26T22:33Z
 urls:
   reference: https://ericmarcon.github.io/SpatDiv//reference
   article: https://ericmarcon.github.io/SpatDiv//articles
