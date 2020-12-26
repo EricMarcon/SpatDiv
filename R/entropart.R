@@ -8,7 +8,7 @@
 #' Tsallis \insertCite{Havrda1967,Daroczy1970,Tsallis1988}{SpatDiv} generalized entropy is a generalized measure of diversity \insertCite{Jost2006}{SpatDiv}.
 #' See [Tsallis] for more details.
 #'
-#' @param NorP An object of class [dbmss::wmppp], with `PointType` values as species names.
+#' @param NorP A [wmppp.object], with `PointType` values as species names.
 #' @param q A number: the order of entropy. Some corrections allow only a positive number. Default is 1 for Shannon entropy.
 #' @param Correction A string containing one of the possible corrections: `"None"` (no correction), `"ChaoShen"`, `"GenCov"`, `"Grassberger"`, `"Holste"`, `"Bonachela"`, `"ZhangGrabchak"`, or `"ChaoWangJost"`, `"Marcon"`, `"UnveilC"`, `"UnveiliC"`, `"UnveilJ"` or `"Best"`, the default value.  Currently, `"Best"` is `"ChaoWangJost"`.
 #' @param ... Further arguments. Unsused.
@@ -168,7 +168,7 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 #'
 #' @inheritParams Tsallis.wmppp
 #' @param Correction A string containing one of the possible corrections: `"None"` (no correction), `"Jackknife"`, `"iChao1"`, or `"Chao1"`, the default value.
-#' @param Alpha The risk level, 5\% by default, used to optimize the jackknife order.
+#' @param Alpha The risk level, 5% by default, used to optimize the jackknife order.
 #' @param JackOver If `TRUE`, retain the jackknife order immediately superior to the optimal one, usually resulting in the overestimation of the number of species. Default is `FALSE`.
 #' 
 #' @return A named number equal to the calculated diversity. The name is that of the bias correction used.
@@ -240,7 +240,7 @@ function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., Check
 #' Calculates the Shannon entropy of a probability vector.
 #'
 #'
-#' @param NorP An object of class [dbmss::wmppp], with `PointType` values as species names.
+#' @param NorP A [wmppp.object], with `PointType` values as species names.
 #' @param Correction A string containing one of the possible corrections: see [Shannon].
 #' 
 #' @inheritParams Tsallis.wmppp
@@ -318,7 +318,7 @@ function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 #' Calculates the Simpson entropy of a probability vector.
 #'
 #'
-#' @param NorP An object of class [dbmss::wmppp], with `PointType` values as species names.
+#' @param NorP A [wmppp.object], with `PointType` values as species names.
 #' @param Correction A string containing one of the possible corrections: see [Simpson].
 #' 
 #' @inheritParams Tsallis.wmppp

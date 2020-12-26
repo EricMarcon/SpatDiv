@@ -20,7 +20,7 @@ NULL
 #' This dataset is from Paracou field station, French Guiana, managed by [Cirad](http://www.cirad.fr).
 #' It contains the position, species and basal area of all trees above 10 cm diameter at breast height (DBH) in a 6.25ha plot.
 #'
-#' @format An object of class [dbmss::wmppp].
+#' @format A [wmppp.object].
 #' @source Permanent data census of Paracou: <http://paracou.cirad.fr/>
 "Paracou6"
 

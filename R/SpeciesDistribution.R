@@ -9,7 +9,7 @@
 #'
 #' `SpeciesDistribution` objects can be plotted. The `plot` method returns the estimated parameters of the fitted distribution. The broken stick has no parameter, so the maximum abundance is returned.
 #'
-#' @param x An object of class [dbmss::wmppp] with `PointType` values as species names, or a vector of factors or characters containing species names of each individual.
+#' @param x A [wmppp.object] with `PointType` values as species names, or a vector of factors or characters containing species names of each individual.
 #' @param ... Further arguments. Unsused.
 #' @name SpeciesDistributions
 #' @return A vector of species abundances ([AbdVector]) or probabilities ([ProbaVector]).
