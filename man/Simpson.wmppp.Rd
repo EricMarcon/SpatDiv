@@ -7,7 +7,7 @@
 \method{Simpson}{wmppp}(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
 }
 \arguments{
-\item{NorP}{An object of class \link[dbmss:wmppp]{dbmss::wmppp}, with \code{PointType} values as species names.}
+\item{NorP}{A \link{wmppp.object}, with \code{PointType} values as species names.}
 
 \item{Correction}{A string containing one of the possible corrections: see \link{Simpson}.}
 

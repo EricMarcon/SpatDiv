@@ -51,8 +51,8 @@ rSpCommunity(
 \item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
-An object of class \link[dbmss:wmppp]{dbmss::wmppp}, with \code{PointType} values as species names if \code{n}=1.
-An object of class "SpCommunities", which is a list of \link[dbmss:wmppp]{dbmss::wmppp}s, is returned if \code{n}>1.
+A \link{wmppp.object}, with \code{PointType} values as species names if \code{n}=1.
+An object of class "SpCommunities", which is a list of \link{wmppp.object}s, is returned if \code{n}>1.
 }
 \description{
 This function extends \link{rCommunity} by spatializing the randomized community.

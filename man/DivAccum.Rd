@@ -26,7 +26,7 @@ DivAccum(
 
 \item{divCorrection}{A string containing one of the possible corrections to calculate diversity, see \link{Tsallis} for all possible values. \code{"None"} uses the plugin estimator. \code{"Best"} is the default value.}
 
-\item{n.seq}{A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10\\% of the individuals.}
+\item{n.seq}{A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10\% of the individuals.}
 
 \item{r.seq}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
 
@@ -38,7 +38,7 @@ Does not apply if neihborhoods are defined by the number of neighbors. Default i
 "RandomLocation" means the points will we randomly permuted accross their actual locations.
 "Binomial" means the points will we uniformly and independently drawn in the window (a binomial point process is a Poisson point process conditionally to the number of points).}
 
-\item{Alpha}{The risk level of the envelope of the null hypothesis. Default is 5\\%.}
+\item{Alpha}{The risk level of the envelope of the null hypothesis. Default is 5\%.}
 
 \item{NumberOfSimulations}{The number of bootstraps to build confidence intervals. Default is 100.}
 

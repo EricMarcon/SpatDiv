@@ -7,7 +7,7 @@
 \method{Tsallis}{wmppp}(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 }
 \arguments{
-\item{NorP}{An object of class \link[dbmss:wmppp]{dbmss::wmppp}, with \code{PointType} values as species names.}
+\item{NorP}{A \link{wmppp.object}, with \code{PointType} values as species names.}
 
 \item{q}{A number: the order of entropy. Some corrections allow only a positive number. Default is 1 for Shannon entropy.}
 

@@ -61,7 +61,7 @@ autoplot(mixing, q = 1)
 The same accumulation cuves can be computed by increasing the sample area around each point.
 The argument \code{r.seq} contains the vector of radii of those circular plots.
 
-```{r plotDivAccum2, fig.width=6}
+```{r plotDivAccum2, fig.width=6, eval=FALSE}
 divAccum <- DivAccum(spCommunity, r.seq = seq(0, .5, by=.1), q.seq=0:2, spCorrection = "Extrapolation", H0="Binomial")
 autoplot(divAccum, q = 1)
 ```
@@ -73,11 +73,8 @@ The actual accumulation curves of diversity and mixing index can be compared to 
 Values of the argument \code{H0} can be:
 
 - "None": No null model is run.
-
 - "Multinomial": The accumulation follows a multinomial sampling, with respect to the number of individuals only. The theoretical value and confidence envelope are calculated by the _entropart_ package.
-
 - "Binomial": The individuals are relocated in the window uniformly and independently.
-
 - "RandomLocation": The individuals are relocated accross their actual locations.
 
 The multinomial null hypothesis is by far faster to compute than the others because it does not require point pattern simulations.

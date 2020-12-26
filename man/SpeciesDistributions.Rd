@@ -32,7 +32,7 @@
 \method{as.AbdVector}{character}(x, ...)
 }
 \arguments{
-\item{x}{An object of class \link[dbmss:wmppp]{dbmss::wmppp} with \code{PointType} values as species names, or a vector of factors or characters containing species names of each individual.}
+\item{x}{A \link{wmppp.object} with \code{PointType} values as species names, or a vector of factors or characters containing species names of each individual.}
 
 \item{...}{Further arguments. Unsused.}
 }

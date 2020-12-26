@@ -23,7 +23,7 @@ EntAccum(
 
 \item{divCorrection}{A string containing one of the possible corrections to calculate diversity, see \link{Tsallis} for all possible values. \code{"None"} uses the plugin estimator. \code{"Best"} is the default value.}
 
-\item{n.seq}{A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10\\% of the individuals.}
+\item{n.seq}{A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10\% of the individuals.}
 
 \item{r.seq}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
 

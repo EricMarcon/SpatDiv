@@ -5,7 +5,7 @@
 \alias{Paracou6}
 \title{Paracou plot 6}
 \format{
-An object of class \link[dbmss:wmppp]{dbmss::wmppp}.
+A \link{wmppp.object}.
 }
 \source{
 Permanent data census of Paracou: \url{http://paracou.cirad.fr/}
