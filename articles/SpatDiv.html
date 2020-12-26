@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -63,7 +63,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/EricMarcon/SpatDiv/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -77,7 +77,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="SpatDiv_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>SpatDiv</h1>
@@ -96,19 +96,22 @@
 <h1 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h1>
 <p>Install the package for <em>R</em> from Github.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"remotes"</span>)
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"EricMarcon/SpatDiv"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org">"remotes"</a></span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"EricMarcon/SpatDiv"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="demo" class="section level1">
 <h1 class="hasAnchor">
 <a href="#demo" class="anchor"></a>Demo</h1>
 <p>Create a random, spatialized community with 100 individuals of 10 species.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"SpatDiv"</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/SpatDiv/man/rSpCommunity.html">rSpCommunity</a></span>(<span class="kw">n</span><span class="kw">=</span><span class="fl">1</span>, <span class="kw">size</span><span class="kw">=</span><span class="fl">100</span>, <span class="kw">S</span><span class="kw">=</span><span class="fl">10</span>) <span class="kw">-&gt;</span> <span class="no">spCommunity</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">spCommunity</span>, <span class="kw">which.marks</span> <span class="kw">=</span> <span class="st">"PointType"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/EricMarcon/SpatDiv">"SpatDiv"</a></span><span class="op">)</span>
+<span class="fu"><a href="../reference/rSpCommunity.html">rSpCommunity</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">1</span>, size<span class="op">=</span><span class="fl">100</span>, S<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">spCommunity</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">spCommunity</span>, which.marks <span class="op">=</span> <span class="st">"PointType"</span><span class="op">)</span></code></pre></div>
 <p><img src="SpatDiv_files/figure-html/rSpCommunity-1.png" width="700"></p>
 <p>Plot a rank-abundance curve.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu">autoplot</span>(<span class="fu">as.AbdVector</span>(<span class="no">spCommunity</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="fu">as.AbdVector</span><span class="op">(</span><span class="va">spCommunity</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="SpatDiv_files/figure-html/Whittaker-1.png" width="700"></p>
 <div id="diversity-accumulation" class="section level2">
 <h2 class="hasAnchor">
@@ -117,31 +120,35 @@
 <h3 class="hasAnchor">
 <a href="#with-respect-to-the-number-of-indiduals" class="anchor"></a>With respect to the number of indiduals</h3>
 <p>Compute the Diversity Accumulation Curve for 1 to 50 neighbors for orders 0, 1 and 2, with the theoretical, null-model curve. Plot it for Shannon diversity.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">divAccum</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SpatDiv/man/DivAccum.html">DivAccum</a></span>(<span class="no">spCommunity</span>, <span class="kw">n.seq</span><span class="kw">=</span><span class="fl">1</span>:<span class="fl">50</span>, <span class="kw">q.seq</span><span class="kw">=</span><span class="fl">0</span>:<span class="fl">2</span>, <span class="kw">H0</span><span class="kw">=</span><span class="st">"Multinomial"</span>, <span class="kw">NumberOfSimulations</span><span class="kw">=</span><span class="fl">1000</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu">autoplot</span>(<span class="no">divAccum</span>, <span class="kw">q</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">divAccum</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DivAccum.html">DivAccum</a></span><span class="op">(</span><span class="va">spCommunity</span>, n.seq<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span>, q.seq<span class="op">=</span><span class="fl">0</span><span class="op">:</span><span class="fl">2</span>, H0<span class="op">=</span><span class="st">"Multinomial"</span>, NumberOfSimulations<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="va">divAccum</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p><img src="SpatDiv_files/figure-html/plotDivAccum-1.png" width="576"></p>
 <p>Compute and plot the mixing index of any order. Save the local values for future use.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">mixing</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SpatDiv/man/Mixing.html">Mixing</a></span>(<span class="no">spCommunity</span>, <span class="kw">n.seq</span><span class="kw">=</span><span class="fl">1</span>:<span class="fl">50</span>, <span class="kw">q.seq</span><span class="kw">=</span><span class="fl">0</span>:<span class="fl">2</span>, <span class="kw">H0</span><span class="kw">=</span><span class="st">"Multinomial"</span>, <span class="kw">NumberOfSimulations</span><span class="kw">=</span><span class="fl">1000</span>, <span class="kw">Individual</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu">autoplot</span>(<span class="no">mixing</span>, <span class="kw">q</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mixing</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Mixing.html">Mixing</a></span><span class="op">(</span><span class="va">spCommunity</span>, n.seq<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span>, q.seq<span class="op">=</span><span class="fl">0</span><span class="op">:</span><span class="fl">2</span>, H0<span class="op">=</span><span class="st">"Multinomial"</span>, NumberOfSimulations<span class="op">=</span><span class="fl">1000</span>, Individual<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="va">mixing</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p><img src="SpatDiv_files/figure-html/Mixing-1.png" width="576"></p>
 </div>
 <div id="with-respect-to-distance" class="section level3">
 <h3 class="hasAnchor">
 <a href="#with-respect-to-distance" class="anchor"></a>With respect to distance</h3>
 <p>The same accumulation cuves can be computed by increasing the sample area around each point. The argument  contains the vector of radii of those circular plots.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">divAccum</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SpatDiv/man/DivAccum.html">DivAccum</a></span>(<span class="no">spCommunity</span>, <span class="kw">r.seq</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">.5</span>, <span class="kw">by</span><span class="kw">=</span><span class="fl">.1</span>), <span class="kw">q.seq</span><span class="kw">=</span><span class="fl">0</span>:<span class="fl">2</span>, <span class="kw">spCorrection</span> <span class="kw">=</span> <span class="st">"Extrapolation"</span>, <span class="kw">H0</span><span class="kw">=</span><span class="st">"Binomial"</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu">autoplot</span>(<span class="no">divAccum</span>, <span class="kw">q</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
-<p><img src="SpatDiv_files/figure-html/plotDivAccum2-1.png" width="576"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">divAccum</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DivAccum.html">DivAccum</a></span><span class="op">(</span><span class="va">spCommunity</span>, r.seq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.5</span>, by<span class="op">=</span><span class="fl">.1</span><span class="op">)</span>, q.seq<span class="op">=</span><span class="fl">0</span><span class="op">:</span><span class="fl">2</span>, spCorrection <span class="op">=</span> <span class="st">"Extrapolation"</span>, H0<span class="op">=</span><span class="st">"Binomial"</span><span class="op">)</span>
+<span class="fu">autoplot</span><span class="op">(</span><span class="va">divAccum</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="null-hypotheses" class="section level3">
 <h3 class="hasAnchor">
 <a href="#null-hypotheses" class="anchor"></a>Null hypotheses</h3>
 <p>The actual accumulation curves of diversity and mixing index can be compared to null models with their confidence intervals. Values of the argument  can be:</p>
 <ul>
-<li><p>“None”: No null model is run.</p></li>
-<li><p>“Multinomial”: The accumulation follows a multinomial sampling, with respect to the number of individuals only. The theoretical value and confidence envelope are calculated by the <em>entropart</em> package.</p></li>
-<li><p>“Binomial”: The individuals are relocated in the window uniformly and independently.</p></li>
-<li><p>“RandomLocation”: The individuals are relocated accross their actual locations.</p></li>
+<li>“None”: No null model is run.</li>
+<li>“Multinomial”: The accumulation follows a multinomial sampling, with respect to the number of individuals only. The theoretical value and confidence envelope are calculated by the <em>entropart</em> package.</li>
+<li>“Binomial”: The individuals are relocated in the window uniformly and independently.</li>
+<li>“RandomLocation”: The individuals are relocated accross their actual locations.</li>
 </ul>
 <p>The multinomial null hypothesis is by far faster to compute than the others because it does not require point pattern simulations.</p>
 </div>
@@ -150,8 +157,9 @@
 <h2 class="hasAnchor">
 <a href="#map" class="anchor"></a>Map</h2>
 <p>Map the local diversity accumulation or mixing index, for example the species accumulation in 10 points (9 neighbors and the central point).</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mar</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>))
-<span class="fu"><a href="https://rdrr.io/pkg/SpatDiv/man/MapPlot.html">MapPlot</a></span>(<span class="no">mixing</span>, <span class="kw">Order</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">NeighborHood</span> <span class="kw">=</span> <span class="fl">10</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../reference/MapPlot.html">MapPlot</a></span><span class="op">(</span><span class="va">mixing</span>, Order <span class="op">=</span> <span class="fl">0</span>, NeighborHood <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <pre><code>## [using ordinary kriging]</code></pre>
 <p><img src="SpatDiv_files/figure-html/MapPlot-1.png" width="700"></p>
 </div>
@@ -173,7 +181,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

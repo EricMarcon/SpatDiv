@@ -89,7 +89,7 @@ SpeciesDistribution objects include AbdVector and ProbaVector objects." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -106,7 +106,7 @@ SpeciesDistribution objects include AbdVector and ProbaVector objects." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/EricMarcon/SpatDiv/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -130,42 +130,42 @@ SpeciesDistribution objects include AbdVector and ProbaVector objects." />
 
     <div class="ref-description">
     <p>A Species Distribution is a (preferably named) vector containing species abundances or probabilities.
-<code>SpeciesDistribution</code> objects include <code>AbdVector</code> and <code>ProbaVector</code> objects.</p>
+<code>SpeciesDistribution</code> objects include AbdVector and ProbaVector objects.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for wmppp</span>
-<span class='fu'>as.SpeciesDistribution</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>as.SpeciesDistribution</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for factor</span>
-<span class='fu'>as.SpeciesDistribution</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>as.SpeciesDistribution</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for character</span>
-<span class='fu'>as.SpeciesDistribution</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>as.SpeciesDistribution</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for wmppp</span>
-<span class='fu'>as.ProbaVector</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>as.ProbaVector</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for factor</span>
-<span class='fu'>as.ProbaVector</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>as.ProbaVector</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for character</span>
-<span class='fu'>as.ProbaVector</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>as.ProbaVector</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for wmppp</span>
-<span class='fu'>as.AbdVector</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>as.AbdVector</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for factor</span>
-<span class='fu'>as.AbdVector</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>as.AbdVector</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for character</span>
-<span class='fu'>as.AbdVector</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>as.AbdVector</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An object of class "wmppp" (<code>wmppp.object</code>), with <code>PointType</code> values as species names, or a vector of factors or characters containing species names of each individual.</p></td>
+      <td><p>A wmppp.object with <code>PointType</code> values as species names, or a vector of factors or characters containing species names of each individual.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -175,26 +175,26 @@ SpeciesDistribution objects include AbdVector and ProbaVector objects." />
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A vector of species abundances (<code>AbdVector</code>) or probabilities (<code>ProbaVector</code>).</p>
+    <p>A vector of species abundances (AbdVector) or probabilities (ProbaVector).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>as.AbdVector</code> counts the number of individuals (points) per species (in <code>marks$PointType</code>).</p>
 <p><code>as.ProbaVector</code> normalizes the vector so that it sums to 1. If <code>Correction</code> is not <code>"None"</code>, the observed abundance distribution is used to estimate the actual species distribution. The list of species will be changed: zero-abundance species will be cleared, and some unobserved species will be added. First, observed species probabilities are estimated folllowing Chao and Shen (2003)
 , <em>i.e.</em> input probabilities are multiplied by the sample coverage, or according to more sophisticated models: Chao et al. (2013)
 , single-parameter model or Chao and Jost (2015)
-, two-parameter model. The total probability of observed species equals the sample coverage. Then, the distribution of unobserved species can be unveiled: their number is estimated according to <code>RCorrection</code> (if the Jackknife estimator is chosen, the <code>JackOver</code> argument allows using the order immediately over the optimal one). The coverage deficit (1 minus the sample coverage) is shared by the unobserved species equally (<code>Unveiling = "unif"</code>, Chao et al. (2013)
- or according to a geometric distribution (<code>Unveiling = "geom"</code>, Chao and Jost (2015)
+, two-parameter model. The total probability of observed species equals the sample coverage. Then, the distribution of unobserved species can be unveiled: their number is estimated according to <code>RCorrection</code> (if the Jackknife estimator is chosen, the <code>JackOver</code> argument allows using the order immediately over the optimal one). The coverage deficit (1 minus the sample coverage) is shared by the unobserved species equally: <code>Unveiling = "unif"</code>, Chao et al. (2013)
+ or according to a geometric distribution: <code>Unveiling = "geom"</code>, Chao and Jost (2015)
 .</p>
 <p><code>SpeciesDistribution</code> objects can be plotted. The <code>plot</code> method returns the estimated parameters of the fitted distribution. The broken stick has no parameter, so the maximum abundance is returned.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Chao A, Jost L (2015).
 &#8220;Estimating diversity and entropy profiles via discovery rates of new species.&#8221;
-<em>Methods in Ecology and Evolution</em>, <b>6</b>(8), 873-882.<br /><br /> Chao A, Shen TJ (2003).
+<em>Methods in Ecology and Evolution</em>, <b>6</b>(8), 873--882.<br /><br /> Chao A, Shen TJ (2003).
 &#8220;Nonparametric Estimation of Shannon's Index of Diversity When There Are Unseen Species in Sample.&#8221;
-<em>Environmental and Ecological Statistics</em>, <b>10</b>(4), 429-443.<br /><br /> Chao A, Wang YT, Jost L (2013).
+<em>Environmental and Ecological Statistics</em>, <b>10</b>(4), 429--443.<br /><br /> Chao A, Wang YT, Jost L (2013).
 &#8220;Entropy and the Species Accumulation Curve: a Novel Entropy Estimator Via Discovery Rates of New Species.&#8221;
-<em>Methods in Ecology and Evolution</em>, <b>4</b>(11), 1091-1100.</p>
+<em>Methods in Ecology and Evolution</em>, <b>4</b>(11), 1091--1100.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -211,7 +211,7 @@ SpeciesDistribution objects include AbdVector and ProbaVector objects." />
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
