@@ -9,7 +9,6 @@
 \.log$
 \.blg$
 \.bbl$
-^\.travis\.yml$
 vignettes/figure/
 vignettes/Introduction_cache/
 vignettes/Introduction_files/
@@ -19,3 +18,4 @@ docs/
 vignettes/articles/
 vignettes/SpatDiv_cache/
 vignettes/SpatDiv_files/
+.github/
