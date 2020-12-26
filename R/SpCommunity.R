@@ -18,8 +18,8 @@
 #' @param Sizes TODO
 #' @inheritParams EntAccum
 #'
-#' @return An object of class [dbmss::wmppp], with `PointType` values as species names if `n`=1.
-#'         An object of class "SpCommunities", which is a list of [dbmss::wmppp]s, is returned if `n`>1.
+#' @return A [wmppp.object], with `PointType` values as species names if `n`=1.
+#'         An object of class "SpCommunities", which is a list of [wmppp.object]s, is returned if `n`>1.
 #' @export
 #'
 #' @references
