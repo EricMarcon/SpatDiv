@@ -15,7 +15,7 @@ rSpCommunity(
   prob = 0.1,
   alpha = 40,
   Spatial = "Binomial",
-  win = spatstat::owin(),
+  win = spatstat.geom::owin(),
   Species = NULL,
   Sizes = "Uniform",
   CheckArguments = TRUE

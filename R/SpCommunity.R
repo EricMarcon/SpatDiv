@@ -31,7 +31,7 @@
 rSpCommunity <-
 function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
          S = 300, Distribution = "lnorm", sd = 1, prob = 0.1, alpha=40,
-         Spatial = "Binomial", win=spatstat::owin(),
+         Spatial = "Binomial", win=spatstat.geom::owin(),
          Species = NULL,
          Sizes = "Uniform",
          CheckArguments = TRUE)
@@ -61,7 +61,7 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
       Community <- Community$Nsi
     }
     Binomial <- function(i) {
-      X <- dbmss::as.wmppp(spatstat::runifpoint(sum(Community[, i]), win=win))
+      X <- dbmss::as.wmppp(spatstat.core::runifpoint(sum(Community[, i]), win=win))
       # Associate species and points
       X$marks$PointType <- as.factor(rep(Species, Community[, i]))
       # Associate sizes and points

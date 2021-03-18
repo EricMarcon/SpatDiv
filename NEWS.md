@@ -1,4 +1,4 @@
-# SpatDiv 0.4-1
+# SpatDiv 0.4-2
 
 ## New features
 
@@ -8,6 +8,10 @@
 ## Improvements
 
 * Documentation by _pkgdown_.
+
+## External changes
+ 
+- Updates in the _spatstat_ package: _SpatDiv_ has been updated to address the creation of _spatstat.core_ et al.
 
 
 # SpatDiv 0.3-3

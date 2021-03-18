@@ -21,11 +21,11 @@ rSpCommunity(n=3, size = 100, S=10, Species = spList) -> spCommunityList
 plot(spCommunityList[[2]])
 
 # Distances: inutile
-pd <- spatstat::pairdist(spCommunity)
+pd <- spatstat.geom::pairdist(spCommunity)
 colnames(pd) <- rownames(pd) <- spCommunity$marks$PointType
 
 # Plus proches voisins > création d'une liste de communautés.
-nb <- spatstat::nnwhich(spCommunity, k=1:10)
+nb <- spatstat.geom::nnwhich(spCommunity, k=1:10)
 # ajouter le point de référence
 nb <- cbind(Reference=1:spCommunity$n, nb)
 # Extraction

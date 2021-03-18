@@ -58,10 +58,10 @@ function (x, Order, NeighborHood, AllowJitter = TRUE,
   # Jitter
   if (AllowJitter) {
     # Find duplicates
-    Dups <- spatstat::duplicated.ppp(x$SpCommunity, rule="unmark")
+    Dups <- spatstat.geom::duplicated.ppp(x$SpCommunity, rule="unmark")
     if (sum(Dups)>0) {
       # Extract the duplicates and jitter them
-      Dupswmppp <- spatstat::rjitter(x$SpCommunity[Dups])
+      Dupswmppp <- spatstat.geom::rjitter(x$SpCommunity[Dups])
       # Put the coordinates back into the original wmppp
       x$SpCommunity$x[Dups] <- Dupswmppp$x
       x$SpCommunity$y[Dups] <- Dupswmppp$y
@@ -79,8 +79,8 @@ function (x, Order, NeighborHood, AllowJitter = TRUE,
   sdfCommunity <- sp::SpatialPointsDataFrame(coords=data.frame(x=x$SpCommunity$x, y=x$SpCommunity$y), 
                                          data=data.frame(Accumulation=x$Neighborhoods[Order, NeighborHood,]))
   # Prepare a grid
-  xy <- spatstat::gridcentres(x$SpCommunity, Nbx, Nby)
-  ok <- spatstat::inside.owin(xy$x, xy$y, x$SpCommunity$window)
+  xy <- spatstat.geom::gridcentres(x$SpCommunity, Nbx, Nby)
+  ok <- spatstat.geom::inside.owin(xy$x, xy$y, x$SpCommunity$window)
   xygrid <- sp::SpatialPoints(cbind(xy$x[ok], xy$y[ok]))
   sp::gridded(xygrid) <- TRUE
   # Proceed to krigeing

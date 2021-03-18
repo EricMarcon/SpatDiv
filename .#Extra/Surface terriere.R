@@ -12,8 +12,8 @@ Contournlevels = 10 ; Contourcol = "dark red"
 sdfCommunity <- sp::SpatialPointsDataFrame(coords=data.frame(x=Paracou6$x, y=Paracou6$y), 
                                            data=data.frame(Accumulation=g))
 # Prepare a grid
-xy <- spatstat::gridcentres(Paracou6, Nbx, Nby)
-ok <- spatstat::inside.owin(xy$x, xy$y, Paracou6$window)
+xy <- spatstat.geom::gridcentres(Paracou6, Nbx, Nby)
+ok <- spatstat.geom::inside.owin(xy$x, xy$y, Paracou6$window)
 xygrid <- sp::SpatialPoints(cbind(xy$x[ok], xy$y[ok]))
 sp::gridded(xygrid) <- TRUE
 # Proceed to krigeing

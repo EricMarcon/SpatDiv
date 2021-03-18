@@ -36,7 +36,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 
   if (is.null(r.seq)) {
     # n nearest neighbors. Find them.
-    nNeighbors <- spatstat::nnwhich(spCommunity, k=n.seq)
+    nNeighbors <- spatstat.geom::nnwhich(spCommunity, k=n.seq)
     # Add the reference point to get a table: center points in line, neighbors in columns, including the point itself in the first column
     nNeighbors <- cbind(Reference=1:spCommunity$n, nNeighbors)
 
@@ -107,7 +107,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
            Extrapolation <- integer(spCommunity$n)
            for (i in 1:spCommunity$n) {
              # Intersection between the point's neighborhood and the window
-             Intersection <- spatstat::area(spatstat::intersect.owin(spCommunity$window, spatstat::disc(radius=r.seq[r], centre=c(spCommunity$x[i], spCommunity$y[i]))))
+             Intersection <- spatstat.geom::area(spatstat.geom::intersect.owin(spCommunity$window, spatstat.geom::disc(radius=r.seq[r], centre=c(spCommunity$x[i], spCommunity$y[i]))))
              # Extrapolation ratio is that of the whole disc to the part of the disc inside the window
              Extrapolation[i] <- as.integer(nNeighbors[i] * pi * r.seq[r]^2 /Intersection)
            }
