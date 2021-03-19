@@ -5,7 +5,7 @@
 #' 
 #' The typical use of this function is to define a narrow window around a point pattern that has been created with a default, rectangle window.
 #' 
-#' The window is built by the [alphahull::ashape()] function and then transformed into an [spatstat.geom::owin.object].
+#' The window is built by the [alphahull::ashape()] function and then transformed into a [spatstat.geom::owin.object].
 #' The `alpha` parameter determines the smallest size of zones excluded from the window.
 #' If it is not specified, a first attempt is 1/256 of the diameter of the existing window of `X`.
 #' If the shape cannot be calculated, `alpha` is doubled and a new attempt is made.
@@ -14,16 +14,18 @@
 #' @param alpha A smoothing parameter to delimit concave polygons.
 #' @param CheckArguments If `TRUE` (default), the function arguments are verified. Should be set to `FALSE` to save time in simulations for example, when the arguments have been checked elsewhere.
 #'
-#' @return A window, i.e. an [spatstat.geom::owin.object].
+#' @return A window, i.e. a [spatstat.geom::owin.object].
 #' @export
 #' 
 #' @examples
-#' # Simulate a point pattern 
-#' X <- rpoispp(10)
-#' plot(X)
-#' # Calculate its border
-#' X$window <- alphahull(X)
-#' plot(X)
+#' # Simulate a point pattern
+#' if (require(spatstat.core)) {
+#'   X <- rpoispp(10)
+#'   plot(X)
+#'   # Calculate its border
+#'   X$window <- alphahull(X)
+#'   plot(X)
+#' }
 alphahull <- function(X, alpha = NULL, CheckArguments = TRUE) {
   if (CheckArguments)
     CheckSpatDivArguments()

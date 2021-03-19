@@ -14,7 +14,7 @@ alphahull(X, alpha = NULL, CheckArguments = TRUE)
 \item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
-A window, i.e. an \link[spatstat.geom:owin.object]{spatstat.geom::owin.object}.
+A window, i.e. a \link[spatstat.geom:owin.object]{spatstat.geom::owin.object}.
 }
 \description{
 Calculate a window containing all points of a point pattern.
@@ -23,16 +23,18 @@ The window is not convex but as close as possible to the points.
 \details{
 The typical use of this function is to define a narrow window around a point pattern that has been created with a default, rectangle window.
 
-The window is built by the \code{\link[alphahull:ashape]{alphahull::ashape()}} function and then transformed into an \link[spatstat.geom:owin.object]{spatstat.geom::owin.object}.
+The window is built by the \code{\link[alphahull:ashape]{alphahull::ashape()}} function and then transformed into a \link[spatstat.geom:owin.object]{spatstat.geom::owin.object}.
 The \code{alpha} parameter determines the smallest size of zones excluded from the window.
 If it is not specified, a first attempt is 1/256 of the diameter of the existing window of \code{X}.
 If the shape cannot be calculated, \code{alpha} is doubled and a new attempt is made.
 }
 \examples{
-# Simulate a point pattern 
-X <- rpoispp(10)
-plot(X)
-# Calculate its border
-X$window <- alphahull(X)
-plot(X)
+# Simulate a point pattern
+if (require(spatstat.core)) {
+  X <- rpoispp(10)
+  plot(X)
+  # Calculate its border
+  X$window <- alphahull(X)
+  plot(X)
+}
 }
