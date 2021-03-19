@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tsallis (HCDT) Entropy of a spatialized community — Tsallis.wmppp • SpatDiv</title>
+<title>alpha-shape calculation — alphahull • SpatDiv</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Tsallis (HCDT) Entropy of a spatialized community — Tsallis.wmppp" />
-<meta property="og:description" content="Calculates the HCDT, also known as Tsallis entropy of order $q$ of a spatialized community." />
+<meta property="og:title" content="alpha-shape calculation — alphahull" />
+<meta property="og:description" content="Calculate a window containing all points of a point pattern.
+The window is not convex but as close as possible to the points." />
 <meta property="og:image" content="https://ericmarcon.github.io/SpatDiv/logo.png" />
 
 
@@ -122,36 +123,28 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tsallis (HCDT) Entropy of a spatialized community</h1>
-    <small class="dont-index">Source: <a href='https://github.com/EricMarcon/SpatDiv/blob/master/R/entropart.R'><code>R/entropart.R</code></a></small>
-    <div class="hidden name"><code>Tsallis.wmppp.Rd</code></div>
+    <h1>alpha-shape calculation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/EricMarcon/SpatDiv/blob/master/R/alphahull.R'><code>R/alphahull.R</code></a></small>
+    <div class="hidden name"><code>alphahull.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Calculates the HCDT, also known as Tsallis entropy of order $q$ of a spatialized community.</p>
+    <p>Calculate a window containing all points of a point pattern.
+The window is not convex but as close as possible to the points.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for wmppp</span>
-<span class='fu'>Tsallis</span><span class='op'>(</span><span class='va'>NorP</span>, q <span class='op'>=</span> <span class='fl'>1</span>, Correction <span class='op'>=</span> <span class='st'>"Best"</span>, <span class='va'>...</span>, CheckArguments <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>alphahull</span><span class='op'>(</span><span class='va'>X</span>, alpha <span class='op'>=</span> <span class='cn'>NULL</span>, CheckArguments <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>NorP</th>
-      <td><p>A wmppp.object, with <code>PointType</code> values as species names.</p></td>
+      <th>X</th>
+      <td><p>A planar point pattern (<a href='https://rdrr.io/pkg/spatstat.geom/man/ppp.object.html'>spatstat.geom::ppp.object</a>).</p></td>
     </tr>
     <tr>
-      <th>q</th>
-      <td><p>A number: the order of entropy. Some corrections allow only a positive number. Default is 1 for Shannon entropy.</p></td>
-    </tr>
-    <tr>
-      <th>Correction</th>
-      <td><p>A string containing one of the possible corrections: <code>"None"</code> (no correction), <code>"ChaoShen"</code>, <code>"GenCov"</code>, <code>"Grassberger"</code>, <code>"Holste"</code>, <code>"Bonachela"</code>, <code>"ZhangGrabchak"</code>, or <code>"ChaoWangJost"</code>, <code>"Marcon"</code>, <code>"UnveilC"</code>, <code>"UnveiliC"</code>, <code>"UnveilJ"</code> or <code>"Best"</code>, the default value.  Currently, <code>"Best"</code> is <code>"ChaoWangJost"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Further arguments. Unsused.</p></td>
+      <th>alpha</th>
+      <td><p>A smoothing parameter to delimit concave polygons.</p></td>
     </tr>
     <tr>
       <th>CheckArguments</th>
@@ -161,30 +154,25 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A named number equal to the calculated entropy. The name is that of the bias correction used.</p>
+    <p>A window, i.e. a <a href='https://rdrr.io/pkg/spatstat.geom/man/owin.object.html'>spatstat.geom::owin.object</a>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Tsallis (Havrda and Charvát 1967; Daróczy 1970; Tsallis 1988)
- generalized entropy is a generalized measure of diversity (Jost 2006)
-.
-See Tsallis for more details.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Daróczy Z (1970).
-&#8220;Generalized Information Functions.&#8221;
-<em>Information and Control</em>, <b>16</b>(1), 36--51.<br /><br /> Havrda J, Charvát F (1967).
-&#8220;Quantification Method of Classification Processes. Concept of Structural alpha-Entropy.&#8221;
-<em>Kybernetika</em>, <b>3</b>(1), 30--35.<br /><br /> Jost L (2006).
-&#8220;Entropy and Diversity.&#8221;
-<em>Oikos</em>, <b>113</b>(2), 363--375.<br /><br /> Tsallis C (1988).
-&#8220;Possible Generalization of Boltzmann-Gibbs Statistics.&#8221;
-<em>Journal of Statistical Physics</em>, <b>52</b>(1), 479--487.</p>
+    <p>The typical use of this function is to define a narrow window around a point pattern that has been created with a default, rectangle window.</p>
+<p>The window is built by the <code><a href='https://rdrr.io/pkg/alphahull/man/ashape.html'>alphahull::ashape()</a></code> function and then transformed into a <a href='https://rdrr.io/pkg/spatstat.geom/man/owin.object.html'>spatstat.geom::owin.object</a>.
+The <code>alpha</code> parameter determines the smallest size of zones excluded from the window.
+If it is not specified, a first attempt is 1/256 of the diameter of the existing window of <code>X</code>.
+If the shape cannot be calculated, <code>alpha</code> is doubled and a new attempt is made.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>Tsallis</span><span class='op'>(</span><span class='va'>Paracou6</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  UnveilJ 
-#&gt; 4.702037 </div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># Simulate a point pattern</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='http://spatstat.org/'>spatstat.core</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>X</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/spatstat.core/man/rpoispp.html'>rpoispp</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>X</span><span class='op'>)</span>
+  <span class='co'># Calculate its border</span>
+  <span class='va'>X</span><span class='op'>$</span><span class='va'>window</span> <span class='op'>&lt;-</span> <span class='fu'>alphahull</span><span class='op'>(</span><span class='va'>X</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>X</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: spatstat.core</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: spatstat.data</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: spatstat.geom</span></div><div class='output co'>#&gt; <span class='message'>spatstat.geom 1.65-5</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: nlme</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: rpart</span></div><div class='output co'>#&gt; <span class='message'>spatstat.core 1.65-5</span></div><div class='img'><img src='alphahull-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='alphahull-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
