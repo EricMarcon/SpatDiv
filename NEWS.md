@@ -1,3 +1,10 @@
+# SpatDiv 0.5-0
+
+## New features
+
+* `alphahull()` to build a concave hull around a set of points.
+
+
 # SpatDiv 0.4-2
 
 ## New features

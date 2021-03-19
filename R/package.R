@@ -87,6 +87,17 @@ function() {
       ErrorMessage("q.seq must be a numeric vector.", q.seq)
   }
 
+  # alpha
+  if (!is.na(names(Args["alpha"]))) {
+    alpha <- eval(expression(alpha), parent.frame())
+    if (!is.null(alpha)) {
+      if (!is.numeric(alpha))
+        ErrorMessage("alpha must be a number.", alpha)
+      if (alpha < 0)
+        ErrorMessage("alpha must be positive.", alpha)
+    }
+  }
+  
   # BootstrapMethod
   if (!is.na(names(Args["BootstrapMethod"]))) {
     BootstrapMethod <- eval(expression(BootstrapMethod), parent.frame())
@@ -223,6 +234,13 @@ function() {
       ErrorMessage("size must be at least 1.", size)
     if (as.integer(size) != size)
       ErrorMessage("size must be an integer.", size)
+  }
+  
+  # X
+  if (!is.na(names(Args["X"]))) {
+    X <- eval(expression(X), parent.frame())
+    if (!(inherits(X, "ppp")))
+      ErrorMessage("X must be a planar point pattern, of class wmppp.", X)
   }
 
   # Z
