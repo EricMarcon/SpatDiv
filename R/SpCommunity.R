@@ -26,7 +26,7 @@
 #' \insertAllCited{}
 #' @examples
 #' spCommunity <- rSpCommunity(1, size=30, S=5)
-#' plot(spCommunity, which.marks = "PointType")
+#' autoplot(spCommunity, which.marks = "PointType")
 #' 
 rSpCommunity <-
 function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
@@ -53,7 +53,7 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
   # Spatial distribution
   if (Spatial == "Binomial") {
     # Binomial point process: call rCommunity and runifpoint.
-    Community <- entropart::rCommunity(n=n, size=size, NorP=NorP, BootstrapMethod=BootstrapMethod, S=S, Distribution=Distribution, sd=sd, prob=prob, alpha=alpha)
+    Community <- entropart::rCommunity(n=n, size=size, NorP=NorP, BootstrapMethod=BootstrapMethod, S=S, Distribution=Distribution, sd=sd, prob=prob, alpha=alpha, CheckArguments=FALSE)
     # Community is an AbdVector if n=1 or a MetaCommunity if n>1. Make an array in all cases.
     if (n == 1) {
       Community = matrix(Community, ncol=1)
