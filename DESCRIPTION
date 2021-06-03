@@ -28,7 +28,7 @@ Imports:
   stats,
   utils
 Depends: R (>= 3.3.0), Rcpp (>= 0.12.14), entropart, ggplot2
-Suggests: testthat, knitr
+Suggests: testthat, knitr, rmarkdown
 LinkingTo: Rcpp, RcppParallel
 SystemRequirements: GNU make, pandoc
 VignetteBuilder: knitr
