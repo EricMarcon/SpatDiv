@@ -54,12 +54,14 @@ function() {
     return (TRUE)
   }
 
-  ErrorFunction <- paste("Error in ", ParentFunction, ":")
-
-  # Find the arguments. match.fun does not work with SpatDiv::function
-  ParentFunctionNoNS <- as.name(gsub("SpatDiv::", "", as.character(ParentFunction)))
+  # Find the arguments. match.fun does not work with package::function
+  # as.character creates a vector. The name of the function is the last item
+  ParentFunction_split <- as.character(ParentFunction)
+  ParentFunctionNoNS <- ParentFunction_split[length(ParentFunction_split)]
   Args <- formals(match.fun(ParentFunctionNoNS))
-
+  
+  ErrorFunction <- paste("Error in ", ParentFunction, ":")
+  
   ErrorMessage <- function(Message, Argument) {
     cat(deparse(substitute(Argument)), "cannot be:\n")
     print(utils::head(Argument))

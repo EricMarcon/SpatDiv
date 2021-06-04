@@ -27,7 +27,7 @@ Create a random, spatialized community with 100 individuals of 10 species.
 ```{r rSpCommunity, message=FALSE}
 library("SpatDiv")
 rSpCommunity(n=1, size=100, S=10) -> spCommunity
-plot(spCommunity, which.marks = "PointType")
+autoplot(spCommunity, which.marks = "PointType")
 ```
 
 Plot a rank-abundance curve.
