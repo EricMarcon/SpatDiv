@@ -31,7 +31,7 @@ DivAccum(
 \item{r.seq}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
 
 \item{spCorrection}{The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window.
-Does not apply if neihborhoods are defined by the number of neighbors. Default is "None".}
+Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".}
 
 \item{H0}{The null hypothesis to compare the distribution of \code{spCommunity} to. If "none", the default value, no null hypothesis is tested.
 "Multinomial" means the community will be rarefied down to the number of neighbors of \code{n.seq}.
