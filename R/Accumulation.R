@@ -6,7 +6,7 @@
 #' @param n.seq A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10% of the individuals.
 #' @param r.seq A vector of distances. If `NULL` accumulation is along `n`, else neighbors are accumulated in circles of radius `r`.
 #' @param spCorrection The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window. 
-#'        Does not apply if neihborhoods are defined by the number of neighbors. Default is "None".
+#'        Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".
 #' @param Individual If `TRUE`, individual neighborhood entropies are returned.
 #' @param ShowProgressBar If `TRUE` (default), a progress bar is shown.
 #' @param CheckArguments If `TRUE` (default), the function arguments are verified. Should be set to `FALSE` to save time in simulations for example, when the arguments have been checked elsewhere.
