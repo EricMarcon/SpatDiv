@@ -7,7 +7,7 @@
 #' @param r.seq A vector of distances. If `NULL` accumulation is along `n`, else neighbors are accumulated in circles of radius `r`.
 #' @param spCorrection The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window. 
 #'        Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".
-#'        "Extrapolation" extrapolates the observed diversity up to the number of individuals estimated in the full area of the neighborhood.
+#'        "Extrapolation" extrapolates the observed diversity up to the number of individuals estimated in the full area of the neighborhood, which is slow.
 #' @param Individual If `TRUE`, individual neighborhood entropies are returned.
 #' @param ShowProgressBar If `TRUE` (default), a progress bar is shown.
 #' @param CheckArguments If `TRUE` (default), the function arguments are verified. Should be set to `FALSE` to save time in simulations for example, when the arguments have been checked elsewhere.
@@ -77,7 +77,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
     # The max value of the factors is needed
     NbSpecies <- max(as.integer(spCommunity$marks$PointType))
     # Run C++ routine to fill a 3D array. Rows are points, columns are r, the 3rd dimension has a z-value per species. Values are the number (weights) of neighbors of each point, up to ditance r, of species z.
-    rNeighbors <- parallelCountNbd(r=r.seq, NbSpecies,
+    rNeighbors <- parallelCountNbd(r=r.seq, NbSpecies=NbSpecies,
                          x=spCommunity$x, y=spCommunity$y,
                          Type=spCommunity$marks$PointType, Weight=spCommunity$marks$PointWeight)
     # The array of neighbor communities is built from the vector returned.
@@ -324,7 +324,7 @@ Mixing <-
 #'
 #' @param x An "Accumulation" object that cat be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).
 #' @param ... Further plotting arguments.
-#' @param q The order of Diversity
+#' @param q The order of Diversity. By default, the first value found in the "Accumulation" object is used.
 #' @param type Plotting parameter. Default is "l".
 #' @param main Main title of the plot.
 #' @param xlab X-axis label.
@@ -346,7 +346,7 @@ Mixing <-
 #' accum <- Mixing(spCommunity, q.seq=c(0,1))
 #' plot(accum, q=0)
 plot.Accumulation <-
-function(x, ..., q = 0,
+function(x, ..., q = dimnames(x$Accumulation)$q[1],
          type = "l",  main = "Accumulation of ...", xlab = "Sample size...", ylab = "Diversity...", ylim = NULL,
          lineH0 = TRUE, LineWidth = 2, ShadeColor = "grey75", BorderColor = "red")
 {
@@ -389,7 +389,7 @@ function(x, ..., q = 0,
 #' accum <- Mixing(spCommunity, q.seq=c(0,1))
 #' autoplot(accum, q=0)
 autoplot.Accumulation <-
-function(object, ..., q = 0,
+function(object, ..., q = dimnames(object$Accumulation)$q[1],
          main = "Accumulation of ...", xlab = "Sample size...", ylab = "Diversity...", ylim = NULL,
          lineH0 = TRUE, ShadeColor = "grey75", BorderColor = "red")
 {
