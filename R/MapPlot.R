@@ -18,9 +18,9 @@ function (x, ...)
 #' @rdname MapPlot
 #' 
 #' @inheritParams DivAccum
-#' @param Order The order of diversity. It can be a number or a character string, interpreted as the value of $q$.
-#' @param NeighborHood The neighborhood size. It can be a number or a character string, interpreted as the value of the number of neighobors or the distance.
-#' @param AllowJitter If `TRUE`, duplicated points are jittered to avoid their elimination by the krigeing procedure.
+#' @param Order The order of diversity, i.e. the value of $q$.
+#' @param NeighborHood The neighborhood size, i.e. the number of neighbors or the distance to consider.
+#' @param AllowJitter If `TRUE`, duplicated points are jittered to avoid their elimination by the kriging procedure.
 #' @param Nbx The number of columns (pixels) of the resulting map, 128 by default.
 #' @param Nby The number of rows (pixels) of the resulting map, 128 by default.
 #' @param Palette The color palette of the map.
@@ -41,7 +41,6 @@ function (x, ...)
 #' # Plot the local richness, accumulated up to 5 individuals.
 #' MapPlot(accum, Order=0, NeighborHood=5)
 #' 
-#' @section TODO: MapPlot fails if q.seq is a scalar
 MapPlot.Accumulation <-
 function (x, Order, NeighborHood, AllowJitter = TRUE,
           Nbx = 128, Nby = 128, Contour = TRUE, 
@@ -69,11 +68,12 @@ function (x, Order, NeighborHood, AllowJitter = TRUE,
   }
   
   # Convert numeric values of Order and Neighborhood into their index
-  if (is.numeric(Order)) Order <- which(as.numeric(rownames(x$Neighborhoods)) == Order)
-  if (is.numeric(NeighborHood)) NeighborHood <- which(as.numeric(colnames(x$Neighborhoods)) == NeighborHood)
-  # Verify that values exist
-  if (length(dim(x$Neighborhoods[Order, , ])) != 2) stop("Incorrect Order.") 
-  if (length(dim(x$Neighborhoods[, NeighborHood, ])) != 2) stop("Incorrect Neighborhood.") 
+  Order <- which(as.numeric(rownames(x$Neighborhoods)) == Order)
+  NeighborHood <- which(as.numeric(colnames(x$Neighborhoods)) == NeighborHood)
+  # Verify that values exist: if which() did not match, we get integer(0) for Order or NeighborHood
+  # then data is of length 0.
+  if (length(x$Neighborhoods[Order, , ]) == 0) stop("Incorrect Order.") 
+  if (length(x$Neighborhoods[, NeighborHood, ]) == 0) stop("Incorrect Neighborhood.") 
 
   # Convert the SpCommunity to a SpatialPointsDataFrame
   sdfCommunity <- sp::SpatialPointsDataFrame(coords=data.frame(x=x$SpCommunity$x, y=x$SpCommunity$y), 
