@@ -2,30 +2,35 @@
 % Please edit documentation in R/Shimatani.R
 \name{Simpson_r}
 \alias{Simpson_r}
-\title{Title}
+\title{Spatially Explicit Simpson's Entropy}
 \usage{
 Simpson_r(
-  X,
-  r = NULL,
-  correction = "isotropic",
-  Biased = TRUE,
+  spCommunity,
+  r.seq = NULL,
+  spCorrection = "isotropic",
   CheckArguments = TRUE
 )
 }
 \arguments{
-\item{X}{}
+\item{spCommunity}{A spatialized community (A \link{wmppp.object} with \code{PointType} values as species names.)}
 
-\item{r}{}
+\item{r.seq}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
 
-\item{correction}{}
+\item{spCorrection}{The edge-effect correction to apply when estimating the K function with \link{Kest}.
+Default is "isotropic".}
 
-\item{Biased}{}
-
-\item{CheckArguments}{}
+\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
-
+An object of class \code{fv}, see \link{fv.object}, which can be plotted.
 }
 \description{
-Title
+Simpson's entropy of the neighborhood of individuals, up to a distance \insertCite{Shimatani2001}{SpatDiv}.
+}
+\examples{
+# Generate a random community
+spCommunity <- rSpCommunity(1, size=50, S=3)
+# Calculate the entropy and plot it
+autoplot(Simpson_r(spCommunity))
+
 }

@@ -11,7 +11,8 @@ alphahull(X, alpha = NULL, CheckArguments = TRUE)
 
 \item{alpha}{A smoothing parameter to delimit concave polygons.}
 
-\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
+\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified.
+Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
 A window, i.e. a \link[spatstat.geom:owin.object]{spatstat.geom::owin.object}.

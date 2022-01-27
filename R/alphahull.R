@@ -12,7 +12,8 @@
 #' 
 #' @param X A planar point pattern ([spatstat.geom::ppp.object]).
 #' @param alpha A smoothing parameter to delimit concave polygons.
-#' @param CheckArguments If `TRUE` (default), the function arguments are verified. Should be set to `FALSE` to save time in simulations for example, when the arguments have been checked elsewhere.
+#' @param CheckArguments If `TRUE` (default), the function arguments are verified. 
+#' Should be set to `FALSE` to save time in simulations for example, when the arguments have been checked elsewhere.
 #'
 #' @return A window, i.e. a [spatstat.geom::owin.object].
 #' @export

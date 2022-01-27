@@ -28,7 +28,8 @@ EntAccum(
 \item{r.seq}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
 
 \item{spCorrection}{The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window.
-Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".}
+Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".
+"Extrapolation" extrapolates the observed diversity up to the number of individuals estimated in the full area of the neighborhood.}
 
 \item{Individual}{If \code{TRUE}, individual neighborhood entropies are returned.}
 

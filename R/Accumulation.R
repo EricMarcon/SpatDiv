@@ -7,6 +7,7 @@
 #' @param r.seq A vector of distances. If `NULL` accumulation is along `n`, else neighbors are accumulated in circles of radius `r`.
 #' @param spCorrection The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window. 
 #'        Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".
+#'        "Extrapolation" extrapolates the observed diversity up to the number of individuals estimated in the full area of the neighborhood.
 #' @param Individual If `TRUE`, individual neighborhood entropies are returned.
 #' @param ShowProgressBar If `TRUE` (default), a progress bar is shown.
 #' @param CheckArguments If `TRUE` (default), the function arguments are verified. Should be set to `FALSE` to save time in simulations for example, when the arguments have been checked elsewhere.

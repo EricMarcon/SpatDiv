@@ -29,7 +29,7 @@ MapPlot(x, ...)
 
 \item{Order}{The order of diversity. It can be a number or a character string, interpreted as the value of $q$.}
 
-\item{NeighborHood}{The neignborhood size. It can be a number or a character string, interpreted as the value of the number of neighobors or the distance.}
+\item{NeighborHood}{The neighborhood size. It can be a number or a character string, interpreted as the value of the number of neighobors or the distance.}
 
 \item{AllowJitter}{If \code{TRUE}, duplicated points are jittered to avoid their elimination by the krigeing procedure.}
 
