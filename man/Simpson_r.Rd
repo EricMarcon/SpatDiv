@@ -39,16 +39,18 @@ Default is "isotropic".}
 
 \item{SimulationType}{A string describing the null hypothesis to simulate.
 The null hypothesis may be "RandomPosition": points are drawn in a Poisson process (default);
-"RandomLabeling": randomizes point types, keeping locations unchanged;
-"PopulationIndependence": keeps reference points unchanged, shifts other point locations.}
+"RandomLabeling": randomizes point types, keeping locations unchanged.}
 
 \item{Global}{Logical; if \code{TRUE}, a global envelope sensu \insertCite{Duranton2005}{SpatDiv} is calculated.}
 }
 \value{
-An object of class \code{fv}, see \link{fv.object}, which can be plotted.
+\code{Simpson_r} returns an object of class \code{fv}, see \link{fv.object}.
+There are methods for print and plot for this class.
+It contains the value of the spatially explicit Simpson's entropy for each distance in \code{r}.
 
-An envelope object (envelope). There are methods for print and plot for this class.
-The fv contains the observed value of the function, its average simulated value and the confidence envelope.
+\code{Simpson_rEnvelope} returns an envelope object \link{envelope}.
+There are methods for print and plot for this class.
+It contains the observed value of the function, its average simulated value and the confidence envelope.
 }
 \description{
 Simpson's entropy of the neighborhood of individuals, up to a distance \insertCite{Shimatani2001}{SpatDiv}.

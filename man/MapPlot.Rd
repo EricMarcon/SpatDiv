@@ -27,11 +27,11 @@ MapPlot(x, ...)
 
 \item{...}{Further parameters.}
 
-\item{Order}{The order of diversity. It can be a number or a character string, interpreted as the value of $q$.}
+\item{Order}{The order of diversity, i.e. the value of $q$.}
 
-\item{NeighborHood}{The neighborhood size. It can be a number or a character string, interpreted as the value of the number of neighobors or the distance.}
+\item{NeighborHood}{The neighborhood size, i.e. the number of neighbors or the distance to consider.}
 
-\item{AllowJitter}{If \code{TRUE}, duplicated points are jittered to avoid their elimination by the krigeing procedure.}
+\item{AllowJitter}{If \code{TRUE}, duplicated points are jittered to avoid their elimination by the kriging procedure.}
 
 \item{Nbx}{The number of columns (pixels) of the resulting map, 128 by default.}
 
@@ -56,10 +56,6 @@ Map Spatialized Communities
 \details{
 Map an "Accum" object.
 }
-\section{TODO}{
- MapPlot fails if q.seq is a scalar
-}
-
 \examples{
 # Generate a random community
 spCommunity <- rSpCommunity(1, size=50, S=10)

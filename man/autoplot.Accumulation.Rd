@@ -7,7 +7,7 @@
 \method{autoplot}{Accumulation}(
   object,
   ...,
-  q = 0,
+  q = dimnames(object$Accumulation)$q[1],
   main = "Accumulation of ...",
   xlab = "Sample size...",
   ylab = "Diversity...",
@@ -22,7 +22,7 @@
 
 \item{...}{Further plotting arguments.}
 
-\item{q}{The order of Diversity}
+\item{q}{The order of Diversity. By default, the first value found in the "Accumulation" object is used.}
 
 \item{main}{Main title of the plot.}
 

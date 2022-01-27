@@ -7,7 +7,7 @@
 \method{plot}{Accumulation}(
   x,
   ...,
-  q = 0,
+  q = dimnames(x$Accumulation)$q[1],
   type = "l",
   main = "Accumulation of ...",
   xlab = "Sample size...",
@@ -24,7 +24,7 @@
 
 \item{...}{Further plotting arguments.}
 
-\item{q}{The order of Diversity}
+\item{q}{The order of Diversity. By default, the first value found in the "Accumulation" object is used.}
 
 \item{type}{Plotting parameter. Default is "l".}
 

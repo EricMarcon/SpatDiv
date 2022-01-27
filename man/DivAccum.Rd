@@ -32,7 +32,7 @@ DivAccum(
 
 \item{spCorrection}{The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window.
 Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".
-"Extrapolation" extrapolates the observed diversity up to the number of individuals estimated in the full area of the neighborhood.}
+"Extrapolation" extrapolates the observed diversity up to the number of individuals estimated in the full area of the neighborhood, which is slow.}
 
 \item{H0}{The null hypothesis to compare the distribution of \code{spCommunity} to. If "none", the default value, no null hypothesis is tested.
 "Multinomial" means the community will be rarefied down to the number of neighbors of \code{n.seq}.
