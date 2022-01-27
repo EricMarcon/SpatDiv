@@ -1,3 +1,10 @@
+# SpatDiv 0.6-0
+
+## New features
+
+* `Simpson_r()`: Spatially Explicit Simpson's Entropy.
+
+
 # SpatDiv 0.5-3
 
 ## New features
