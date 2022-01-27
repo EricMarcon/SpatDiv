@@ -2,6 +2,7 @@
 title: "SpatDiv"
 subtitle: "Spatially Explicit Measures of Diversity"
 output: rmarkdown::html_vignette
+bibliography: ../inst/REFERENCES.bib
 vignette: >
   %\VignetteIndexEntry{Introduction to SpatDiv}
   %\VignetteEngine{knitr::rmarkdown}
@@ -88,3 +89,20 @@ Map the local diversity accumulation or mixing index, for example the species ac
 par(mar=c(0,0,0,0))
 MapPlot(mixing, Order = 0, NeighborHood = 10)
 ```
+
+
+## Spatially explicit diversity
+
+### Spatially explicit Simpson's entropy
+
+This is Simpson's entropy in neighborhoods of points, closely related to Ripley's K function.
+It is introduced as $\alpha(r)` by @Shimatani2001.
+
+```{r Simpson_r, warning=FALSE}
+autoplot(Simpson_rEnvelope(spCommunity, Global = TRUE))
+```
+
+The `Simpson_r()` function computes the statistic.
+`Simpson_rEnvelope()` also computes the confidence interval of the null hypothesis, which is random labeling of the points by default.
+
+# References
