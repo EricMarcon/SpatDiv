@@ -2,35 +2,64 @@
 % Please edit documentation in R/Shimatani.R
 \name{Simpson_r}
 \alias{Simpson_r}
+\alias{Simpson_rEnvelope}
 \title{Spatially Explicit Simpson's Entropy}
 \usage{
 Simpson_r(
   spCommunity,
-  r.seq = NULL,
+  r = NULL,
   spCorrection = "isotropic",
+  CheckArguments = TRUE
+)
+
+Simpson_rEnvelope(
+  spCommunity,
+  r = NULL,
+  NumberOfSimulations = 100,
+  Alpha = 0.05,
+  spCorrection = "isotropic",
+  SimulationType = "RandomLabeling",
+  Global = FALSE,
   CheckArguments = TRUE
 )
 }
 \arguments{
 \item{spCommunity}{A spatialized community (A \link{wmppp.object} with \code{PointType} values as species names.)}
 
-\item{r.seq}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
+\item{r}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
 
 \item{spCorrection}{The edge-effect correction to apply when estimating the K function with \link{Kest}.
 Default is "isotropic".}
 
 \item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
+
+\item{NumberOfSimulations}{The number of simulations to run, 100 by default.}
+
+\item{Alpha}{The risk level, 5\% by default.}
+
+\item{SimulationType}{A string describing the null hypothesis to simulate.
+The null hypothesis may be "RandomPosition": points are drawn in a Poisson process (default);
+"RandomLabeling": randomizes point types, keeping locations unchanged;
+"PopulationIndependence": keeps reference points unchanged, shifts other point locations.}
+
+\item{Global}{Logical; if \code{TRUE}, a global envelope sensu \insertCite{Duranton2005}{SpatDiv} is calculated.}
 }
 \value{
 An object of class \code{fv}, see \link{fv.object}, which can be plotted.
+
+An envelope object (envelope). There are methods for print and plot for this class.
+The fv contains the observed value of the function, its average simulated value and the confidence envelope.
 }
 \description{
 Simpson's entropy of the neighborhood of individuals, up to a distance \insertCite{Shimatani2001}{SpatDiv}.
 }
 \examples{
 # Generate a random community
-spCommunity <- rSpCommunity(1, size=50, S=3)
+spCommunity <- rSpCommunity(1, size=1000, S=3)
 # Calculate the entropy and plot it
 autoplot(Simpson_r(spCommunity))
 
+}
+\references{
+\insertAllCited{}
 }
