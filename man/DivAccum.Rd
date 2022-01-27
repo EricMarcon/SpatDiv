@@ -15,7 +15,7 @@ DivAccum(
   Alpha = 0.05,
   NumberOfSimulations = 100,
   Individual = FALSE,
-  ShowProgressBar = TRUE,
+  ShowProgressBar = interactive(),
   CheckArguments = TRUE
 )
 }

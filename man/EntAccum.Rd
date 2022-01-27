@@ -12,7 +12,7 @@ EntAccum(
   r.seq = NULL,
   spCorrection = "None",
   Individual = FALSE,
-  ShowProgressBar = TRUE,
+  ShowProgressBar = interactive(),
   CheckArguments = TRUE
 )
 }

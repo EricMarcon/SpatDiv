@@ -30,7 +30,7 @@
 #' 
 EntAccum <-
 function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2), r.seq = NULL, spCorrection = "None", 
-         Individual = FALSE, ShowProgressBar = TRUE, CheckArguments = TRUE)
+         Individual = FALSE, ShowProgressBar = interactive(), CheckArguments = TRUE)
 {
   if (CheckArguments)
     CheckSpatDivArguments()
@@ -174,7 +174,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 DivAccum <-
 function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2), r.seq = NULL, spCorrection = "None",
          H0 = "None", Alpha = 0.05, NumberOfSimulations = 100,
-         Individual = FALSE, ShowProgressBar = TRUE, CheckArguments = TRUE)
+         Individual = FALSE, ShowProgressBar = interactive(), CheckArguments = TRUE)
 {
   if (CheckArguments)
     CheckSpatDivArguments()
@@ -295,7 +295,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 Mixing <-
   function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2), r.seq = NULL, spCorrection = "None",
            H0 = ifelse(is.null(r.seq), "Multinomial", "Binomial"), Alpha = 0.05, NumberOfSimulations = 100,
-           Individual = FALSE, ShowProgressBar = TRUE, CheckArguments = TRUE)
+           Individual = FALSE, ShowProgressBar = interactive(), CheckArguments = TRUE)
 {
   if (CheckArguments)
     CheckSpatDivArguments()
