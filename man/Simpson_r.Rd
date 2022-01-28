@@ -61,6 +61,11 @@ spCommunity <- rSpCommunity(1, size=1000, S=3)
 # Calculate the entropy and plot it
 autoplot(Simpson_r(spCommunity))
 
+# Generate a random community
+spCommunity <- rSpCommunity(1, size=1000, S=3)
+# Calculate the entropy and plot it
+autoplot(Simpson_rEnvelope(spCommunity, NumberOfSimulations=10))
+
 }
 \references{
 \insertAllCited{}

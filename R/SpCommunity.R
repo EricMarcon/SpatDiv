@@ -21,7 +21,11 @@
 #' @param prob The probability of success in each trial.
 #' @param alpha Fisher's alpha.
 #' @param Spatial The spatial distribution of points. 
-#' May be "Binomial" (a completely random point pattern except for its fixed number of points).
+#' May be "Binomial" (a completely random point pattern except for its fixed number of points) or 
+#' "Thomas" for a clustered point pattern with parameters `scale` and `mu`
+#' @param scale In Thomas point patterns, the standard deviation of random displacement (along each coordinate axis) of a point from its cluster center.
+#' @param mu In Thomas point patterns, the mean number of points per cluster.
+#' The intensity of the Poisson process of cluster centers is calculated as the number of points (`size`) per area divided by `mu`.
 #' @param win The window containing the point pattern. It is an [owin] object.
 #' @param Species A vector of characters or of factors containing the possible species.
 #' @param Sizes The distribution of point sizes.
@@ -44,7 +48,9 @@
 rSpCommunity <-
 function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
          S = 300, Distribution = "lnorm", sd = 1, prob = 0.1, alpha=40,
-         Spatial = "Binomial", win=spatstat.geom::owin(),
+         Spatial = "Binomial", 
+         scale = 0.2, mu = 10,
+         win=spatstat.geom::owin(),
          Species = NULL,
          Sizes = "Uniform", MinSize = 1, MaxSize = 1,
          CheckArguments = TRUE)
@@ -57,21 +63,21 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
     Format <- ceiling(log10(S+1))
     Species <- paste("sp", formatC(1:S, width=Format, flag="0"), sep="")
   }
-
-  # Sizes
-  if (Sizes == "Uniform") {
-    Sizes <- runif(size, min=MinSize, max=MaxSize)
+  
+  # Species abundance: call rCommunity
+  Community <- entropart::rCommunity(n=n, size=size, NorP=NorP, BootstrapMethod=BootstrapMethod, S=S, Distribution=Distribution, sd=sd, prob=prob, alpha=alpha, CheckArguments=FALSE)
+  # Community is an AbdVector if n=1 or a MetaCommunity if n>1. Make an array in all cases.
+  if (n == 1) {
+    Community = matrix(Community, ncol=1)
+  } else {
+    Community <- Community$Nsi
   }
-
+  
   # Spatial distribution
   if (Spatial == "Binomial") {
-    # Binomial point process: call rCommunity and runifpoint.
-    Community <- entropart::rCommunity(n=n, size=size, NorP=NorP, BootstrapMethod=BootstrapMethod, S=S, Distribution=Distribution, sd=sd, prob=prob, alpha=alpha, CheckArguments=FALSE)
-    # Community is an AbdVector if n=1 or a MetaCommunity if n>1. Make an array in all cases.
-    if (n == 1) {
-      Community = matrix(Community, ncol=1)
-    } else {
-      Community <- Community$Nsi
+    # Sizes
+    if (Sizes == "Uniform") {
+      Sizes <- runif(size, min=MinSize, max=MaxSize)
     }
     Binomial <- function(i) {
       X <- dbmss::as.wmppp(spatstat.core::runifpoint(sum(Community[, i]), win=win))
@@ -83,6 +89,37 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
     }
     # Loop to simulate several point processes
     listX <- lapply(1:n, Binomial)
+  }
+  
+  if (Spatial == "Thomas") {
+    area <- spatstat.geom::area.owin(win)
+    Thomas <- function(i) {
+      # Prepare an empty point pattern
+      X <- NULL
+      # Draw each species
+      for (s in 1:S) {
+        Xs <- spatstat.core::rThomas(kappa=Community[s, i]/area/mu, 
+                                    scale=scale,
+                                    mu=mu, win=win)
+        # Associate species and points
+        PointType <- as.factor(rep(Species[s], Xs$n))
+        # Associate sizes and points
+        if (Sizes == "Uniform") {
+          PointWeight <- runif(Xs$n, min=MinSize, max=MaxSize)
+        }
+        # Add the marks
+        spatstat.geom::marks(Xs) <- data.frame(PointType, PointWeight)
+        # Add the species to the point pattern
+        if (is.null(X)) {
+          X <- Xs
+        } else {
+          X <- spatstat.geom::superimpose(X, Xs)
+        }
+      }
+      return(dbmss::as.wmppp(X))
+    }
+    # Loop to simulate several point processes
+    listX <- lapply(1:n, Thomas)
   }
 
   if (n == 1) {

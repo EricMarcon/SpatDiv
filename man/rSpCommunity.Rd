@@ -15,9 +15,13 @@ rSpCommunity(
   prob = 0.1,
   alpha = 40,
   Spatial = "Binomial",
+  scale = 0.2,
+  mu = 10,
   win = spatstat.geom::owin(),
   Species = NULL,
   Sizes = "Uniform",
+  MinSize = 1,
+  MaxSize = 1,
   CheckArguments = TRUE
 )
 }
@@ -26,13 +30,21 @@ rSpCommunity(
 
 \item{size}{The number of individuals to draw in each community.}
 
-\item{NorP}{A numeric vector or a two-column matrix. Contains either abundances or probabilities. Two-column matrices should contain the observed abundances (or probabilities) in the first column and the expected ones in the second column, to allow using beta diversity functions.}
+\item{NorP}{A numeric vector or a two-column matrix.
+Contains either abundances or probabilities.
+Two-column matrices should contain the observed abundances (or probabilities) in the first column
+and the expected ones in the second column, to allow using beta diversity functions.}
 
-\item{BootstrapMethod}{The method used to obtain the probabilities to generate bootstrapped communities from observed abundances. If \code{"Marcon"}, the probabilities are simply the abundances divided by the total number of individuals \insertCite{Marcon2012a}{SpatDiv}. If \code{"Chao2013"} or \code{"Chao2015"} (by default), a more sophisticated approach is used (see \link{as.ProbaVector}) following \insertCite{Chao2013;textual}{SpatDiv} or \insertCite{Chao2015;textual}{SpatDiv}.}
+\item{BootstrapMethod}{The method used to obtain the probabilities to generate bootstrapped communities
+from observed abundances.
+If \code{"Marcon"}, the probabilities are simply the abundances divided by the total number of individuals \insertCite{Marcon2012a}{SpatDiv}.
+If \code{"Chao2013"} or \code{"Chao2015"} (by default), a more sophisticated approach is used (see \link{as.ProbaVector})
+following \insertCite{Chao2013;textual}{SpatDiv} or \insertCite{Chao2015;textual}{SpatDiv}.}
 
 \item{S}{The number of species.}
 
-\item{Distribution}{The distribution of species frequencies. May be \code{"lnorm"} (log-normal), \code{"lseries"} (log-series), \code{"geom"} (geometric) or \code{"bstick"} (broken stick).}
+\item{Distribution}{The distribution of species frequencies.
+May be \code{"lnorm"} (log-normal), \code{"lseries"} (log-series), \code{"geom"} (geometric) or \code{"bstick"} (broken stick).}
 
 \item{sd}{The simulated distribution standard deviation. For the log-normal distribution, this is the standard deviation on the log scale.}
 
@@ -40,13 +52,26 @@ rSpCommunity(
 
 \item{alpha}{Fisher's alpha.}
 
-\item{Spatial}{TODO}
+\item{Spatial}{The spatial distribution of points.
+May be "Binomial" (a completely random point pattern except for its fixed number of points) or
+"Thomas" for a clustered point pattern with parameters \code{scale} and \code{mu}}
+
+\item{scale}{In Thomas point patterns, the standard deviation of random displacement (along each coordinate axis) of a point from its cluster center.}
+
+\item{mu}{In Thomas point patterns, the mean number of points per cluster.
+The intensity of the Poisson process of cluster centers is calculated as the number of points (\code{size}) per area divided by \code{mu}.}
 
 \item{win}{The window containing the point pattern. It is an \link{owin} object.}
 
 \item{Species}{A vector of characters or of factors containing the possible species.}
 
-\item{Sizes}{TODO}
+\item{Sizes}{The distribution of point sizes.
+May be "Uniform" for a uniform distribution between \code{MinSize} and \code{MaxSize}.
+By default, all sizes are 1.}
+
+\item{MinSize}{The minimum size in a uniform distribution.}
+
+\item{MaxSize}{The maximum size in a uniform distribution.}
 
 \item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
