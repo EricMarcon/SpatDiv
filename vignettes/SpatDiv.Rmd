@@ -1,5 +1,5 @@
 ---
-title: "SpatDiv"
+title: "Introduction to SpatDiv"
 subtitle: "Spatially Explicit Measures of Diversity"
 output: rmarkdown::html_vignette
 bibliography: ../inst/REFERENCES.bib

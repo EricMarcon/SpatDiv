@@ -37,4 +37,5 @@ reference:
     - starts_with("as.AbdVector")
   - title: Utilities
     contents:
+    - alphahull
     - parallelCountNbd
