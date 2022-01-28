@@ -1,10 +1,10 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   SpatDiv: SpatDiv.html
-last_built: 2021-06-07T06:04Z
+last_built: 2022-01-28T13:34Z
 urls:
-  reference: https://ericmarcon.github.io/SpatDiv//reference
-  article: https://ericmarcon.github.io/SpatDiv//articles
+  reference: https://ericmarcon.github.io/SpatDiv/reference
+  article: https://ericmarcon.github.io/SpatDiv/articles
 

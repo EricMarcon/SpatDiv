@@ -1,93 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//index.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/404.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/CheckSpatDivArguments.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/articles/SpatDiv.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/DivAccum.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Diversity.character.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/authors.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Diversity.factor.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/index.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Diversity.wmppp.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/news/index.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/EntAccum.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/CheckSpatDivArguments.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/MapPlot.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/DivAccum.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Mixing.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Diversity.character.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Paracou6.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Diversity.factor.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Richness.character.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Diversity.wmppp.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Richness.factor.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/EntAccum.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Richness.wmppp.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/MapPlot.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Shannon.character.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Mixing.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Shannon.factor.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Paracou6.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Shannon.wmppp.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Richness.character.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Simpson.character.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Richness.factor.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Simpson.factor.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Richness.wmppp.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Simpson.wmppp.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Shannon.character.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/SpatDiv.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Shannon.factor.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/SpeciesDistributions.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Shannon.wmppp.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Tsallis.character.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Simpson.character.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Tsallis.factor.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Simpson.factor.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/Tsallis.wmppp.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Simpson.wmppp.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/alphahull.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Simpson_r.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/autoplot.Accumulation.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/SpatDiv.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/parallelCountNbd.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/SpeciesDistributions.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/plot.Accumulation.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Tsallis.character.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//reference/rSpCommunity.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Tsallis.factor.html</loc>
   </url>
   <url>
-    <loc>https://ericmarcon.github.io/SpatDiv//articles/SpatDiv.html</loc>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/Tsallis.wmppp.html</loc>
+  </url>
+  <url>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/alphahull.html</loc>
+  </url>
+  <url>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/autoplot.Accumulation.html</loc>
+  </url>
+  <url>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/parallelCountNbd.html</loc>
+  </url>
+  <url>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/plot.Accumulation.html</loc>
+  </url>
+  <url>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/rSpCommunity.html</loc>
   </url>
 </urlset>
