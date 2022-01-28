@@ -76,7 +76,7 @@ Values of the argument \code{H0} can be:
 - "None": No null model is run.
 - "Multinomial": The accumulation follows a multinomial sampling, with respect to the number of individuals only. The theoretical value and confidence envelope are calculated by the _entropart_ package.
 - "Binomial": The individuals are relocated in the window uniformly and independently.
-- "RandomLocation": The individuals are relocated accross their actual locations.
+- "RandomLocation": The individuals are relocated across their actual locations.
 
 The multinomial null hypothesis is by far faster to compute than the others because it does not require point pattern simulations.
 
