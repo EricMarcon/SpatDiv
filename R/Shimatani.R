@@ -106,6 +106,11 @@ Simpson_r <- function(spCommunity, r = NULL, spCorrection = "isotropic",
 #' @export
 #'
 #' @examples
+#' # Generate a random community
+#' spCommunity <- rSpCommunity(1, size=1000, S=3)
+#' # Calculate the entropy and plot it
+#' autoplot(Simpson_rEnvelope(spCommunity, NumberOfSimulations=10))
+#' 
 Simpson_rEnvelope <- function(spCommunity, r = NULL, NumberOfSimulations = 100, 
                               Alpha = 0.05, spCorrection = "isotropic", 
                               SimulationType = "RandomLabeling", Global = FALSE, 
