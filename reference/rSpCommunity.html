@@ -67,9 +67,13 @@
   prob <span class="op">=</span> <span class="fl">0.1</span>,
   alpha <span class="op">=</span> <span class="fl">40</span>,
   Spatial <span class="op">=</span> <span class="st">"Binomial"</span>,
+  scale <span class="op">=</span> <span class="fl">0.2</span>,
+  mu <span class="op">=</span> <span class="fl">10</span>,
   win <span class="op">=</span> <span class="fu">spatstat.geom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.geom/man/owin.html" class="external-link">owin</a></span><span class="op">(</span><span class="op">)</span>,
   Species <span class="op">=</span> <span class="cn">NULL</span>,
   Sizes <span class="op">=</span> <span class="st">"Uniform"</span>,
+  MinSize <span class="op">=</span> <span class="fl">1</span>,
+  MaxSize <span class="op">=</span> <span class="fl">1</span>,
   CheckArguments <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
     </div>
@@ -81,16 +85,24 @@
 <dt>size</dt>
 <dd><p>The number of individuals to draw in each community.</p></dd>
 <dt>NorP</dt>
-<dd><p>A numeric vector or a two-column matrix. Contains either abundances or probabilities. Two-column matrices should contain the observed abundances (or probabilities) in the first column and the expected ones in the second column, to allow using beta diversity functions.</p></dd>
+<dd><p>A numeric vector or a two-column matrix.
+Contains either abundances or probabilities.
+Two-column matrices should contain the observed abundances (or probabilities) in the first column
+and the expected ones in the second column, to allow using beta diversity functions.</p></dd>
 <dt>BootstrapMethod</dt>
-<dd><p>The method used to obtain the probabilities to generate bootstrapped communities from observed abundances. If <code>"Marcon"</code>, the probabilities are simply the abundances divided by the total number of individuals (Marcon et al. 2012)
-. If <code>"Chao2013"</code> or <code>"Chao2015"</code> (by default), a more sophisticated approach is used (see as.ProbaVector) following Chao et al. (2013)
+<dd><p>The method used to obtain the probabilities to generate bootstrapped communities
+from observed abundances.
+If <code>"Marcon"</code>, the probabilities are simply the abundances divided by the total number of individuals (Marcon et al. 2012)
+.
+If <code>"Chao2013"</code> or <code>"Chao2015"</code> (by default), a more sophisticated approach is used (see as.ProbaVector)
+following Chao et al. (2013)
  or Chao and Jost (2015)
 .</p></dd>
 <dt>S</dt>
 <dd><p>The number of species.</p></dd>
 <dt>Distribution</dt>
-<dd><p>The distribution of species frequencies. May be <code>"lnorm"</code> (log-normal), <code>"lseries"</code> (log-series), <code>"geom"</code> (geometric) or <code>"bstick"</code> (broken stick).</p></dd>
+<dd><p>The distribution of species frequencies.
+May be <code>"lnorm"</code> (log-normal), <code>"lseries"</code> (log-series), <code>"geom"</code> (geometric) or <code>"bstick"</code> (broken stick).</p></dd>
 <dt>sd</dt>
 <dd><p>The simulated distribution standard deviation. For the log-normal distribution, this is the standard deviation on the log scale.</p></dd>
 <dt>prob</dt>
@@ -98,13 +110,26 @@
 <dt>alpha</dt>
 <dd><p>Fisher's alpha.</p></dd>
 <dt>Spatial</dt>
-<dd><p>TODO</p></dd>
+<dd><p>The spatial distribution of points.
+May be "Binomial" (a completely random point pattern except for its fixed number of points) or
+"Thomas" for a clustered point pattern with parameters <code>scale</code> and <code>mu</code></p></dd>
+<dt>scale</dt>
+<dd><p>In Thomas point patterns, the standard deviation of random displacement (along each coordinate axis) of a point from its cluster center.</p></dd>
+<dt>mu</dt>
+<dd><p>In Thomas point patterns, the mean number of points per cluster.
+The intensity of the Poisson process of cluster centers is calculated as the number of points (<code>size</code>) per area divided by <code>mu</code>.</p></dd>
 <dt>win</dt>
 <dd><p>The window containing the point pattern. It is an <a href="https://rdrr.io/pkg/spatstat.geom/man/owin.html" class="external-link">owin</a> object.</p></dd>
 <dt>Species</dt>
 <dd><p>A vector of characters or of factors containing the possible species.</p></dd>
 <dt>Sizes</dt>
-<dd><p>TODO</p></dd>
+<dd><p>The distribution of point sizes.
+May be "Uniform" for a uniform distribution between <code>MinSize</code> and <code>MaxSize</code>.
+By default, all sizes are 1.</p></dd>
+<dt>MinSize</dt>
+<dd><p>The minimum size in a uniform distribution.</p></dd>
+<dt>MaxSize</dt>
+<dd><p>The maximum size in a uniform distribution.</p></dd>
 <dt>CheckArguments</dt>
 <dd><p>If <code>TRUE</code> (default), the function arguments are verified. Should be set to <code>FALSE</code> to save time in simulations for example, when the arguments have been checked elsewhere.</p></dd>
 </dl></div>

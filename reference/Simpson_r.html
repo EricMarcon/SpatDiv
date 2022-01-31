@@ -130,6 +130,16 @@ doi: <a href="https://doi.org/10.1016/s0378-1127(00)00352-2" class="external-lin
 <span class="r-in"><span class="fu">autoplot</span><span class="op">(</span><span class="fu">Simpson_r</span><span class="op">(</span><span class="va">spCommunity</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="Simpson_r-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
+<span class="r-in"><span class="co"># Generate a random community</span></span>
+<span class="r-in"><span class="va">spCommunity</span> <span class="op">&lt;-</span> <span class="fu"><a href="rSpCommunity.html">rSpCommunity</a></span><span class="op">(</span><span class="fl">1</span>, size<span class="op">=</span><span class="fl">1000</span>, S<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span class="co"># Calculate the entropy and plot it</span></span>
+<span class="r-in"><span class="fu">autoplot</span><span class="op">(</span><span class="fu">Simpson_rEnvelope</span><span class="op">(</span><span class="va">spCommunity</span>, NumberOfSimulations<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Generating 10 simulations by evaluating expression  ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1, 2, 3, 4, 5, 6, 7, 8, 9,  10.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done.</span>
+<span class="r-plt img"><img src="Simpson_r-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>
