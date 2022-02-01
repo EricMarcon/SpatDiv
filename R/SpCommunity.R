@@ -80,7 +80,7 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
       Sizes <- runif(size, min=MinSize, max=MaxSize)
     }
     Binomial <- function(i) {
-      X <- dbmss::as.wmppp(spatstat.core::runifpoint(sum(Community[, i]), win=win))
+      X <- dbmss::as.wmppp(spatstat.random::runifpoint(sum(Community[, i]), win=win))
       # Associate species and points
       X$marks$PointType <- as.factor(rep(Species, Community[, i]))
       # Associate sizes and points
@@ -98,7 +98,7 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
       X <- NULL
       # Draw each species
       for (s in 1:S) {
-        Xs <- spatstat.core::rThomas(kappa=Community[s, i]/area/mu, 
+        Xs <- spatstat.random::rThomas(kappa=Community[s, i]/area/mu, 
                                     scale=scale,
                                     mu=mu, win=win)
         # Associate species and points

@@ -20,7 +20,7 @@
 #' 
 #' @examples
 #' # Simulate a point pattern
-#' if (require(spatstat.core)) {
+#' if (require(spatstat.random)) {
 #'   X <- rpoispp(10)
 #'   plot(X)
 #'   # Calculate its border
