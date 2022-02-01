@@ -30,6 +30,7 @@ Imports:
   sp,
   spatstat.core, 
   spatstat.geom, 
+  spatstat.random, 
   stats, 
   utils
 Suggests: 
