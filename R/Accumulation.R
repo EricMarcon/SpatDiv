@@ -336,7 +336,6 @@ Mixing <-
 #' @param BorderColor The color of the borders of the confidence envelope.
 #'
 #' @importFrom graphics plot
-#' @method plot Accumulation
 #' @export
 #'
 #' @examples
@@ -370,7 +369,8 @@ function(x, ..., q = dimnames(x$Accumulation)$q[1],
     if (lineH0) graphics::lines(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[h$Whichq, , 2], lty=2)
   }
 }
-
+#' @export
+graphics::plot
 
 
 #' Plot Diversity Accumulation
@@ -379,7 +379,6 @@ function(x, ..., q = dimnames(x$Accumulation)$q[1],
 #' @inheritParams plot.Accumulation
 #'
 #' @importFrom ggplot2 autoplot
-#' @method autoplot Accumulation
 #' @export
 #'
 #' @examples
@@ -425,7 +424,8 @@ function(object, ..., q = dimnames(object$Accumulation)$q[1],
   }
   return(thePlot)
 }
-
+#' @export
+ggplot2::autoplot
 
 
 # Helper to prepare parameters for plot and autoplot. Internal, not documented.
