@@ -117,7 +117,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
            for (Community in 1:nrow(NeighborCommunities)) {
              for (q in 1:length(q.seq)) {
                # Suppress the warnings for Coverage=0 every time neighbors are singletons only.
-               suppressWarnings(qNbEntropies[q, Community] <- entropart:::Tsallis.numeric(NeighborCommunities[Community, ], q=q.seq[q], Level=Extrapolation[Community], CheckArguments=FALSE))
+               suppressWarnings(qNbEntropies[q, Community] <- Tsallis(NeighborCommunities[Community, ], q=q.seq[q], Level=Extrapolation[Community], CheckArguments=FALSE))
              }
            }
          } else {

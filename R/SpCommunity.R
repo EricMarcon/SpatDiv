@@ -77,7 +77,7 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
   if (Spatial == "Binomial") {
     # Sizes
     if (Sizes == "Uniform") {
-      Sizes <- runif(size, min=MinSize, max=MaxSize)
+      Sizes <- stats::runif(size, min=MinSize, max=MaxSize)
     }
     Binomial <- function(i) {
       X <- dbmss::as.wmppp(spatstat.random::runifpoint(sum(Community[, i]), win=win))
@@ -105,7 +105,7 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
         PointType <- as.factor(rep(Species[s], Xs$n))
         # Associate sizes and points
         if (Sizes == "Uniform") {
-          PointWeight <- runif(Xs$n, min=MinSize, max=MaxSize)
+          PointWeight <- stats::runif(Xs$n, min=MinSize, max=MaxSize)
         }
         # Add the marks
         spatstat.geom::marks(Xs) <- data.frame(PointType, PointWeight)
