@@ -1,0 +1,59 @@
+---
+title: "Random Spatial Communities"
+output: rmarkdown::html_vignette
+bibliography: ../../inst/REFERENCES.bib
+vignette: >
+  %\VignetteIndexEntry{Random Spatial Communities}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+**SpatDiv** allows drawing random, spatialized communities as a whole, or species by species for more control.
+
+# Drawing random communities
+
+The function `rSpCommunity()` draws a community (which is a weighted, marked, planar point pattern, i.e. a `wmppp` object defined in package **dbmss**) or a list of communities (an `SpCommunities` object) if argument `n`, the number of communities, is greater than 1.
+
+```{r DefaultSpCommunity, eval=FALSE}
+library("SpatDiv")
+spCommunity <- rSpCommunity(1, size=30, S=5)
+autoplot(spCommunity)
+```
+
+The random community obtained is made of 30 individuals in 5 species.
+All arguments are set by default:
+
+- The species distribution of abundances is lognormal.
+- The spatial window is a square of side 1.
+- The spatial distribution of each species is multiniomial (i.e. point locations are independent, but their number is fixed).
+- The species point patterns are independent.
+- The size of all individuals is 1.
+
+
+# Drawing species separately
+
+The function `rSpSpecies()` draws a single species spatial pattern, which is a a `wmppp` object.
+
+
+```{r DefaultSpSpecies, eval=FALSE}
+spSpecies <- rSpSpecies(50, Spatial = "Thomas")
+autoplot(spSpecies)
+```
+
+The point pattern of a a species is aggregated.
+It follows a Thomas point process with default arguments.
+
+
+# Combining point patterns
+
+Spatial communities stored in `wmppp` and `SpCommunities` objects can be superimposed by the `spatstat.geom::superimpose()`.
+
+```{r}
+library("tidyverse")
+library("spatstat")
+superimpose(spCommunity, spSpecies) %>% 
+  autoplot()
+```
+
+
+# References
