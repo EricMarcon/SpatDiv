@@ -177,7 +177,7 @@ rSpSpecies <-
   
   if (Spatial == "Thomas") {
     area <- spatstat.geom::area.owin(win)
-    X <- spatstat.random::rThomas(kappa=size/area/mu, 
+    X <- spatstat.random::rThomas(kappa=n/area/mu, 
                                   scale=scale,
                                   mu=mu, win=win)
     # Associate species and points
