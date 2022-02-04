@@ -159,7 +159,7 @@ rSpSpecies <-
   
   # Species
   if (is.null(Species)) {
-    Species <- paste("sp", round(runif(1)*.Machine$integer.max), sep="")
+    Species <- paste("sp", round(stats::runif(1)*.Machine$integer.max), sep="")
   }
   
   # Spatial distribution

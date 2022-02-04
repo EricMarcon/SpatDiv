@@ -19,8 +19,7 @@ InstallPackages <- function(Packages) {
   }
   invisible(sapply(Packages, InstallPackage))
 }
-InstallPackages(c("magrittr", "remotes", "SpatDiv"))
-library("magrittr")
+InstallPackages(c("remotes", "SpatDiv"))
 # knitr options
 knitr::opts_chunk$set(
   cache =   TRUE,  # Cache chunk results
