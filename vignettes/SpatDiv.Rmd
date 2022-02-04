@@ -51,7 +51,7 @@ remotes::install_github("EricMarcon/SpatDiv")
 
 Create a random, spatialized community with 100 individuals of 10 species.
 
-```{r rSpCommunity, message=FALSE}
+```{r rSpCommunity}
 library("SpatDiv")
 rSpCommunity(n=1, size=100, S=3, Spatial = "Thomas") -> spCommunity
 autoplot(spCommunity, which.marks = "PointType")
@@ -70,7 +70,7 @@ autoplot(as.AbdVector(spCommunity))
 Compute the Diversity Accumulation Curve for 1 to 50 neighbors for orders 0, 1 and 2, with the theoretical, null-model curve.
 Plot it for Shannon diversity.
 
-```{r plotDivAccum, fig.width=6}
+```{r plotDivAccum}
 divAccum <- DivAccum(spCommunity, n.seq=1:50, q.seq=0:2, H0="Multinomial", NumberOfSimulations=1000)
 autoplot(divAccum, q = 1)
 ```
@@ -78,7 +78,7 @@ autoplot(divAccum, q = 1)
 Compute and plot the mixing index of any order.
 Save the local values for future use.
 
-```{r Mixing, fig.width=6}
+```{r Mixing}
 mixing <- Mixing(spCommunity, n.seq=1:50, q.seq=0:2, H0="Multinomial", NumberOfSimulations=1000, Individual=TRUE)
 autoplot(mixing, q = 1)
 ```
@@ -88,7 +88,7 @@ autoplot(mixing, q = 1)
 The same accumulation cuves can be computed by increasing the sample area around each point.
 The argument \code{r.seq} contains the vector of radii of those circular plots.
 
-```{r plotDivAccum2, fig.width=6}
+```{r plotDivAccum2}
 divAccum <- DivAccum(spCommunity, r.seq = seq(0, .5, by=.1), q.seq=1, spCorrection = "Extrapolation", H0="Binomial")
 autoplot(divAccum, q = 1)
 ```
@@ -124,7 +124,7 @@ MapPlot(mixing, Order = 0, NeighborHood = 10)
 This is Simpson's entropy in neighborhoods of points, closely related to Ripley's K function.
 It is introduced as $\alpha(r)` by @Shimatani2001.
 
-```{r Simpson_r, warning=FALSE}
+```{r Simpson_r}
 autoplot(Simpson_rEnvelope(spCommunity, Global = TRUE))
 ```
 
