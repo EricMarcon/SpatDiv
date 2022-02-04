@@ -43,7 +43,7 @@
 #' \insertAllCited{}
 #' @examples
 #' spCommunity <- rSpCommunity(1, size=30, S=5)
-#' autoplot(spCommunity, which.marks = "PointType")
+#' autoplot(spCommunity)
 #' 
 rSpCommunity <-
 function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
@@ -127,7 +127,68 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
     return(listX[[1]])
   } else {
     # Return a list of wmppp
-    class(listX) <- c("SpCommunities", class(listX))
+    class(listX) <- c("SpCommunities", "ppplist", class(listX))
     return(listX)
   }
+}
+
+
+#' Random Spatialized Distribution of a Species
+#'
+#' @inheritParams rSpCommunity
+#' @param n The number of individuals to draw.
+#'
+#' @return A [wmppp.object].
+#' @export
+#'
+#' @examples
+#' spSpecies <- rSpSpecies(50, Spatial = "Thomas")
+#' autoplot(spSpecies)
+#' 
+rSpSpecies <-
+  function(n,
+           Spatial = "Binomial", 
+           scale = 0.2, mu = 10,
+           win=spatstat.geom::owin(),
+           Species = NULL,
+           Sizes = "Uniform", MinSize = 1, MaxSize = 1,
+           CheckArguments = TRUE) 
+{
+  if (CheckArguments)
+    CheckSpatDivArguments()
+  
+  # Species
+  if (is.null(Species)) {
+    Species <- paste("sp", round(runif(1)*.Machine$integer.max), sep="")
+  }
+  
+  # Spatial distribution
+  if (Spatial == "Binomial") {
+    # Sizes
+    if (Sizes == "Uniform") {
+      Sizes <- stats::runif(n, min=MinSize, max=MaxSize)
+    }
+    X <- dbmss::as.wmppp(spatstat.random::runifpoint(n, win=win))
+    # Associate species and points
+    X$marks$PointType <- as.factor(rep(Species, n))
+    # Associate sizes and points
+    X$marks$PointWeight <- Sizes
+  }
+  
+  if (Spatial == "Thomas") {
+    area <- spatstat.geom::area.owin(win)
+    X <- spatstat.random::rThomas(kappa=size/area/mu, 
+                                  scale=scale,
+                                  mu=mu, win=win)
+    # Associate species and points
+    PointType <- as.factor(rep(Species, X$n))
+    # Associate sizes and points
+    if (Sizes == "Uniform") {
+      PointWeight <- stats::runif(X$n, min=MinSize, max=MaxSize)
+    }
+    # Add the marks
+    spatstat.geom::marks(X) <- data.frame(PointType, PointWeight)
+  }
+  
+  return(dbmss::as.wmppp(X))
 }

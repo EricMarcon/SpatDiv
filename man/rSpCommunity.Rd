@@ -84,7 +84,7 @@ This function extends \link{rCommunity} by spatializing the randomized community
 }
 \examples{
 spCommunity <- rSpCommunity(1, size=30, S=5)
-autoplot(spCommunity, which.marks = "PointType")
+autoplot(spCommunity)
 
 }
 \references{

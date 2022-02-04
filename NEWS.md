@@ -1,4 +1,11 @@
-# SpatDiv 0.6-1
+# SpatDiv 0.7-0
+
+## New features
+
+* `rSpSpecies`: random spatialized species.
+
+
+# SpatDiv 0.6-2
 
 ## New features
 
