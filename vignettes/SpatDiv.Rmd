@@ -9,6 +9,32 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r global_options, include=FALSE}
+# Installation of packages if necessary
+InstallPackages <- function(Packages) {
+  InstallPackage <- function(Package) {
+    if (!Package %in% installed.packages()[, 1]) {
+      install.packages(Package, repos="https://cran.rstudio.com/")
+    }
+  }
+  invisible(sapply(Packages, InstallPackage))
+}
+InstallPackages(c("magrittr", "remotes", "SpatDiv"))
+library("magrittr")
+# knitr options
+knitr::opts_chunk$set(
+  cache =   TRUE,  # Cache chunk results
+  echo =    TRUE,  # Show R chunks
+  warning = FALSE, # Hide warnings
+  message = FALSE, # Hide warnings
+  fig.align='center', out.width='80%', fig.dim=c(7, 5),
+  # Code chunk format
+  tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=80)
+  )
+# Random seed
+set.seed(97310)
+```
+
 This is a preliminary version of a package designed to measure spatially-explicit diversity.
 
 # Getting started

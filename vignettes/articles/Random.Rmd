@@ -8,13 +8,40 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r global_options, include=FALSE}
+# Installation of packages if necessary
+InstallPackages <- function(Packages) {
+  InstallPackage <- function(Package) {
+    if (!Package %in% installed.packages()[, 1]) {
+      install.packages(Package, repos="https://cran.rstudio.com/")
+    }
+  }
+  invisible(sapply(Packages, InstallPackage))
+}
+InstallPackages(c("magrittr", "spatstat", "SpatDiv"))
+library("magrittr")
+# knitr options
+knitr::opts_chunk$set(
+  cache =   TRUE,  # Cache chunk results
+  echo =    TRUE,  # Show R chunks
+  warning = FALSE, # Hide warnings
+  message = FALSE, # Hide warnings
+  fig.align='center', out.width='80%', fig.dim=c(7, 5),
+  # Code chunk format
+  tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=80)
+  )
+# Random seed
+set.seed(97310)
+```
+
+
 **SpatDiv** allows drawing random, spatialized communities as a whole, or species by species for more control.
 
 # Drawing random communities
 
 The function `rSpCommunity()` draws a community (which is a weighted, marked, planar point pattern, i.e. a `wmppp` object defined in package **dbmss**) or a list of communities (an `SpCommunities` object) if argument `n`, the number of communities, is greater than 1.
 
-```{r DefaultSpCommunity, eval=FALSE}
+```{r DefaultSpCommunity, message=FALSE}
 library("SpatDiv")
 spCommunity <- rSpCommunity(1, size=30, S=5)
 autoplot(spCommunity)
@@ -35,7 +62,7 @@ All arguments are set by default:
 The function `rSpSpecies()` draws a single species spatial pattern, which is a a `wmppp` object.
 
 
-```{r DefaultSpSpecies, eval=FALSE}
+```{r DefaultSpSpecies}
 spSpecies <- rSpSpecies(50, Spatial = "Thomas")
 autoplot(spSpecies)
 ```
@@ -46,12 +73,10 @@ It follows a Thomas point process with default arguments.
 
 # Combining point patterns
 
-Spatial communities stored in `wmppp` and `SpCommunities` objects can be superimposed by the `spatstat.geom::superimpose()`.
+Spatial communities stored in `wmppp` and `SpCommunities` objects can be superimposed by the `superimpose()` function.
 
-```{r}
-library("tidyverse")
-library("spatstat")
-superimpose(spCommunity, spSpecies) %>% 
+```{r superimpose, message=FALSE}
+superimpose(spSpecies, spCommunity)  %>% 
   autoplot()
 ```
 
