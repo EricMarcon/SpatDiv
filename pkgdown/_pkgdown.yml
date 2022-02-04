@@ -12,6 +12,7 @@ reference:
     - Paracou6
     - rSpCommunity
   - title: Simulation of spatialized communities
+    contents:
     - rSpSpecies
     - rSpCommunity
   - title: Diversity Accumulation
