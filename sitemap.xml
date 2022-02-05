@@ -4,6 +4,9 @@
     <loc>https://ericmarcon.github.io/SpatDiv/404.html</loc>
   </url>
   <url>
+    <loc>https://ericmarcon.github.io/SpatDiv/articles/Random.html</loc>
+  </url>
+  <url>
     <loc>https://ericmarcon.github.io/SpatDiv/articles/SpatDiv.html</loc>
   </url>
   <url>
@@ -107,6 +110,9 @@
   </url>
   <url>
     <loc>https://ericmarcon.github.io/SpatDiv/reference/rSpCommunity.html</loc>
+  </url>
+  <url>
+    <loc>https://ericmarcon.github.io/SpatDiv/reference/rSpSpecies.html</loc>
   </url>
   <url>
     <loc>https://ericmarcon.github.io/SpatDiv/reference/reexports.html</loc>
