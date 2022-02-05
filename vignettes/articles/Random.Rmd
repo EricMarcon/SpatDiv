@@ -18,7 +18,7 @@ InstallPackages <- function(Packages) {
   }
   invisible(sapply(Packages, InstallPackage))
 }
-InstallPackages(c("magrittr", "spatstat", "SpatDiv"))
+InstallPackages(c("magrittr", "spatstat", "dbmss", "SpatDiv"))
 library("magrittr")
 # knitr options
 knitr::opts_chunk$set(
@@ -73,9 +73,10 @@ It follows a Thomas point process with default arguments.
 
 # Combining point patterns
 
-Spatial communities stored in `wmppp` and `SpCommunities` objects can be superimposed by the `superimpose()` function.
+Spatial communities stored in `wmppp` and `SpCommunities` objects can be superimposed by the `superimpose()` function from package **dbmss**.
 
 ```{r superimpose, message=FALSE}
+library("dbmss")
 superimpose(spSpecies, spCommunity)  %>% 
   autoplot()
 ```
