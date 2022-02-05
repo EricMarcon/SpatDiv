@@ -34,8 +34,8 @@ knitr::opts_chunk$set(
 set.seed(97310)
 ```
 
-
 **SpatDiv** allows drawing random, spatialized communities as a whole, or species by species for more control.
+
 
 # Drawing random communities
 
@@ -69,6 +69,13 @@ autoplot(spSpecies)
 
 The point pattern of a a species is aggregated.
 It follows a Thomas point process with default arguments.
+
+Available point processes are:
+
+- `Binomial`: points are draw independently like in a homogenous Poisson process but their number is forced to `n`.
+- `Thomas`: points are clustered around centers whose density is `kappa`.
+`mu` is the average number of points in each cluster.
+`scale` is the standard deviation of the random displacement of points from the cluster centers.
 
 
 # Combining point patterns
