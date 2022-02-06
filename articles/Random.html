@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SpatDiv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-2</span>
       </span>
     </div>
 
@@ -110,12 +110,38 @@
 <p><img src="Random_files/figure-html/DefaultSpCommunity-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>The random community obtained is made of 30 individuals in 5 species. All arguments are set by default:</p>
 <ul>
-<li>The species distribution of abundances is lognormal.</li>
-<li>The spatial window is a square of side 1.</li>
-<li>The spatial distribution of each species is multiniomial (i.e. point locations are independent, but their number is fixed).</li>
+<li>The species distribution of abundances is lognormal. It can be modified by the argument <code>Distribution</code>.</li>
+<li>The spatial window (argument <code>win</code>) is a square of side 1.</li>
+<li>The spatial distribution (argument <code>Spatial</code>) of each species is multinomial (i.e. point locations are independent, but their number is fixed).</li>
 <li>The species point patterns are independent.</li>
-<li>The size of all individuals is 1.</li>
+<li>The size of all individuals (argument <code>Sizes</code>) is 1.</li>
 </ul>
+<div class="section level3">
+<h3 id="species-abundances">Species abundances<a class="anchor" aria-label="anchor" href="#species-abundances"></a>
+</h3>
+<p>Several species abundance distributions (SAD) are available:</p>
+<ul>
+<li>
+<code>Distribution = "lnorm"</code>: log-normal distribution with parameter <code>sd</code>, the standard deviation of the logarithm of probabilities. The mean is forced by <code>size</code>, the number of individuals.</li>
+<li>
+<code>Distribution = "lseries"</code>: log-series distribution with parameter <code>alpha</code>.</li>
+<li>
+<code>Distribution = "geom"</code>: geometric distribution with parameter <code>prob</code>.</li>
+<li>
+<code>Distribution = "bstick"</code>: broken stick distribution.</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="individual-size">Individual size<a class="anchor" aria-label="anchor" href="#individual-size"></a>
+</h3>
+<p>The distribution of sizes is chosen by the argument <code>Sizes</code>:</p>
+<ul>
+<li>
+<code>Sizes = "Uniform"</code>: a uniform distribution between <code>MinSize</code> and <code>MaxSize</code>. By default, <code>MinSize</code> and <code>MaxSize</code> equal 1 so all sizes are set to 1.</li>
+<li>
+<code>Sizes = "Weibull"</code>: a Weibull distribution with parameters <code>shape</code> and <code>scale</code>. <code>MinSize</code> is added (i.e., it is the location parameter of the Weibull distribution with three parameters).</li>
+</ul>
+</div>
 </div>
 <div class="section level2">
 <h2 id="drawing-species-separately">Drawing species separately<a class="anchor" aria-label="anchor" href="#drawing-species-separately"></a>
@@ -133,6 +159,7 @@
 <li>
 <code>Thomas</code>: points are clustered around centers whose density is <code>kappa</code>. <code>mu</code> is the average number of points in each cluster. <code>scale</code> is the standard deviation of the random displacement of points from the cluster centers.</li>
 </ul>
+<p>More complex spatial distributions can be simulated in package <strong>spatstat</strong>. <code>Spatial</code> can be an object of class <code>ppp</code> (a planar point pattern) obtained that way.</p>
 </div>
 <div class="section level2">
 <h2 id="combining-point-patterns">Combining point patterns<a class="anchor" aria-label="anchor" href="#combining-point-patterns"></a>
