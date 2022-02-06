@@ -14,6 +14,8 @@ rSpSpecies(
   Sizes = "Uniform",
   MinSize = 1,
   MaxSize = 1,
+  Wscale = 20,
+  shape = 2,
   CheckArguments = TRUE
 )
 }
@@ -22,7 +24,7 @@ rSpSpecies(
 
 \item{Spatial}{The spatial distribution of points.
 May be "Binomial" (a completely random point pattern except for its fixed number of points) or
-"Thomas" for a clustered point pattern with parameters \code{scale} and \code{mu}}
+"Thomas" for a clustered point pattern with parameters \code{scale} and \code{mu}.}
 
 \item{scale}{In Thomas point patterns, the standard deviation of random displacement (along each coordinate axis) of a point from its cluster center.}
 
@@ -35,11 +37,16 @@ The intensity of the Poisson process of cluster centers is calculated as the num
 
 \item{Sizes}{The distribution of point sizes.
 May be "Uniform" for a uniform distribution between \code{MinSize} and \code{MaxSize}.
-By default, all sizes are 1.}
+By default, all sizes are 1.
+May be "Weibull" with parameters \code{MinSize}, \code{Wscale} and \code{shape}.}
 
-\item{MinSize}{The minimum size in a uniform distribution.}
+\item{MinSize}{The minimum size in a uniform or Weibull distribution.}
 
 \item{MaxSize}{The maximum size in a uniform distribution.}
+
+\item{Wscale}{The scale parameter in a Weibull distribution.}
+
+\item{shape}{The shape parameter in a Weibull distribution.}
 
 \item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }

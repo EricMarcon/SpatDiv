@@ -51,10 +51,33 @@ The random community obtained is made of 30 individuals in 5 species.
 All arguments are set by default:
 
 - The species distribution of abundances is lognormal.
-- The spatial window is a square of side 1.
-- The spatial distribution of each species is multiniomial (i.e. point locations are independent, but their number is fixed).
+It can be modified by the argument `Distribution`.
+- The spatial window (argument `win`) is a square of side 1.
+- The spatial distribution (argument `Spatial`) of each species is multinomial (i.e. point locations are independent, but their number is fixed).
 - The species point patterns are independent.
-- The size of all individuals is 1.
+- The size of all individuals (argument `Sizes`) is 1.
+
+
+## Species abundances
+
+Several species abundance distributions (SAD) are available:
+
+- `Distribution = "lnorm"`: log-normal distribution with parameter `sd`, the standard deviation of the logarithm of probabilities.
+The mean is forced by `size`, the number of individuals.
+- `Distribution = "lseries"`: log-series distribution with parameter `alpha`.
+- `Distribution = "geom"`: geometric distribution with parameter `prob`.
+- `Distribution = "bstick"`: broken stick distribution.
+
+
+## Individual size
+
+The distribution of sizes is chosen by the argument `Sizes`:
+
+- `Sizes = "Uniform"`: a uniform distribution between `MinSize` and `MaxSize`.
+By default, `MinSize` and `MaxSize` equal 1 so all sizes are set to 1.
+- `Sizes = "Weibull"`: a Weibull distribution with parameters `shape` and `scale`.
+`MinSize` is added (i.e., it is the location parameter of the Weibull distribution with three parameters).
+
 
 
 # Drawing species separately
@@ -76,6 +99,9 @@ Available point processes are:
 - `Thomas`: points are clustered around centers whose density is `kappa`.
 `mu` is the average number of points in each cluster.
 `scale` is the standard deviation of the random displacement of points from the cluster centers.
+
+More complex spatial distributions can be simulated in package **spatstat**.
+`Spatial` can be an object of class `ppp` (a planar point pattern) obtained that way.
 
 
 # Combining point patterns

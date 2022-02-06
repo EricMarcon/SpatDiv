@@ -22,7 +22,7 @@
 #' @param alpha Fisher's alpha.
 #' @param Spatial The spatial distribution of points. 
 #' May be "Binomial" (a completely random point pattern except for its fixed number of points) or 
-#' "Thomas" for a clustered point pattern with parameters `scale` and `mu`
+#' "Thomas" for a clustered point pattern with parameters `scale` and `mu`.
 #' @param scale In Thomas point patterns, the standard deviation of random displacement (along each coordinate axis) of a point from its cluster center.
 #' @param mu In Thomas point patterns, the mean number of points per cluster.
 #' The intensity of the Poisson process of cluster centers is calculated as the number of points (`size`) per area divided by `mu`.
@@ -31,8 +31,11 @@
 #' @param Sizes The distribution of point sizes.
 #' May be "Uniform" for a uniform distribution between `MinSize` and `MaxSize`.
 #' By default, all sizes are 1.
-#' @param MinSize The minimum size in a uniform distribution.
+#' May be "Weibull" with parameters `MinSize`, `Wscale` and `shape`.
+#' @param MinSize The minimum size in a uniform or Weibull distribution.
 #' @param MaxSize The maximum size in a uniform distribution.
+#' @param Wscale The scale parameter in a Weibull distribution.
+#' @param shape The shape parameter in a Weibull distribution.
 #' @inheritParams EntAccum
 #'
 #' @return A [wmppp.object], with `PointType` values as species names if `n`=1.
@@ -52,7 +55,7 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
          scale = 0.2, mu = 10,
          win=spatstat.geom::owin(),
          Species = NULL,
-         Sizes = "Uniform", MinSize = 1, MaxSize = 1,
+         Sizes = "Uniform", MinSize = 1, MaxSize = 1, Wscale = 20, shape = 2, 
          CheckArguments = TRUE)
 {
   if (CheckArguments)
@@ -60,12 +63,17 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
 
   # Species
   if (is.null(Species)) {
-    Format <- ceiling(log10(S+1))
-    Species <- paste("sp", formatC(1:S, width=Format, flag="0"), sep="")
+    Species <- paste("sp", round(stats::runif(S)*.Machine$integer.max), sep="")
   }
   
   # Species abundance: call rCommunity
-  Community <- entropart::rCommunity(n=n, size=size, NorP=NorP, BootstrapMethod=BootstrapMethod, S=S, Distribution=Distribution, sd=sd, prob=prob, alpha=alpha, CheckArguments=FALSE)
+  Community <- entropart::rCommunity(n=n, 
+                                     size=size, 
+                                     NorP=NorP, BootstrapMethod=BootstrapMethod, 
+                                     S=S, 
+                                     Distribution=Distribution, 
+                                     sd=sd, prob=prob, alpha=alpha, 
+                                     CheckArguments=FALSE)
   # Community is an AbdVector if n=1 or a MetaCommunity if n>1. Make an array in all cases.
   if (n == 1) {
     Community = matrix(Community, ncol=1)
@@ -73,18 +81,26 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
     Community <- Community$Nsi
   }
   
+  # Sizes
+  SizeMarks <- function(n) {
+    PointSizes <- NULL
+    if (Sizes == "Uniform") {
+      PointSizes <- stats::runif(n, min=MinSize, max=MaxSize)
+    }
+    if (Sizes == "Weibull") {
+      PointSizes <- MinSize + stats::rweibull(n, shape=shape, scale=Wscale)
+    }
+    return(PointSizes)
+  }
+  
   # Spatial distribution
   if (Spatial == "Binomial") {
-    # Sizes
-    if (Sizes == "Uniform") {
-      Sizes <- stats::runif(size, min=MinSize, max=MaxSize)
-    }
     Binomial <- function(i) {
       X <- dbmss::as.wmppp(spatstat.random::runifpoint(sum(Community[, i]), win=win))
       # Associate species and points
       X$marks$PointType <- as.factor(rep(Species, Community[, i]))
       # Associate sizes and points
-      X$marks$PointWeight <- Sizes
+      X$marks$PointWeight <- SizeMarks(X$n)
       return(X)
     }
     # Loop to simulate several point processes
@@ -92,21 +108,18 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
   }
   
   if (Spatial == "Thomas") {
-    area <- spatstat.geom::area.owin(win)
     Thomas <- function(i) {
       # Prepare an empty point pattern
       X <- NULL
       # Draw each species
       for (s in 1:S) {
-        Xs <- spatstat.random::rThomas(kappa=Community[s, i]/area/mu, 
+        Xs <- spatstat.random::rThomas(kappa=Community[s, i]/spatstat.geom::area.owin(win)/mu, 
                                     scale=scale,
                                     mu=mu, win=win)
         # Associate species and points
         PointType <- as.factor(rep(Species[s], Xs$n))
         # Associate sizes and points
-        if (Sizes == "Uniform") {
-          PointWeight <- stats::runif(Xs$n, min=MinSize, max=MaxSize)
-        }
+        PointWeight <- SizeMarks(Xs$n)
         # Add the marks
         spatstat.geom::marks(Xs) <- data.frame(PointType, PointWeight)
         # Add the species to the point pattern
@@ -151,7 +164,8 @@ rSpSpecies <-
            scale = 0.2, mu = 10,
            win=spatstat.geom::owin(),
            Species = NULL,
-           Sizes = "Uniform", MinSize = 1, MaxSize = 1,
+           Sizes = "Uniform", 
+           MinSize = 1, MaxSize = 1, Wscale = 20, shape = 2,
            CheckArguments = TRUE) 
 {
   if (CheckArguments)
@@ -163,32 +177,33 @@ rSpSpecies <-
   }
   
   # Spatial distribution
+  X <- NULL
   if (Spatial == "Binomial") {
-    # Sizes
-    if (Sizes == "Uniform") {
-      Sizes <- stats::runif(n, min=MinSize, max=MaxSize)
-    }
-    X <- dbmss::as.wmppp(spatstat.random::runifpoint(n, win=win))
-    # Associate species and points
-    X$marks$PointType <- as.factor(rep(Species, n))
-    # Associate sizes and points
-    X$marks$PointWeight <- Sizes
+    X <- spatstat.random::runifpoint(n, win=win)
   }
-  
   if (Spatial == "Thomas") {
-    area <- spatstat.geom::area.owin(win)
-    X <- spatstat.random::rThomas(kappa=n/area/mu, 
+    X <- spatstat.random::rThomas(kappa=n/spatstat.geom::area.owin(win)/mu, 
                                   scale=scale,
                                   mu=mu, win=win)
-    # Associate species and points
-    PointType <- as.factor(rep(Species, X$n))
-    # Associate sizes and points
-    if (Sizes == "Uniform") {
-      PointWeight <- stats::runif(X$n, min=MinSize, max=MaxSize)
-    }
-    # Add the marks
-    spatstat.geom::marks(X) <- data.frame(PointType, PointWeight)
   }
+  if (inherits(Spatial, what="ppp")) {
+    X <- Spatial
+  }
+
+  # Associate species and points
+  PointType <- as.factor(rep(Species, X$n))
+  # Associate sizes and points
+  if (Sizes == "Uniform") {
+    PointWeight <- stats::runif(X$n, min=MinSize, max=MaxSize)
+  }
+  if (Sizes == "Weibull") {
+    PointWeight <- MinSize + stats::rweibull(X$n, shape=shape, scale=Wscale)
+  }
+  # Add the marks
+  spatstat.geom::marks(X) <- data.frame(PointType, PointWeight)
+  
+  if (is.null(X))
+    stop("The species distribution could not be simulated. Check the argument 'Spatial'.")
   
   return(dbmss::as.wmppp(X))
 }
