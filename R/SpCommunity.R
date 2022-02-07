@@ -34,6 +34,7 @@
 #' May be "Weibull" with parameters `MinSize`, `Wscale` and `shape`.
 #' @param MinSize The minimum size in a uniform or Weibull distribution.
 #' @param MaxSize The maximum size in a uniform distribution.
+#' @param MeanSize The mean size in an exponential distribution (i.e. the negative of the inverse of the rate).
 #' @param Wscale The scale parameter in a Weibull distribution.
 #' @param shape The shape parameter in a Weibull distribution.
 #' @inheritParams EntAccum
@@ -55,7 +56,7 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
          scale = 0.2, mu = 10,
          win=spatstat.geom::owin(),
          Species = NULL,
-         Sizes = "Uniform", MinSize = 1, MaxSize = 1, Wscale = 20, shape = 2, 
+         Sizes = "Uniform", MinSize = 1, MaxSize = 1, MeanSize=20, Wscale = 20, shape = 2, 
          CheckArguments = TRUE)
 {
   if (CheckArguments)
@@ -89,6 +90,9 @@ function(n, size = sum(NorP), NorP = 1, BootstrapMethod = "Chao2015",
     }
     if (Sizes == "Weibull") {
       PointSizes <- MinSize + stats::rweibull(n, shape=shape, scale=Wscale)
+    }
+    if (Sizes == "Exponential") {
+      PointWeight <- stats::rexp(n, rate = 1/MeanSize)
     }
     return(PointSizes)
   }
@@ -165,7 +169,7 @@ rSpSpecies <-
            win=spatstat.geom::owin(),
            Species = NULL,
            Sizes = "Uniform", 
-           MinSize = 1, MaxSize = 1, Wscale = 20, shape = 2,
+           MinSize = 1, MaxSize = 1, MeanSize=20, Wscale = 20, shape = 2,
            CheckArguments = TRUE) 
 {
   if (CheckArguments)
@@ -198,6 +202,9 @@ rSpSpecies <-
   }
   if (Sizes == "Weibull") {
     PointWeight <- MinSize + stats::rweibull(X$n, shape=shape, scale=Wscale)
+  }
+  if (Sizes == "Exponential") {
+    PointWeight <- stats::rexp(X$n, rate = 1/MeanSize)
   }
   # Add the marks
   spatstat.geom::marks(X) <- data.frame(PointType, PointWeight)

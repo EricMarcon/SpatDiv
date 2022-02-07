@@ -75,6 +75,7 @@ The distribution of sizes is chosen by the argument `Sizes`:
 
 - `Sizes = "Uniform"`: a uniform distribution between `MinSize` and `MaxSize`.
 By default, `MinSize` and `MaxSize` equal 1 so all sizes are set to 1.
+- `Sizes = "Exponential"`: a negative exponential distribution of rate $-1/MeanSize$.
 - `Sizes = "Weibull"`: a Weibull distribution with parameters `shape` and `scale`.
 `MinSize` is added (i.e., it is the location parameter of the Weibull distribution with three parameters).
 
