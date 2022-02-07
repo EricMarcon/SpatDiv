@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SpatDiv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-3</span>
       </span>
     </div>
 
@@ -138,6 +138,8 @@
 <ul>
 <li>
 <code>Sizes = "Uniform"</code>: a uniform distribution between <code>MinSize</code> and <code>MaxSize</code>. By default, <code>MinSize</code> and <code>MaxSize</code> equal 1 so all sizes are set to 1.</li>
+<li>
+<code>Sizes = "Exponential"</code>: a negative exponential distribution of rate <span class="math inline">\(-1/MeanSize\)</span>.</li>
 <li>
 <code>Sizes = "Weibull"</code>: a Weibull distribution with parameters <code>shape</code> and <code>scale</code>. <code>MinSize</code> is added (i.e., it is the location parameter of the Weibull distribution with three parameters).</li>
 </ul>
