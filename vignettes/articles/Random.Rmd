@@ -87,7 +87,7 @@ The function `rSpSpecies()` draws a single species spatial pattern, which is a a
 
 
 ```{r DefaultSpSpecies}
-spSpecies <- rSpSpecies(50, Spatial = "Thomas")
+spSpecies <- rSpSpecies(50, Spatial = "Thomas", Sizes = "Exponential")
 autoplot(spSpecies)
 ```
 
