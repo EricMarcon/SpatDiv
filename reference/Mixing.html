@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SpatDiv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-4</span>
       </span>
     </div>
 
@@ -73,6 +73,7 @@
   n.seq <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="va">spCommunity</span><span class="op">$</span><span class="va">n</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>,
   r.seq <span class="op">=</span> <span class="cn">NULL</span>,
   spCorrection <span class="op">=</span> <span class="st">"None"</span>,
+  RCorrection <span class="op">=</span> <span class="st">"Jackknife"</span>,
   H0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">r.seq</span><span class="op">)</span>, <span class="st">"Multinomial"</span>, <span class="st">"Binomial"</span><span class="op">)</span>,
   Alpha <span class="op">=</span> <span class="fl">0.05</span>,
   NumberOfSimulations <span class="op">=</span> <span class="fl">100</span>,
@@ -98,6 +99,11 @@
 <dd><p>The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window.
 Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".
 "Extrapolation" extrapolates the observed diversity up to the number of individuals estimated in the full area of the neighborhood, which is slow.</p></dd>
+<dt>RCorrection</dt>
+<dd><p>The correction to apply when estimating the asymptotic richness to extrapolate local entropy in edge effect correction.
+A string containing a correction recognized by Richness to evaluate the total number of species.
+"Jackknife" is the default value.
+An alternative is "Rarefy" to estimate the number of species such that the entropy of order $q$ of the asymptotic distribution rarefied to the observed sample size equals the actual entropy of the data.</p></dd>
 <dt>H0</dt>
 <dd><p>The null hypothesis to compare the distribution of <code>spCommunity</code> to. If "none", the default value, no null hypothesis is tested.
 "Multinomial" means the community will be rarefied down to the number of neighbors of <code>n.seq</code>.
@@ -127,8 +133,6 @@ The first two dimensions are respectively for $q$ values and the number of point
 <span class="r-in"><span class="va">spCommunity</span> <span class="op">&lt;-</span> <span class="fu"><a href="rSpCommunity.html">rSpCommunity</a></span><span class="op">(</span><span class="fl">1</span>, size<span class="op">=</span><span class="fl">50</span>, S<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span class="r-in"><span class="co"># Calculate mixing indices of order 0 and 1</span></span>
 <span class="r-in"><span class="va">accum</span> <span class="op">&lt;-</span> <span class="fu">Mixing</span><span class="op">(</span><span class="va">spCommunity</span>, q.seq<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">accum</span>, q<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
