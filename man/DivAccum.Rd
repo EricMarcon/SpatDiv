@@ -11,6 +11,7 @@ DivAccum(
   n.seq = 1:ceiling(spCommunity$n/2),
   r.seq = NULL,
   spCorrection = "None",
+  RCorrection = "Jackknife",
   H0 = "None",
   Alpha = 0.05,
   NumberOfSimulations = 100,
@@ -33,6 +34,11 @@ DivAccum(
 \item{spCorrection}{The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window.
 Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".
 "Extrapolation" extrapolates the observed diversity up to the number of individuals estimated in the full area of the neighborhood, which is slow.}
+
+\item{RCorrection}{The correction to apply when estimating the asymptotic richness to extrapolate local entropy in edge effect correction.
+A string containing a correction recognized by \link{Richness} to evaluate the total number of species.
+"Jackknife" is the default value.
+An alternative is "Rarefy" to estimate the number of species such that the entropy of order $q$ of the asymptotic distribution rarefied to the observed sample size equals the actual entropy of the data.}
 
 \item{H0}{The null hypothesis to compare the distribution of \code{spCommunity} to. If "none", the default value, no null hypothesis is tested.
 "Multinomial" means the community will be rarefied down to the number of neighbors of \code{n.seq}.

@@ -84,7 +84,7 @@ autoplot(mixing, q = 1)
 
 ### With respect to distance
 
-The same accumulation cuves can be computed by increasing the sample area around each point.
+The same accumulation curves can be computed by increasing the sample area around each point.
 The argument \code{r.seq} contains the vector of radii of those circular plots.
 
 ```{r plotDivAccum2}

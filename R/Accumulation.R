@@ -6,8 +6,12 @@
 #' @param n.seq A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10% of the individuals.
 #' @param r.seq A vector of distances. If `NULL` accumulation is along `n`, else neighbors are accumulated in circles of radius `r`.
 #' @param spCorrection The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window. 
-#'        Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".
-#'        "Extrapolation" extrapolates the observed diversity up to the number of individuals estimated in the full area of the neighborhood, which is slow.
+#' Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".
+#' "Extrapolation" extrapolates the observed diversity up to the number of individuals estimated in the full area of the neighborhood, which is slow.
+#' @param RCorrection The correction to apply when estimating the asymptotic richness to extrapolate local entropy in edge effect correction.
+#' A string containing a correction recognized by [Richness] to evaluate the total number of species. 
+#' "Jackknife" is the default value. 
+#' An alternative is "Rarefy" to estimate the number of species such that the entropy of order $q$ of the asymptotic distribution rarefied to the observed sample size equals the actual entropy of the data.
 #' @param Individual If `TRUE`, individual neighborhood entropies are returned.
 #' @param ShowProgressBar If `TRUE` (default), a progress bar is shown.
 #' @param CheckArguments If `TRUE` (default), the function arguments are verified. Should be set to `FALSE` to save time in simulations for example, when the arguments have been checked elsewhere.
@@ -29,7 +33,9 @@
 #' plot(accumR, q=1)
 #' 
 EntAccum <-
-function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2), r.seq = NULL, spCorrection = "None", 
+function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", 
+         n.seq = 1:ceiling(spCommunity$n/2), 
+         r.seq = NULL, spCorrection = "None", RCorrection = "Jackknife",
          Individual = FALSE, ShowProgressBar = interactive(), CheckArguments = TRUE)
 {
   if (CheckArguments)
@@ -42,20 +48,27 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
     nNeighbors <- cbind(Reference=1:spCommunity$n, nNeighbors)
 
     # Prepare a progress bar and the result arrays
-    ProgressBar <- utils::txtProgressBar(min=0, max=length(n.seq))
-    qEntropies <- array(0.0, dim=c(length(q.seq), 1+length(n.seq), 1), dimnames = list(q=q.seq, n=c(1, 1+n.seq), Values="Observed"))
+    if (ShowProgressBar & interactive())
+      ProgressBar <- utils::txtProgressBar(min=0, max=length(n.seq))
+    qEntropies <- array(0.0, dim=c(length(q.seq), 1+length(n.seq), 1), 
+                        dimnames = list(q=q.seq, n=c(1, 1+n.seq), Values="Observed"))
     # Individual values
     if (Individual) 
-      qNeighborhoodEntropies <- array(0.0, dim=c(length(q.seq), 1+length(n.seq), spCommunity$n), dimnames = list(q=q.seq, n=c(1, 1+n.seq), Point=row.names(spCommunity$marks)))
+      qNeighborhoodEntropies <- array(0.0, dim=c(length(q.seq), 1+length(n.seq), spCommunity$n), 
+                                      dimnames = list(q=q.seq, n=c(1, 1+n.seq), 
+                                                      Point=row.names(spCommunity$marks)))
     else
       qNeighborhoodEntropies <- NA
 
     # At each number of neighbors, calculate the entropy of all points' neighborhood for each q
     for (k in 1:length(n.seq)) {
       # Neighbor communities: 1 community per column
-      NeighborCommunities <- apply(nNeighbors[, 1:(k+1)], 1, function(Neighbors) spCommunity$marks$PointType[Neighbors])
+      NeighborCommunities <- apply(nNeighbors[, 1:(k+1)], 1, 
+                                   function(Neighbors) spCommunity$marks$PointType[Neighbors])
       # Calculate entropy of each neighborhood and all q values
-      qNbEntropies <-  apply(NeighborCommunities, 2, function(Community) sapply(q.seq, function(q) Tsallis(Community, q=q, Correction=divCorrection)))
+      qNbEntropies <-  apply(NeighborCommunities, 2, 
+                             function(Community) 
+                               sapply(q.seq, function(q) Tsallis(Community, q=q, Correction=divCorrection)))
       # Keep individual neighborhood values
       if (Individual) 
         qNeighborhoodEntropies[, k+1, ] <- qNbEntropies
@@ -66,7 +79,8 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       if (ShowProgressBar & interactive()) 
         utils::setTxtProgressBar(ProgressBar, k)
     }
-    close(ProgressBar)
+    if (ShowProgressBar & interactive())
+      close(ProgressBar)
     # Entropy of a single individual is 0. This is the default value of the arrays so don't run.
     #  qEntropies[, 1, 1] <- 0
     #  if (Individual) qNeighborhoodEntropies[, 1, ] <- 0
@@ -79,16 +93,20 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
     # Run C++ routine to fill a 3D array. Rows are points, columns are r, the 3rd dimension has a z-value per species. Values are the number (weights) of neighbors of each point, up to ditance r, of species z.
     rNeighbors <- parallelCountNbd(r=r.seq, NbSpecies=NbSpecies,
                          x=spCommunity$x, y=spCommunity$y,
-                         Type=spCommunity$marks$PointType, Weight=spCommunity$marks$PointWeight)
+                         Type=spCommunity$marks$PointType, 
+                         Weight=spCommunity$marks$PointWeight)
     # The array of neighbor communities is built from the vector returned.
     dim(rNeighbors) <- c(spCommunity$n, length(r.seq), NbSpecies)
 
     # Prepare a progress bar and the result arrays
-    ProgressBar <- utils::txtProgressBar(min=1, max=length(r.seq))
-    qEntropies <- array(0.0, dim=c(length(q.seq), length(r.seq), 1), dimnames = list(q=q.seq, r=r.seq, Values="Observed"))
+    if (ShowProgressBar & interactive())
+      ProgressBar <- utils::txtProgressBar(min=1, max=length(r.seq))
+    qEntropies <- array(0.0, dim=c(length(q.seq), length(r.seq), 1), 
+                        dimnames = list(q=q.seq, r=r.seq, Values="Observed"))
     # Individual values
     if (Individual) 
-      qNeighborhoodEntropies <- array(0.0, dim=c(length(q.seq), length(r.seq), spCommunity$n), dimnames = list(q=q.seq, r=r.seq, Point=row.names(spCommunity$marks)))
+      qNeighborhoodEntropies <- array(0.0, dim=c(length(q.seq), length(r.seq), spCommunity$n), 
+                                      dimnames = list(q=q.seq, r=r.seq, Point=row.names(spCommunity$marks)))
     else
       qNeighborhoodEntropies <- NA
 
@@ -99,7 +117,13 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       # Calculate entropy of each community and all q values
       if (spCorrection == "None") {
         # No edge-effect correction
-        qNbEntropies <-  apply(NeighborCommunities, 1, function(Community) vapply(q.seq, function(q) entropart::bcTsallis(Community, q=q, Correction=divCorrection, CheckArguments=FALSE), 0.0))
+        qNbEntropies <-  apply(
+          NeighborCommunities, 1, function(Community) 
+            vapply(q.seq, function(q) 
+              entropart::bcTsallis(
+                Community, q=q, Correction=divCorrection, CheckArguments=FALSE),
+              FUN.VALUE=0.0)
+          )
       } else {
          if (spCorrection == "Extrapolation") {
            # Number of neighbors of each point
@@ -108,7 +132,12 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
            Extrapolation <- integer(spCommunity$n)
            for (i in 1:spCommunity$n) {
              # Intersection between the point's neighborhood and the window
-             Intersection <- spatstat.geom::area(spatstat.geom::intersect.owin(spCommunity$window, spatstat.geom::disc(radius=r.seq[r], centre=c(spCommunity$x[i], spCommunity$y[i]))))
+             Intersection <- spatstat.geom::area(
+               spatstat.geom::intersect.owin(
+                 spCommunity$window, 
+                 spatstat.geom::disc(radius=r.seq[r], centre=c(spCommunity$x[i], spCommunity$y[i]))
+                 )
+               )
              # Extrapolation ratio is that of the whole disc to the part of the disc inside the window
              Extrapolation[i] <- as.integer(nNeighbors[i] * pi * r.seq[r]^2 /Intersection)
            }
@@ -117,7 +146,12 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
            for (Community in 1:nrow(NeighborCommunities)) {
              for (q in 1:length(q.seq)) {
                # Suppress the warnings for Coverage=0 every time neighbors are singletons only.
-               suppressWarnings(qNbEntropies[q, Community] <- Tsallis(NeighborCommunities[Community, ], q=q.seq[q], Level=Extrapolation[Community], CheckArguments=FALSE))
+               suppressWarnings(qNbEntropies[q, Community] <- Tsallis(
+                 NeighborCommunities[Community, ], q=q.seq[q], 
+                 Level=Extrapolation[Community], 
+                 RCorrection=RCorrection,
+                 CheckArguments=FALSE)
+                 )
              }
            }
          } else {
@@ -134,14 +168,19 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       if (ShowProgressBar & interactive()) 
         utils::setTxtProgressBar(ProgressBar, r)
     }
-    close(ProgressBar)
+    if (ShowProgressBar & interactive())
+      close(ProgressBar)
     # Entropy at r=0 is 0. This is the default value of the arrays so don't run.
     #  qEntropies[, 1, 1] <- 0
     #  if (Individual) qNeighborhoodEntropies[, 1, ] <- 0
 
   }
   
-  entAccum <- list(SpCommunity=spCommunity, Accumulation=qEntropies, Neighborhoods=qNeighborhoodEntropies)
+  entAccum <- list(
+    SpCommunity=spCommunity, 
+    Accumulation=qEntropies, 
+    Neighborhoods=qNeighborhoodEntropies
+    )
   class(entAccum) <- c("EntAccum", "Accumulation")
   return(entAccum)
 }
@@ -172,7 +211,9 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 #' plot(accum, q=2)
 #' 
 DivAccum <-
-function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2), r.seq = NULL, spCorrection = "None",
+function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", 
+         n.seq = 1:ceiling(spCommunity$n/2), 
+         r.seq = NULL, spCorrection = "None", RCorrection = "Jackknife",
          H0 = "None", Alpha = 0.05, NumberOfSimulations = 100,
          Individual = FALSE, ShowProgressBar = interactive(), CheckArguments = TRUE)
 {
@@ -193,10 +234,17 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
   }
   
   # Get entropy
-  divAccum <- EntAccum(spCommunity=spCommunity, q.seq=q.seq, divCorrection=divCorrection, n.seq=n.seq, r.seq=r.seq, spCorrection=spCorrection, 
-                       Individual=Individual, ShowProgressBar=(ShowProgressBar & (H0 == "None" | H0 == "Multinomial")), CheckArguments=FALSE)
+  divAccum <- EntAccum(
+    spCommunity=spCommunity, q.seq=q.seq, divCorrection=divCorrection, 
+    n.seq=n.seq, r.seq=r.seq, spCorrection=spCorrection, RCorrection=RCorrection,
+    Individual=Individual, 
+    ShowProgressBar=(ShowProgressBar & (H0 == "None" | H0 == "Multinomial")), 
+    CheckArguments=FALSE
+    )
   
-  if (H0 != "None") {
+  if (H0 == "None") {
+    H0found <- TRUE
+  } else {
     # H0 will have to be found
     H0found <- FALSE
     # Rename Accumulation
@@ -204,7 +252,9 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
     # Put the entropy into a 4-D array. 4 z-values: observed, expected under H0, lower and upper bounds of H0.
     divAccum$Accumulation <- rep(divAccum$Entropy, 4)
     dim(divAccum$Accumulation) <- c(length(q.seq), nCols, 4)
-    dimnames(divAccum$Accumulation) <- list(q=q.seq, n=seq, c("Observed", "Theoretical", "Lower bound", "Upper bound"))
+    dimnames(divAccum$Accumulation) <- list(
+      q=q.seq, n=seq, c("Observed", "Theoretical", "Lower bound", "Upper bound")
+      )
     # if accumulation is along r, change the name
     if (!is.null(r.seq)) names(dimnames(divAccum$Accumulation))[2] <- "r"
     divAccum$Entropy <- NULL
@@ -223,11 +273,12 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
     if (!is.null(r.seq)) stop("The 'Multinomial' null hypothesis only applies to accumulation by number of neighbors.")
     H0found <- TRUE
     # Prepare a progress bar 
-    ProgressBar <- utils::txtProgressBar(min=0, max=length(q.seq))
+    if (ShowProgressBar & interactive())
+      ProgressBar <- utils::txtProgressBar(min=0, max=length(q.seq))
     # Prepare the distribution of the abundances of species.
     Ns <- as.AbdVector(spCommunity)
     for (i in 1:length(q.seq)) {
-      # Rarefy the who community to the sizes of neighborhoods
+      # Rarefy the community to the sizes of neighborhoods
       H0Values <- entropart::DivAC(Ns, q=as.numeric(q.seq[i]), n.seq=seq, NumberOfSimulations=NumberOfSimulations, Alpha=Alpha, ShowProgressBar=FALSE, CheckArguments=FALSE)
       # Extract the results from the object returned
       divAccum$Accumulation[i, , 2] <- H0Values$y
@@ -236,25 +287,36 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
       if (ShowProgressBar & interactive())
         utils::setTxtProgressBar(ProgressBar, i)
     }
-    close(ProgressBar)
+    if (ShowProgressBar & interactive())
+      close(ProgressBar)
   }
   if (H0 == "RandomLocation" | H0 == "Binomial") {
     H0found <- TRUE
     # Prepare a progress bar 
-    ProgressBar <- utils::txtProgressBar(min=0, max=NumberOfSimulations)
+    if (ShowProgressBar & interactive())
+      ProgressBar <- utils::txtProgressBar(min=0, max=NumberOfSimulations)
     # Prepare a 3-D array to store results. Rows are q, columns are r or n, z-values are for each simulation.
     H0qDiversities <- array(0.0, dim=c(length(q.seq), nCols, NumberOfSimulations))
     # Simulate communities according to H0
     for (i in (1:NumberOfSimulations)) {
       # Random community
-      if (H0 == "RandomLocation") H0spCommunity <- dbmss::rRandomLocation(spCommunity, CheckArguments=FALSE)
-      if (H0 == "Binomial") H0spCommunity <- dbmss::rRandomPositionK(spCommunity, CheckArguments=FALSE)
+      if (H0 == "RandomLocation") 
+        H0spCommunity <- dbmss::rRandomLocation(spCommunity, CheckArguments=FALSE)
+      if (H0 == "Binomial") 
+        H0spCommunity <- dbmss::rRandomPositionK(spCommunity, CheckArguments=FALSE)
       # Calculate its accumulated diversity
-      H0qDiversities[, , i] <- DivAccum(H0spCommunity, q.seq=q.seq, divCorrection=divCorrection, n.seq=n.seq, r.seq=r.seq, spCorrection=spCorrection, H0="None", Individual=FALSE, ShowProgressBar=FALSE, CheckArguments=FALSE)$Accumulation[, , 1]
+      H0qDiversities[, , i] <- DivAccum(
+        H0spCommunity, q.seq=q.seq, divCorrection=divCorrection, 
+        n.seq=n.seq, r.seq=r.seq, 
+        spCorrection=spCorrection, RCorrection=RCorrection, 
+        H0="None", Individual=FALSE, 
+        ShowProgressBar=FALSE, CheckArguments=FALSE
+        )$Accumulation[, , 1]
       if (ShowProgressBar & interactive())
         utils::setTxtProgressBar(ProgressBar, i)
     }
-    close(ProgressBar)
+    if (ShowProgressBar & interactive())
+      close(ProgressBar)
     # Calculate quantiles
     for (q in 1:length(q.seq)) {
       for (r in 1:length(r.seq)) {
@@ -293,16 +355,23 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1
 #' plot(accum, q=1)
 #' 
 Mixing <-
-  function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", n.seq = 1:ceiling(spCommunity$n/2), r.seq = NULL, spCorrection = "None",
-           H0 = ifelse(is.null(r.seq), "Multinomial", "Binomial"), Alpha = 0.05, NumberOfSimulations = 100,
+  function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None", 
+           n.seq = 1:ceiling(spCommunity$n/2), 
+           r.seq = NULL, spCorrection = "None", RCorrection = "Jackknife", 
+           H0 = ifelse(is.null(r.seq), "Multinomial", "Binomial"), 
+           Alpha = 0.05, NumberOfSimulations = 100,
            Individual = FALSE, ShowProgressBar = interactive(), CheckArguments = TRUE)
 {
   if (CheckArguments)
     CheckSpatDivArguments()
 
   # Get the diversity accumulation
-  qMixing <- DivAccum(spCommunity=spCommunity, q.seq=q.seq, divCorrection=divCorrection, n.seq=n.seq, r.seq=r.seq, spCorrection=spCorrection, 
-                      H0=H0, Alpha=Alpha, NumberOfSimulations=NumberOfSimulations, Individual=Individual, ShowProgressBar=ShowProgressBar, CheckArguments=FALSE)
+  qMixing <- DivAccum(
+    spCommunity=spCommunity, q.seq=q.seq, divCorrection=divCorrection, 
+    n.seq=n.seq, r.seq=r.seq, spCorrection=spCorrection, RCorrection=RCorrection, 
+    H0=H0, Alpha=Alpha, NumberOfSimulations=NumberOfSimulations, 
+    Individual=Individual, ShowProgressBar=ShowProgressBar, CheckArguments=FALSE
+    )
 
   # Normalize it
   qMixing$Accumulation[, , 1] <- qMixing$Accumulation[, , 1] / qMixing$Accumulation[, , 2]
@@ -345,28 +414,47 @@ Mixing <-
 #' accum <- Mixing(spCommunity, q.seq=c(0,1))
 #' plot(accum, q=0)
 plot.Accumulation <-
-function(x, ..., q = dimnames(x$Accumulation)$q[1],
-         type = "l",  main = "Accumulation of ...", xlab = "Sample size...", ylab = "Diversity...", ylim = NULL,
+function(x, ..., q = dimnames(x$Accumulation)$q[1], type = "l",  
+         main = "Accumulation of ...", xlab = "Sample size...", ylab = "Diversity...", 
+         ylim = NULL,
          lineH0 = TRUE, LineWidth = 2, ShadeColor = "grey75", BorderColor = "red")
 {
   # Prepare the parameters
   h <- AccumulationPlothelper(x, q, main, xlab, ylab, ylim)
   
   # Prepare the plot
-  graphics::plot(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[h$Whichq, , 1], ylim=c(h$ymin, h$ymax),
+  graphics::plot(x=dimnames(x$Accumulation)[[2]], 
+                 y=x$Accumulation[h$Whichq, , 1], ylim=c(h$ymin, h$ymax),
                  type=h$type, main=h$main, xlab=h$xlab, ylab=h$ylab)
 
   if (dim(x$Accumulation)[3] == 4) {
     # Confidence envelope is available
-    graphics::polygon(c(rev(dimnames(x$Accumulation)[[2]]), dimnames(x$Accumulation)[[2]]), c(rev(x$Accumulation[h$Whichq, , 4]), x$Accumulation[h$Whichq, , 3]), col=ShadeColor, border=FALSE)
+    graphics::polygon(
+      c(rev(dimnames(x$Accumulation)[[2]]), dimnames(x$Accumulation)[[2]]), 
+      c(rev(x$Accumulation[h$Whichq, , 4]), x$Accumulation[h$Whichq, , 3]), 
+      col=ShadeColor, border=FALSE
+      )
     # Add red lines on borders of polygon
-    graphics::lines(dimnames(x$Accumulation)[[2]], x$Accumulation[h$Whichq, , 4], col=BorderColor, lty=2)
-    graphics::lines(dimnames(x$Accumulation)[[2]], x$Accumulation[h$Whichq, , 3], col=BorderColor, lty=2)
+    graphics::lines(
+      dimnames(x$Accumulation)[[2]], x$Accumulation[h$Whichq, , 4], 
+      col=BorderColor, lty=2
+      )
+    graphics::lines(
+      dimnames(x$Accumulation)[[2]], x$Accumulation[h$Whichq, , 3], 
+      col=BorderColor, lty=2
+      )
     # Redraw the SAC
-    graphics::lines(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[h$Whichq, , 1], lwd=LineWidth, ...)
+    graphics::lines(
+      x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[h$Whichq, , 1], 
+      lwd=LineWidth, ...
+      )
     
     # H0
-    if (lineH0) graphics::lines(x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[h$Whichq, , 2], lty=2)
+    if (lineH0) 
+      graphics::lines(
+        x=dimnames(x$Accumulation)[[2]], y=x$Accumulation[h$Whichq, , 2], 
+        lty=2
+        )
   }
 }
 #' @export
@@ -389,14 +477,18 @@ graphics::plot
 #' autoplot(accum, q=0)
 autoplot.Accumulation <-
 function(object, ..., q = dimnames(object$Accumulation)$q[1],
-         main = "Accumulation of ...", xlab = "Sample size...", ylab = "Diversity...", ylim = NULL,
+         main = "Accumulation of ...", xlab = "Sample size...", ylab = "Diversity...", 
+         ylim = NULL,
          lineH0 = TRUE, ShadeColor = "grey75", BorderColor = "red")
 {
   # Prepare the parameters
   h <- AccumulationPlothelper(object, q, main, xlab, ylab, ylim)
   
   # Prepare the data
-  df <- data.frame(x=as.numeric(dimnames(object$Accumulation)[[2]]), y=object$Accumulation[h$Whichq, , 1])
+  df <- data.frame(
+    x=as.numeric(dimnames(object$Accumulation)[[2]]), 
+    y=object$Accumulation[h$Whichq, , 1]
+    )
   if (dim(object$Accumulation)[3] == 4) {
     # Confidence envelope is available
     df$low <- object$Accumulation[h$Whichq, , 3]

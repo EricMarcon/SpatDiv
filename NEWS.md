@@ -1,4 +1,4 @@
-# SpatDiv 0.7-3
+# SpatDiv 0.7-4
 
 ## New features
 

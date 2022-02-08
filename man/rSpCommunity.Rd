@@ -22,6 +22,7 @@ rSpCommunity(
   Sizes = "Uniform",
   MinSize = 1,
   MaxSize = 1,
+  MeanSize = 20,
   Wscale = 20,
   shape = 2,
   CheckArguments = TRUE
@@ -75,6 +76,8 @@ May be "Weibull" with parameters \code{MinSize}, \code{Wscale} and \code{shape}.
 \item{MinSize}{The minimum size in a uniform or Weibull distribution.}
 
 \item{MaxSize}{The maximum size in a uniform distribution.}
+
+\item{MeanSize}{The mean size in an exponential distribution (i.e. the negative of the inverse of the rate).}
 
 \item{Wscale}{The scale parameter in a Weibull distribution.}
 
