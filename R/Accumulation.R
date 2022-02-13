@@ -1,12 +1,17 @@
 #' Entropy Accumulation
 #'
 #' @param spCommunity A spatialized community (A [wmppp.object] with `PointType` values as species names.)
-#' @param divCorrection A string containing one of the possible corrections to calculate diversity, see [Tsallis] for all possible values. `"None"` uses the plugin estimator. `"Best"` is the default value.
+#' @param divCorrection A string containing one of the possible corrections to calculate diversity, see [Tsallis] for all possible values. 
+#' `"None"` uses the plugin estimator. 
+#' It is the default value.
 #' @param q.seq A numeric vector: the sequence of diversity orders to address. Default is from 0 to 2.
-#' @param n.seq A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10% of the individuals.
-#' @param r.seq A vector of distances. If `NULL` accumulation is along `n`, else neighbors are accumulated in circles of radius `r`.
+#' @param n.seq A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. 
+#' Default is 10% of the individuals.
+#' @param r.seq A vector of distances. 
+#' If `NULL` accumulation is along `n`, else neighbors are accumulated in circles of radius `r`.
 #' @param spCorrection The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window. 
-#' Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".
+#' Does not apply if neighborhoods are defined by the number of neighbors. 
+#' Default is "None".
 #' "Extrapolation" extrapolates the observed diversity up to the number of individuals estimated in the full area of the neighborhood, which is slow.
 #' @param RCorrection The correction to apply when estimating the asymptotic richness to extrapolate local entropy in edge effect correction.
 #' A string containing a correction recognized by [Richness] to evaluate the total number of species. 
@@ -14,7 +19,8 @@
 #' An alternative is "Rarefy" to estimate the number of species such that the entropy of order $q$ of the asymptotic distribution rarefied to the observed sample size equals the actual entropy of the data.
 #' @param Individual If `TRUE`, individual neighborhood entropies are returned.
 #' @param ShowProgressBar If `TRUE` (default), a progress bar is shown.
-#' @param CheckArguments If `TRUE` (default), the function arguments are verified. Should be set to `FALSE` to save time in simulations for example, when the arguments have been checked elsewhere.
+#' @param CheckArguments If `TRUE` (default), the function arguments are verified. 
+#' Should be set to `FALSE` to save time in simulations for example, when the arguments have been checked elsewhere.
 #'
 #' @return An "Accumulation" object that is a 3-D array containing average entropy.
 #' The third dimension of the array is only of length 1: it contains observed entropy.
