@@ -50,7 +50,8 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None",
   if (is.null(r.seq)) {
     # n nearest neighbors. Find them.
     nNeighbors <- spatstat.geom::nnwhich(spCommunity, k=n.seq)
-    # Add the reference point to get a table: center points in line, neighbors in columns, including the point itself in the first column
+    # Add the reference point to get a table: center points in line, neighbors in columns, 
+    # including the point itself in the first column
     nNeighbors <- cbind(Reference=1:spCommunity$n, nNeighbors)
 
     # Prepare a progress bar and the result arrays
@@ -78,7 +79,8 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None",
       # Keep individual neighborhood values
       if (Individual) 
         qNeighborhoodEntropies[, k+1, ] <- qNbEntropies
-      # Mean entropy. If qNbEntropies is a vector (i.e. a single value of q is provided), transpose it to get a 1-row matrix.
+      # Mean entropy. 
+      # If qNbEntropies is a vector (i.e. a single value of q is provided), transpose it to get a 1-row matrix.
       if (is.null(dim(qNbEntropies))) 
         qNbEntropies <- t(qNbEntropies)
       qEntropies[, k+1, 1] <- apply(t(t(qNbEntropies)), 1, mean)
@@ -96,7 +98,9 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None",
 
     # The max value of the factors is needed
     NbSpecies <- max(as.integer(spCommunity$marks$PointType))
-    # Run C++ routine to fill a 3D array. Rows are points, columns are r, the 3rd dimension has a z-value per species. Values are the number (weights) of neighbors of each point, up to ditance r, of species z.
+    # Run C++ routine to fill a 3D array. 
+    # Rows are points, columns are r, the 3rd dimension has a z-value per species. 
+    # Values are the number (weights) of neighbors of each point, up to ditance r, of species z.
     rNeighbors <- parallelCountNbd(r=r.seq, NbSpecies=NbSpecies,
                          x=spCommunity$x, y=spCommunity$y,
                          Type=spCommunity$marks$PointType, 
@@ -167,7 +171,8 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None",
       # Keep individual neighborhood values
       if (Individual) 
         qNeighborhoodEntropies[, r, ] <- qNbEntropies
-      # Mean entropy. If qNbEntropies is a vector (i.e. a single value of q is provided), transpose it to get a 1-row matrix.
+      # Mean entropy. 
+      # If qNbEntropies is a vector (i.e. a single value of q is provided), transpose it to get a 1-row matrix.
       if (is.null(dim(qNbEntropies))) 
         qNbEntropies <- t(qNbEntropies)
       qEntropies[, r, 1] <- apply(t(t(qNbEntropies)), 1, mean)
@@ -195,10 +200,11 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None",
 #' Diversity Accumulation
 #'
 #' @inheritParams EntAccum
-#' @param H0 The null hypothesis to compare the distribution of `spCommunity` to. If "none", the default value, no null hypothesis is tested.
-#'        "Multinomial" means the community will be rarefied down to the number of neighbors of `n.seq`.
-#'        "RandomLocation" means the points will we randomly permuted accross their actual locations.
-#'        "Binomial" means the points will we uniformly and independently drawn in the window (a binomial point process is a Poisson point process conditionally to the number of points).
+#' @param H0 The null hypothesis to compare the distribution of `spCommunity` to. 
+#' If "none", the default value, no null hypothesis is tested.
+#' "Multinomial" means the community will be rarefied down to the number of neighbors of `n.seq`.
+#' "RandomLocation" means the points will we randomly permuted accross their actual locations.
+#' "Binomial" means the points will we uniformly and independently drawn in the window (a binomial point process is a Poisson point process conditionally to the number of points).
 #' @param Alpha The risk level of the envelope of the null hypothesis. Default is 5%.
 #' @param NumberOfSimulations The number of bootstraps to build confidence intervals. Default is 100.
 #'
