@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SpatDiv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-6</span>
       </span>
     </div>
 
@@ -87,14 +87,19 @@
 <dt>q.seq</dt>
 <dd><p>A numeric vector: the sequence of diversity orders to address. Default is from 0 to 2.</p></dd>
 <dt>divCorrection</dt>
-<dd><p>A string containing one of the possible corrections to calculate diversity, see Tsallis for all possible values. <code>"None"</code> uses the plugin estimator. <code>"Best"</code> is the default value.</p></dd>
+<dd><p>A string containing one of the possible corrections to calculate diversity, see Tsallis for all possible values.
+<code>"None"</code> uses the plugin estimator.
+It is the default value.</p></dd>
 <dt>n.seq</dt>
-<dd><p>A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10% of the individuals.</p></dd>
+<dd><p>A vector of integers. Entropy will be accumulated along this number of neighbors around each individual.
+Default is 10% of the individuals.</p></dd>
 <dt>r.seq</dt>
-<dd><p>A vector of distances. If <code>NULL</code> accumulation is along <code>n</code>, else neighbors are accumulated in circles of radius <code>r</code>.</p></dd>
+<dd><p>A vector of distances.
+If <code>NULL</code> accumulation is along <code>n</code>, else neighbors are accumulated in circles of radius <code>r</code>.</p></dd>
 <dt>spCorrection</dt>
 <dd><p>The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window.
-Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".
+Does not apply if neighborhoods are defined by the number of neighbors.
+Default is "None".
 "Extrapolation" extrapolates the observed diversity up to the number of individuals estimated in the full area of the neighborhood, which is slow.</p></dd>
 <dt>RCorrection</dt>
 <dd><p>The correction to apply when estimating the asymptotic richness to extrapolate local entropy in edge effect correction.
@@ -106,7 +111,8 @@ An alternative is "Rarefy" to estimate the number of species such that the entro
 <dt>ShowProgressBar</dt>
 <dd><p>If <code>TRUE</code> (default), a progress bar is shown.</p></dd>
 <dt>CheckArguments</dt>
-<dd><p>If <code>TRUE</code> (default), the function arguments are verified. Should be set to <code>FALSE</code> to save time in simulations for example, when the arguments have been checked elsewhere.</p></dd>
+<dd><p>If <code>TRUE</code> (default), the function arguments are verified.
+Should be set to <code>FALSE</code> to save time in simulations for example, when the arguments have been checked elsewhere.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
