@@ -25,14 +25,19 @@ DivAccum(
 
 \item{q.seq}{A numeric vector: the sequence of diversity orders to address. Default is from 0 to 2.}
 
-\item{divCorrection}{A string containing one of the possible corrections to calculate diversity, see \link{Tsallis} for all possible values. \code{"None"} uses the plugin estimator. \code{"Best"} is the default value.}
+\item{divCorrection}{A string containing one of the possible corrections to calculate diversity, see \link{Tsallis} for all possible values.
+\code{"None"} uses the plugin estimator.
+It is the default value.}
 
-\item{n.seq}{A vector of integers. Entropy will be accumulated along this number of neighbors around each individual. Default is 10\% of the individuals.}
+\item{n.seq}{A vector of integers. Entropy will be accumulated along this number of neighbors around each individual.
+Default is 10\% of the individuals.}
 
-\item{r.seq}{A vector of distances. If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
+\item{r.seq}{A vector of distances.
+If \code{NULL} accumulation is along \code{n}, else neighbors are accumulated in circles of radius \code{r}.}
 
 \item{spCorrection}{The edge-effect correction to apply when estimating the entropy of a neighborhood community that does not fit in the window.
-Does not apply if neighborhoods are defined by the number of neighbors. Default is "None".
+Does not apply if neighborhoods are defined by the number of neighbors.
+Default is "None".
 "Extrapolation" extrapolates the observed diversity up to the number of individuals estimated in the full area of the neighborhood, which is slow.}
 
 \item{RCorrection}{The correction to apply when estimating the asymptotic richness to extrapolate local entropy in edge effect correction.
@@ -40,7 +45,8 @@ A string containing a correction recognized by \link{Richness} to evaluate the t
 "Jackknife" is the default value.
 An alternative is "Rarefy" to estimate the number of species such that the entropy of order $q$ of the asymptotic distribution rarefied to the observed sample size equals the actual entropy of the data.}
 
-\item{H0}{The null hypothesis to compare the distribution of \code{spCommunity} to. If "none", the default value, no null hypothesis is tested.
+\item{H0}{The null hypothesis to compare the distribution of \code{spCommunity} to.
+If "none", the default value, no null hypothesis is tested.
 "Multinomial" means the community will be rarefied down to the number of neighbors of \code{n.seq}.
 "RandomLocation" means the points will we randomly permuted accross their actual locations.
 "Binomial" means the points will we uniformly and independently drawn in the window (a binomial point process is a Poisson point process conditionally to the number of points).}
@@ -53,7 +59,8 @@ An alternative is "Rarefy" to estimate the number of species such that the entro
 
 \item{ShowProgressBar}{If \code{TRUE} (default), a progress bar is shown.}
 
-\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
+\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified.
+Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
 An "Accumulation" object that is a 3-D array containing average diversity.

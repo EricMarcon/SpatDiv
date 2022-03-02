@@ -83,7 +83,8 @@ May be "Weibull" with parameters \code{MinSize}, \code{Wscale} and \code{shape}.
 
 \item{shape}{The shape parameter in a Weibull distribution.}
 
-\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
+\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified.
+Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
 A \link{wmppp.object}, with \code{PointType} values as species names if \code{n}=1.

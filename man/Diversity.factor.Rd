@@ -13,9 +13,10 @@
 
 \item{Correction}{A string containing one of the possible corrections: \code{"None"} (no correction), \code{"ChaoShen"}, \code{"GenCov"}, \code{"Grassberger"}, \code{"Holste"}, \code{"Bonachela"}, \code{"ZhangGrabchak"}, or \code{"ChaoWangJost"}, \code{"Marcon"}, \code{"UnveilC"}, \code{"UnveiliC"}, \code{"UnveilJ"} or \code{"Best"}, the default value.  Currently, \code{"Best"} is \code{"ChaoWangJost"}.}
 
-\item{...}{Further arguments. Unsused.}
+\item{...}{Further arguments passed to \link[entropart:Tsallis]{entropart::Tsallis}, \link[entropart:Diversity]{entropart::Diversity}, \link[entropart:Richness]{entropart::Richness}, \link[entropart:Shannon]{entropart::Shannon} or \link[entropart:Simpson]{entropart::Simpson} (S3 methods for class 'AbdVector' or 'numeric')}
 
-\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
+\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified.
+Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
 A named number equal to the calculated diversity. The name is that of the bias correction used.

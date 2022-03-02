@@ -45,7 +45,8 @@ MapPlot(x, ...)
 
 \item{Contourcol}{The color of the contour lines.}
 
-\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
+\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified.
+Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
 \code{MapPlot.Accumulation} returns an \link{autoKrige} object that can be used to produce alternative maps.

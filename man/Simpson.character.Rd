@@ -11,9 +11,10 @@
 
 \item{Correction}{A string containing one of the possible corrections: see \link{Simpson}.}
 
-\item{...}{Further arguments. Unsused.}
+\item{...}{Further arguments passed to \link[entropart:Tsallis]{entropart::Tsallis}, \link[entropart:Diversity]{entropart::Diversity}, \link[entropart:Richness]{entropart::Richness}, \link[entropart:Shannon]{entropart::Shannon} or \link[entropart:Simpson]{entropart::Simpson} (S3 methods for class 'AbdVector' or 'numeric')}
 
-\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
+\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified.
+Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
 A named number equal to the calculated entropy. The name is that of the bias correction used.
