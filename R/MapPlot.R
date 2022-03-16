@@ -149,7 +149,7 @@ function (x, spCommunity, r, AllowJitter = TRUE,
   # Pivot longer. Columns are named M_1, etc. for function M
   df <- tidyr::pivot_longer(
     df,
-    cols = starts_with(paste0(attr(x, "valu"),"_")),
+    cols = tidyselect::starts_with(paste0(attr(x, "valu"),"_")),
     names_to = "point",
     values_to = "dbmss"
   )
