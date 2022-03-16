@@ -111,7 +111,7 @@ function (x, Order, NeighborHood, AllowJitter = TRUE,
 #' spCommunity <- rSpCommunity(1, size=50, S=9, Species = paste0("sp",1:9))
 #' library("dbmss")
 #' M_i <- Mhat(spCommunity, ReferenceType = "sp1", Individual = TRUE)
-#' MapPlot(M_i, spCommunity[spCommunity$marks$PointType=="sp1"], r=0.2)
+#' MapPlot(M_i, spCommunity[spCommunity$marks$PointType=="sp1"], r=0.5)
 #' 
 MapPlot.fv <-
 function (x, spCommunity, r, AllowJitter = TRUE,
