@@ -2,7 +2,14 @@
 
 ## New features
 
-* `rSpSpecies`: random spatialized species.
+* `MapPlot.fv()`: maps of local concentration.
+
+
+# SpatDiv 0.7-6
+
+## New features
+
+* `rSpSpecies()`: random spatialized species.
 
 
 # SpatDiv 0.6-2

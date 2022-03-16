@@ -22,7 +22,7 @@
 
 \item{JackOver}{If \code{TRUE}, retain the jackknife order immediately superior to the optimal one, usually resulting in the overestimation of the number of species. Default is \code{FALSE}.}
 
-\item{...}{Further arguments. Unsused.}
+\item{...}{Further arguments passed to \link[entropart:Tsallis]{entropart::Tsallis}, \link[entropart:Diversity]{entropart::Diversity}, \link[entropart:Richness]{entropart::Richness}, \link[entropart:Shannon]{entropart::Shannon} or \link[entropart:Simpson]{entropart::Simpson} (S3 methods for class 'AbdVector' or 'numeric')}
 
 \item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified.
 Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}

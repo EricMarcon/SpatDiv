@@ -11,7 +11,7 @@
 #' @param NorP A [wmppp.object], with `PointType` values as species names.
 #' @param q A number: the order of entropy. Some corrections allow only a positive number. Default is 1 for Shannon entropy.
 #' @param Correction A string containing one of the possible corrections: `"None"` (no correction), `"ChaoShen"`, `"GenCov"`, `"Grassberger"`, `"Holste"`, `"Bonachela"`, `"ZhangGrabchak"`, or `"ChaoWangJost"`, `"Marcon"`, `"UnveilC"`, `"UnveiliC"`, `"UnveilJ"` or `"Best"`, the default value.  Currently, `"Best"` is `"ChaoWangJost"`.
-#' @param ... Further arguments. Unsused.
+#' @param ... Further arguments passed to [entropart::Tsallis], [entropart::Diversity], [entropart::Richness], [entropart::Shannon] or [entropart::Simpson] (S3 methods for class 'AbdVector' or 'numeric')
 #' @inheritParams EntAccum
 #'
 #' @return A named number equal to the calculated entropy. The name is that of the bias correction used.
@@ -28,7 +28,7 @@
 Tsallis.wmppp <-
 function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcTsallis(Ns=as.AbdVector(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::Tsallis(Ns=as.AbdVector(NorP), q=q, Correction=Correction, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -57,7 +57,7 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 Tsallis.factor <-
 function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcTsallis(Ns=as.numeric(table(NorP)), q=q, Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::Tsallis(Ns=as.numeric(table(NorP)), q=q, Correction=Correction, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -87,7 +87,7 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 Tsallis.character <-
 function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcTsallis(Ns=as.numeric(table(NorP)), q=q, Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::Tsallis(Ns=as.numeric(table(NorP)), q=q, Correction=Correction, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -110,7 +110,7 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 Diversity.wmppp <-
 function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return (entropart::bcDiversity(Ns=as.AbdVector(NorP), q=q, Correction=Correction, CheckArguments=CheckArguments))
+  return (entropart::Diversity(Ns=as.AbdVector(NorP), q=q, Correction=Correction, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -133,7 +133,7 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 Diversity.factor <-
 function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return (entropart::bcDiversity(Ns=as.numeric(table(NorP)), q=q, Correction=Correction, CheckArguments=CheckArguments))
+  return (entropart::Diversity(Ns=as.numeric(table(NorP)), q=q, Correction=Correction, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -157,7 +157,7 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 Diversity.character <-
 function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return (entropart::bcDiversity(Ns=as.numeric(table(NorP)), q=q, Correction=Correction, CheckArguments=CheckArguments))
+  return (entropart::Diversity(Ns=as.numeric(table(NorP)), q=q, Correction=Correction, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -183,7 +183,7 @@ function(NorP, q = 1, Correction = "Best", ..., CheckArguments = TRUE)
 Richness.wmppp <-
 function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., CheckArguments = TRUE)
 {
-  return (entropart::bcRichness(Ns=as.AbdVector(NorP), Correction=Correction, Alpha=Alpha, JackOver=JackOver, CheckArguments=CheckArguments))
+  return (entropart::Richness(Ns=as.AbdVector(NorP), Correction=Correction, Alpha=Alpha, JackOver=JackOver, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -206,7 +206,7 @@ function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., Check
 Richness.factor <-
 function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., CheckArguments = TRUE)
 {
-  return (entropart::bcRichness(Ns=as.numeric(table(NorP)), Correction=Correction, Alpha=Alpha, JackOver=JackOver, CheckArguments=CheckArguments))
+  return (entropart::Richness(Ns=as.numeric(table(NorP)), Correction=Correction, Alpha=Alpha, JackOver=JackOver, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -230,7 +230,7 @@ function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., Check
 Richness.character <-
 function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., CheckArguments = TRUE)
 {
-  return (entropart::bcRichness(Ns=as.numeric(table(NorP)), Correction=Correction, Alpha=Alpha, JackOver=JackOver, CheckArguments=CheckArguments))
+  return (entropart::Richness(Ns=as.numeric(table(NorP)), Correction=Correction, Alpha=Alpha, JackOver=JackOver, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -257,7 +257,7 @@ function(NorP, Correction = "Chao1", Alpha = 0.05, JackOver = FALSE,  ..., Check
 Shannon.wmppp <-
 function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcShannon(Ns=as.AbdVector(NorP), Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::Shannon(Ns=as.AbdVector(NorP), Correction=Correction, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -282,7 +282,7 @@ function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 Shannon.factor <-
 function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcShannon(Ns=as.numeric(table(NorP)), Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::Shannon(Ns=as.numeric(table(NorP)), Correction=Correction, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -308,7 +308,7 @@ function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 Shannon.character <-
 function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcShannon(Ns=as.numeric(table(NorP)), Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::Shannon(Ns=as.numeric(table(NorP)), Correction=Correction, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -335,7 +335,7 @@ function(NorP, Correction = "Best", ..., CheckArguments = TRUE)
 Simpson.wmppp <-
 function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcSimpson(Ns=as.AbdVector(NorP), Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::Simpson(Ns=as.AbdVector(NorP), Correction=Correction, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -360,7 +360,7 @@ function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
 Simpson.factor <-
 function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcSimpson(Ns=as.numeric(table(NorP)), Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::Simpson(Ns=as.numeric(table(NorP)), Correction=Correction, ..., CheckArguments=CheckArguments))
 }
 
 
@@ -386,5 +386,5 @@ function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
 Simpson.character <-
 function(NorP, Correction = "Lande", ..., CheckArguments = TRUE)
 {
-  return(entropart::bcSimpson(Ns=as.numeric(table(NorP)), Correction=Correction, CheckArguments=CheckArguments))
+  return(entropart::Simpson(Ns=as.numeric(table(NorP)), Correction=Correction, ..., CheckArguments=CheckArguments))
 }

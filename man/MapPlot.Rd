@@ -69,7 +69,7 @@ Should be set to \code{FALSE} to save time in simulations for example, when the 
 \item{r}{The distance at which the function value must be considered.}
 }
 \value{
-an \link{autoKrige} object that can be used to produce alternative maps.
+An \link{autoKrige} object that can be used to produce alternative maps.
 }
 \description{
 Map Spatialized Communities
@@ -84,5 +84,11 @@ spCommunity <- rSpCommunity(1, size=50, S=10)
 accum <- DivAccum(spCommunity, q.seq=c(0,1), n.seq=4, Individual=TRUE)
 # Plot the local richness, accumulated up to 5 individuals.
 MapPlot(accum, Order=0, NeighborHood=5)
+
+# Generate a random community
+spCommunity <- rSpCommunity(1, size=50, S=9, Species = paste0("sp",1:9))
+library("dbmss")
+M_i <- Mhat(spCommunity, ReferenceType = "sp1", Individual = TRUE)
+MapPlot(M_i, spCommunity[spCommunity$marks$PointType=="sp1"], r=0.2)
 
 }

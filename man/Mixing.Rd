@@ -45,7 +45,8 @@ A string containing a correction recognized by \link{Richness} to evaluate the t
 "Jackknife" is the default value.
 An alternative is "Rarefy" to estimate the number of species such that the entropy of order $q$ of the asymptotic distribution rarefied to the observed sample size equals the actual entropy of the data.}
 
-\item{H0}{The null hypothesis to compare the distribution of \code{spCommunity} to. If "none", the default value, no null hypothesis is tested.
+\item{H0}{The null hypothesis to compare the distribution of \code{spCommunity} to.
+If "none", the default value, no null hypothesis is tested.
 "Multinomial" means the community will be rarefied down to the number of neighbors of \code{n.seq}.
 "RandomLocation" means the points will we randomly permuted accross their actual locations.
 "Binomial" means the points will we uniformly and independently drawn in the window (a binomial point process is a Poisson point process conditionally to the number of points).}
