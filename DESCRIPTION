@@ -1,7 +1,7 @@
 Package: SpatDiv
 Type: Package
 Title: Spatially Explicit Measures of Diversity
-Version: 0.7-5
+Version: 0.8-0
 Authors@R: c(
   person("Eric", "Marcon", email="eric.marcon@ecofog.gf", role=c("aut", "cre"), comment = c(ORCID = "0000-0002-5249-321X")),
   person("Alain", "Rousteau", email="alain.rousteau@univ-antillles.fr", role=c("aut"))
@@ -22,16 +22,18 @@ Imports:
   alphahull,
   automap,
   dbmss,
+  dplyr,
   ggplot2,
   graphics,
   igraph,
   RcppParallel,
   Rdpack,
   sp,
-  spatstat.core, 
-  spatstat.geom, 
-  spatstat.random, 
-  stats, 
+  spatstat.core,
+  spatstat.geom,
+  spatstat.random,
+  stats,
+  tidyr,
   utils
 Suggests: 
   knitr,

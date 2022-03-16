@@ -3,6 +3,7 @@
 \name{MapPlot}
 \alias{MapPlot}
 \alias{MapPlot.Accumulation}
+\alias{MapPlot.fv}
 \title{MapPlot}
 \usage{
 MapPlot(x, ...)
@@ -11,6 +12,21 @@ MapPlot(x, ...)
   x,
   Order,
   NeighborHood,
+  AllowJitter = TRUE,
+  Nbx = 128,
+  Nby = 128,
+  Contour = TRUE,
+  Palette = grDevices::topo.colors(128, alpha = 1),
+  Contournlevels = 10,
+  Contourcol = "dark red",
+  ...,
+  CheckArguments = TRUE
+)
+
+\method{MapPlot}{fv}(
+  x,
+  spCommunity,
+  r,
   AllowJitter = TRUE,
   Nbx = 128,
   Nby = 128,
@@ -45,10 +61,15 @@ MapPlot(x, ...)
 
 \item{Contourcol}{The color of the contour lines.}
 
-\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified. Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
+\item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified.
+Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
+
+\item{spCommunity}{A spatialized community (A \link{wmppp.object} with \code{PointType} values as species names.)}
+
+\item{r}{The distance at which the function value must be considered.}
 }
 \value{
-\code{MapPlot.Accumulation} returns an \link{autoKrige} object that can be used to produce alternative maps.
+an \link{autoKrige} object that can be used to produce alternative maps.
 }
 \description{
 Map Spatialized Communities
