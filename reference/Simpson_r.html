@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SpatDiv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8-2</span>
       </span>
     </div>
 
@@ -30,7 +30,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -90,11 +90,11 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>spCommunity</dt>
-<dd><p>A spatialized community (A wmppp.object with <code>PointType</code> values as species names.)</p></dd>
+<dd><p>A spatialized community (A <a href="https://rdrr.io/pkg/dbmss/man/wmppp.object.html" class="external-link">wmppp.object</a> with <code>PointType</code> values as species names.)</p></dd>
 <dt>r</dt>
 <dd><p>A vector of distances. If <code>NULL</code> accumulation is along <code>n</code>, else neighbors are accumulated in circles of radius <code>r</code>.</p></dd>
 <dt>spCorrection</dt>
-<dd><p>The edge-effect correction to apply when estimating the K function with Kest.
+<dd><p>The edge-effect correction to apply when estimating the K function with <a href="https://rdrr.io/pkg/spatstat.core/man/Kest.html" class="external-link">Kest</a>.
 Default is "isotropic".</p></dd>
 <dt>CheckArguments</dt>
 <dd><p>If <code>TRUE</code> (default), the function arguments are verified. Should be set to <code>FALSE</code> to save time in simulations for example, when the arguments have been checked elsewhere.</p></dd>
@@ -112,10 +112,10 @@ The null hypothesis may be "RandomPosition": points are drawn in a Poisson proce
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>Simpson_r</code> returns an object of class <code>fv</code>, see fv.object.
+    <p><code>Simpson_r</code> returns an object of class <code>fv</code>, see <a href="https://rdrr.io/pkg/spatstat.core/man/fv.object.html" class="external-link">fv.object</a>.
 There are methods for print and plot for this class.
 It contains the value of the spatially explicit Simpson's entropy for each distance in <code>r</code>.
-<code>Simpson_rEnvelope</code> returns an envelope object envelope.
+<code>Simpson_rEnvelope</code> returns an envelope object <a href="https://rdrr.io/pkg/spatstat.core/man/envelope.html" class="external-link">envelope</a>.
 There are methods for print and plot for this class.
 It contains the observed value of the function, its average simulated value and the confidence envelope.</p>
     </div>
