@@ -105,13 +105,18 @@ function (x, Order, NeighborHood, AllowJitter = TRUE,
 #' 
 #' @method MapPlot fv
 #' @export
+#' @importFrom rlang .data
 #' 
 #' @examples
 #' # Generate a random community
-#' spCommunity <- rSpCommunity(1, size=50, S=9, Species = paste0("sp",1:9))
+#' spCommunity <- rSpCommunity(1, size=50, S=3, Species = paste0("sp",1:3))
 #' library("dbmss")
 #' M_i <- Mhat(spCommunity, ReferenceType = "sp1", Individual = TRUE)
-#' MapPlot(M_i, spCommunity[spCommunity$marks$PointType=="sp1"], r=0.5)
+#' # Filter
+#' is_sp1 <- spCommunity$marks$PointType=="sp1"
+#' MapPlot(M_i, spCommunity[is_sp1], r=0.2)
+#' # Show the points
+#' points(spCommunity$x[is_sp1], spCommunity$y[is_sp1], pch=20)
 #' 
 MapPlot.fv <-
 function (x, spCommunity, r, AllowJitter = TRUE,
@@ -161,7 +166,7 @@ function (x, spCommunity, r, AllowJitter = TRUE,
   # Select the function value column only
   df <- dplyr::select(
     df,
-    dbmss
+    .data$dbmss
   )
   # Make a SpatialPointsDataFrame
   sdfCommunity <- sp::SpatialPointsDataFrame(
