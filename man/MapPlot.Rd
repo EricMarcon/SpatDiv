@@ -19,6 +19,9 @@ MapPlot(x, ...)
   Palette = grDevices::topo.colors(128, alpha = 1),
   Contournlevels = 10,
   Contourcol = "dark red",
+  Points = FALSE,
+  pch = 20,
+  Pointcol = "black",
   ...,
   CheckArguments = TRUE
 )
@@ -26,7 +29,8 @@ MapPlot(x, ...)
 \method{MapPlot}{fv}(
   x,
   spCommunity,
-  r,
+  ReferenceType = "",
+  r = median(x$r),
   AllowJitter = TRUE,
   Nbx = 128,
   Nby = 128,
@@ -34,6 +38,9 @@ MapPlot(x, ...)
   Palette = grDevices::topo.colors(128, alpha = 1),
   Contournlevels = 10,
   Contourcol = "dark red",
+  Points = FALSE,
+  pch = 20,
+  Pointcol = "black",
   ...,
   CheckArguments = TRUE
 )
@@ -61,12 +68,22 @@ MapPlot(x, ...)
 
 \item{Contourcol}{The color of the contour lines.}
 
+\item{Points}{If \code{TRUE}, the points that brought the data are added to the map.}
+
+\item{pch}{The symbol used to represent points.}
+
+\item{Pointcol}{The color of the points.}
+
 \item{CheckArguments}{If \code{TRUE} (default), the function arguments are verified.
 Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 
 \item{spCommunity}{A spatialized community (A \link{wmppp.object} with \code{PointType} values as species names.)}
 
-\item{r}{The distance at which the function value must be considered.}
+\item{ReferenceType}{The point type used to calculate the function values.
+The default value is "", i.e. all point types, but it will generate an error if the actual reference type is different.}
+
+\item{r}{The distance at which the function value must be considered.
+The default value is the median distance used to calculate the function values.}
 }
 \value{
 An \link{autoKrige} object that can be used to produce alternative maps.
@@ -75,7 +92,14 @@ An \link{autoKrige} object that can be used to produce alternative maps.
 Map Spatialized Communities
 }
 \details{
-Map an "Accum" object.
+Maps of interpolated values from points of a spatialized community (a \link{wmppp.object}) are produced.
+\code{x} may be:
+\itemize{
+\item an "Accum" object produced e.g. by the function \link{DivAccum}.
+A map of diversity of the chosen order within the chosen neighborhoods of points is obtained by kriging.
+\item an \link{fv} object produced by a distance-based measure of spatial structure, such as \link{dbmss:Mhat}, with individual values.
+Then a map of the local value of the function is produced, following \insertCite{Getis1987}{SpatDiv}.
+}
 }
 \examples{
 # Generate a random community
@@ -89,10 +113,6 @@ MapPlot(accum, Order=0, NeighborHood=5)
 spCommunity <- rSpCommunity(1, size=50, S=3, Species = paste0("sp",1:3))
 library("dbmss")
 M_i <- Mhat(spCommunity, ReferenceType = "sp1", Individual = TRUE)
-# Filter
-is_sp1 <- spCommunity$marks$PointType=="sp1"
-MapPlot(M_i, spCommunity[is_sp1], r=0.2)
-# Show the points
-points(spCommunity$x[is_sp1], spCommunity$y[is_sp1], pch=20)
+MapPlot(M_i, spCommunity, ReferenceType = "sp1", r=0.2, Points=TRUE)
 
 }

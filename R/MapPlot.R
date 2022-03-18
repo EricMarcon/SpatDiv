@@ -2,7 +2,13 @@
 #'
 #' Map Spatialized Communities
 #' 
-#' Map an "Accum" object.
+#' Maps of interpolated values from points of a spatialized community (a [wmppp.object]) are produced.
+#' `x` may be:
+#' 
+#' - an "Accumulation" object produced e.g. by the function [DivAccum].
+#' A map of diversity of the chosen order within the chosen neighborhoods of points is obtained by kriging.
+#' - an [fv] object produced by a distance-based measure of spatial structure, such as [dbmss:Mhat], with individual values.
+#' Then a map of the local value of the function is produced, following \insertCite{Getis1987}{SpatDiv}.
 #' 
 #' @param x An object to map.
 #' @param ... Further parameters.
@@ -13,6 +19,9 @@
 #' @param Contour If `TRUE`, contours are added to the map.
 #' @param Contournlevels The number of levels of contours.
 #' @param Contourcol The color of the contour lines.
+#' @param Points If `TRUE`, the points that brought the data are added to the map.
+#' @param pch The symbol used to represent points.
+#' @param Pointcol The color of the points.
 #' 
 #' @return An [autoKrige] object that can be used to produce alternative maps.
 #' 
@@ -47,6 +56,7 @@ function (x, Order, NeighborHood, AllowJitter = TRUE,
           Nbx = 128, Nby = 128, Contour = TRUE, 
           Palette = grDevices::topo.colors(128, alpha=1), 
           Contournlevels = 10, Contourcol = "dark red",
+          Points = FALSE, pch=20, Pointcol = "black",
           ..., CheckArguments = TRUE)
 {
   if (CheckArguments)
@@ -76,15 +86,18 @@ function (x, Order, NeighborHood, AllowJitter = TRUE,
   if (length(x$Neighborhoods[Order, , ]) == 0) stop("Incorrect Order.") 
   if (length(x$Neighborhoods[, NeighborHood, ]) == 0) stop("Incorrect Neighborhood.") 
 
+  # Detect points with NA values
+  is_not_na <- !is.na(x$Neighborhoods[Order, NeighborHood, ])
+
   # Convert the SpCommunity to a SpatialPointsDataFrame
   sdfCommunity <- sp::SpatialPointsDataFrame(
-    coords=data.frame(x=x$SpCommunity$x, y=x$SpCommunity$y), 
-    data=data.frame(Accumulation=x$Neighborhoods[Order, NeighborHood,])
+    coords=data.frame(x=x$SpCommunity$x[is_not_na], y=x$SpCommunity$y[is_not_na]), 
+    data=data.frame(Accumulation=x$Neighborhoods[Order, NeighborHood, is_not_na])
     )
   # Prepare a grid
   xy <- spatstat.geom::gridcentres(x$SpCommunity, Nbx, Nby)
-  ok <- spatstat.geom::inside.owin(xy$x, xy$y, x$SpCommunity$window)
-  xygrid <- sp::SpatialPoints(cbind(xy$x[ok], xy$y[ok]))
+  is_inside <- spatstat.geom::inside.owin(xy$x, xy$y, x$SpCommunity$window)
+  xygrid <- sp::SpatialPoints(cbind(xy$x[is_inside], xy$y[is_inside]))
   sp::gridded(xygrid) <- TRUE
   # Proceed to krigeing
   krigedCommunity <- automap::autoKrige(Accumulation~1, sdfCommunity, new_data=xygrid)
@@ -92,7 +105,9 @@ function (x, Order, NeighborHood, AllowJitter = TRUE,
   graphics::image(krigedCommunity$krige_output, col=Palette, asp=1)
   if (Contour)
     graphics::contour(krigedCommunity$krige_output, add=TRUE, nlevels=Contournlevels, col=Contourcol)
-
+  if(Points)
+    graphics::points(x=spCommunity$x[is_not_na], y=spCommunity$y[is_not_na], pch=pch, color=Pointcol)
+  
   # Return the kriged community to allow further processing
   return(invisible(krigedCommunity))
 }
@@ -101,7 +116,10 @@ function (x, Order, NeighborHood, AllowJitter = TRUE,
 
 #' @rdname MapPlot
 #' 
+#' @param ReferenceType The point type used to calculate the function values.
+#' The default value is "", i.e. all point types, but it will generate an error if the actual reference type is different.
 #' @param r The distance at which the function value must be considered.
+#' The default value is the median distance used to calculate the function values.
 #' 
 #' @method MapPlot fv
 #' @export
@@ -112,27 +130,30 @@ function (x, Order, NeighborHood, AllowJitter = TRUE,
 #' spCommunity <- rSpCommunity(1, size=50, S=3, Species = paste0("sp",1:3))
 #' library("dbmss")
 #' M_i <- Mhat(spCommunity, ReferenceType = "sp1", Individual = TRUE)
-#' # Filter
-#' is_sp1 <- spCommunity$marks$PointType=="sp1"
-#' MapPlot(M_i, spCommunity[is_sp1], r=0.2)
-#' # Show the points
-#' points(spCommunity$x[is_sp1], spCommunity$y[is_sp1], pch=20)
+#' MapPlot(M_i, spCommunity, ReferenceType = "sp1", r=0.2, Points=TRUE)
 #' 
 MapPlot.fv <-
-function (x, spCommunity, r, AllowJitter = TRUE,
+function (x, spCommunity, ReferenceType = "", r = median(x$r), AllowJitter = TRUE,
           Nbx = 128, Nby = 128, Contour = TRUE, 
           Palette = grDevices::topo.colors(128, alpha=1), 
           Contournlevels = 10, Contourcol = "dark red",
+          Points = FALSE, pch=20, Pointcol = "black",
           ..., CheckArguments = TRUE)
 {
   if (CheckArguments)
     CheckSpatDivArguments()
-      
-  # TODO
-  # Check consistency between x and spCommunity
-  # spCommunity points filtered to fit x
-  # Test x has value_xxx columns
   
+  # Reduce the community to the reference type
+  if (ReferenceType != "") {
+    is_ReferenceType <- spCommunity$marks$PointType == ReferenceType
+    spCommunity <- spCommunity[is_ReferenceType]
+  } 
+ 
+  # Check the consistency between x and spCommunity
+  if (spCommunity$n != sum(startsWith(colnames(x), paste0(attr(x, "valu"), "_"))))
+    stop(paste("The number of reference points in the function value is different from \n", 
+               "that of the reference points of the spatialized community"))
+
   # Jitter
   if (AllowJitter) {
     # Find duplicates
@@ -168,16 +189,20 @@ function (x, spCommunity, r, AllowJitter = TRUE,
     df,
     .data$dbmss
   )
+  
+  # Detect points with NA values
+  is_not_na <- !is.na(df$dbmss)
+
   # Make a SpatialPointsDataFrame
   sdfCommunity <- sp::SpatialPointsDataFrame(
-    coords=data.frame(x=spCommunity$x, y=spCommunity$y),
-    data=df
+    coords=data.frame(x=spCommunity$x[is_not_na], y=spCommunity$y[is_not_na]),
+    data=df[is_not_na,]
     )
   
   # Prepare a grid
   xy <- spatstat.geom::gridcentres(spCommunity, Nbx, Nby)
-  ok <- spatstat.geom::inside.owin(xy$x, xy$y, spCommunity$window)
-  xygrid <- sp::SpatialPoints(cbind(xy$x[ok], xy$y[ok]))
+  is_inside <- spatstat.geom::inside.owin(xy$x, xy$y, spCommunity$window)
+  xygrid <- sp::SpatialPoints(cbind(xy$x[is_inside], xy$y[is_inside]))
   sp::gridded(xygrid) <- TRUE
   # Proceed to krigeing
   krigedCommunity <- automap::autoKrige(dbmss~1, sdfCommunity, new_data=xygrid)
@@ -185,6 +210,8 @@ function (x, spCommunity, r, AllowJitter = TRUE,
   graphics::image(krigedCommunity$krige_output, col=Palette, asp=1)
   if (Contour)
     graphics::contour(krigedCommunity$krige_output, add=TRUE, nlevels=Contournlevels, col=Contourcol)
+  if(Points)
+    graphics::points(x=spCommunity$x[is_not_na], y=spCommunity$y[is_not_na], pch=pch, col=Pointcol)
   
   # Return the kriged community to allow further processing
   return(invisible(krigedCommunity))
