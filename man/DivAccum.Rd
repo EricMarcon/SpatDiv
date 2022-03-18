@@ -63,9 +63,16 @@ If "none", the default value, no null hypothesis is tested.
 Should be set to \code{FALSE} to save time in simulations for example, when the arguments have been checked elsewhere.}
 }
 \value{
-An "Accumulation" object that is a 3-D array containing average diversity.
-The third dimension of the array is only of length 4: it contains observed diversity, its value under the null hypothesis, and the lower of upper bounds of that value.
-The first two dimensions are respectively for $q$ values and the number of points of the neighborhood, starting from 1 (the point itself, with no neighbor).
+An "Accumulation" object that is a list.
+\itemize{
+\item Its first item, named "spCommunity", is \code{spCommunity}.
+\item Its second item, named "Accumulation", is a 3-D array containing average diversity.
+The third dimension of the array is only of length 1: it contains observed diversity.
+The first two dimensions are respectively for $q$ values and the number of points
+of the neighborhood, starting from 1 (the point itself, with no neighbor), or the distances starting from 0.
+\item Its third item, named "Neighborhoods" has the same structure as the second one
+but its third dimension contains the local values accumulated in the neighborhood of each point.
+}
 }
 \description{
 Diversity Accumulation

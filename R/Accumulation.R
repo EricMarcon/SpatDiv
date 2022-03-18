@@ -22,9 +22,15 @@
 #' @param CheckArguments If `TRUE` (default), the function arguments are verified. 
 #' Should be set to `FALSE` to save time in simulations for example, when the arguments have been checked elsewhere.
 #'
-#' @return An "Accumulation" object that is a 3-D array containing average entropy.
+#' @return An "Accumulation" object that is a list. 
+#' 
+#' - Its first item, named "spCommunity", is `spCommunity`. 
+#' - Its second item, named "Accumulation", is a 3-D array containing average entropy.
 #' The third dimension of the array is only of length 1: it contains observed entropy.
-#' The first two dimensions are respectively for $q$ values and the number of points of the neighborhood, starting from 1 (the point itself, with no neighbor).
+#' The first two dimensions are respectively for $q$ values and the number of points 
+#' of the neighborhood, starting from 1 (the point itself, with no neighbor), or the distances starting from 0.
+#' - Its third item, named "Neighborhoods" has the same structure as the second one 
+#' but its third dimension contains the local values accumulated in the neighborhood of each point. 
 #'
 #' @export
 #'
@@ -207,11 +213,17 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None",
 #' "Binomial" means the points will we uniformly and independently drawn in the window (a binomial point process is a Poisson point process conditionally to the number of points).
 #' @param Alpha The risk level of the envelope of the null hypothesis. Default is 5%.
 #' @param NumberOfSimulations The number of bootstraps to build confidence intervals. Default is 100.
+#' 
+#' @return An "Accumulation" object that is a list. 
+#' 
+#' - Its first item, named "spCommunity", is `spCommunity`. 
+#' - Its second item, named "Accumulation", is a 3-D array containing average diversity.
+#' The third dimension of the array is only of length 1: it contains observed diversity.
+#' The first two dimensions are respectively for $q$ values and the number of points 
+#' of the neighborhood, starting from 1 (the point itself, with no neighbor), or the distances starting from 0.
+#' - Its third item, named "Neighborhoods" has the same structure as the second one 
+#' but its third dimension contains the local values accumulated in the neighborhood of each point. 
 #'
-#' @return An "Accumulation" object that is a 3-D array containing average diversity.
-#' The third dimension of the array is only of length 4: it contains observed diversity, its value under the null hypothesis, and the lower of upper bounds of that value.
-#' The first two dimensions are respectively for $q$ values and the number of points of the neighborhood, starting from 1 (the point itself, with no neighbor).
-#'   
 #' @export
 #'
 #' @examples
@@ -352,10 +364,16 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None",
 #'
 #' @inheritParams DivAccum
 #'
-#' @return An "Accumulation" object that is a 3-D array containing mixing index values.
-#' The third dimension of the array is only of length 4: it contains observed mixing values, their value under the null hypothesis, and the lower of upper bounds of those values.
-#' The first two dimensions are respectively for $q$ values and the number of points of the neighborhood, starting from 1 (the point itself, with no neighbor).
-#'   
+#' @return An "Accumulation" object that is a list. 
+#' 
+#' - Its first item, named "spCommunity", is `spCommunity`. 
+#' - Its second item, named "Accumulation", is a 3-D array containing average mixing index.
+#' The third dimension of the array is only of length 1: it contains observed mixing index.
+#' The first two dimensions are respectively for $q$ values and the number of points 
+#' of the neighborhood, starting from 1 (the point itself, with no neighbor), or the distances starting from 0.
+#' - Its third item, named "Neighborhoods" has the same structure as the second one 
+#' but its third dimension contains the local values accumulated in the neighborhood of each point. 
+#'
 #' @export
 #'
 #' @examples
@@ -403,7 +421,7 @@ Mixing <-
 
 #' Plot Diversity Accumulation
 #'
-#' @param x An "Accumulation" object that cat be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).
+#' @param x An "Accumulation" object that can be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).
 #' @param ... Further plotting arguments.
 #' @param q The order of Diversity. By default, the first value found in the "Accumulation" object is used.
 #' @param type Plotting parameter. Default is "l".

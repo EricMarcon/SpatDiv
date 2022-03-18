@@ -20,7 +20,7 @@
 )
 }
 \arguments{
-\item{x}{An "Accumulation" object that cat be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).}
+\item{x}{An "Accumulation" object that can be accumulation of diversity (\code{\link{DivAccum}}), entropy (\code{\link{EntAccum}}) or the Mixing index (\code{\link{Mixing}}).}
 
 \item{...}{Further plotting arguments.}
 
