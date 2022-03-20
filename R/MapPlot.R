@@ -106,7 +106,7 @@ function (x, Order, NeighborHood, AllowJitter = TRUE,
   if (Contour)
     graphics::contour(krigedCommunity$krige_output, add=TRUE, nlevels=Contournlevels, col=Contourcol)
   if(Points)
-    graphics::points(x=spCommunity$x[is_not_na], y=spCommunity$y[is_not_na], pch=pch, color=Pointcol)
+    graphics::points(x=x$spCommunity$x[is_not_na], y=x$spCommunity$y[is_not_na], pch=pch, color=Pointcol)
   
   # Return the kriged community to allow further processing
   return(invisible(krigedCommunity))
