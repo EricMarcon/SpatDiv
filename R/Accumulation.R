@@ -89,7 +89,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None",
       # If qNbEntropies is a vector (i.e. a single value of q is provided), transpose it to get a 1-row matrix.
       if (is.null(dim(qNbEntropies))) 
         qNbEntropies <- t(qNbEntropies)
-      qEntropies[, k+1, 1] <- apply(t(t(qNbEntropies)), 1, mean)
+      qEntropies[, k+1, 1] <- apply(t(t(qNbEntropies)), 1, mean, na.rm=TRUE)
       if (ShowProgressBar & interactive()) 
         utils::setTxtProgressBar(ProgressBar, k)
     }
@@ -181,7 +181,7 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None",
       # If qNbEntropies is a vector (i.e. a single value of q is provided), transpose it to get a 1-row matrix.
       if (is.null(dim(qNbEntropies))) 
         qNbEntropies <- t(qNbEntropies)
-      qEntropies[, r, 1] <- apply(t(t(qNbEntropies)), 1, mean)
+      qEntropies[, r, 1] <- apply(t(t(qNbEntropies)), 1, mean, na.rm=TRUE)
       if (ShowProgressBar & interactive()) 
         utils::setTxtProgressBar(ProgressBar, r)
     }
@@ -344,8 +344,12 @@ function(spCommunity, q.seq = seq(0,2,by=0.1), divCorrection = "None",
     # Calculate quantiles
     for (q in 1:length(q.seq)) {
       for (r in 1:length(r.seq)) {
-        divAccum$Accumulation[q, r, 3:4] <- stats::quantile(H0qDiversities[q, r, ], c(Alpha, 1-Alpha))
-        divAccum$Accumulation[q, r, 2] <- mean(H0qDiversities[q, r, ])
+        divAccum$Accumulation[q, r, 3:4] <- stats::quantile(
+          H0qDiversities[q, r, ], c(Alpha, 1-Alpha), na.rm=TRUE
+          )
+        divAccum$Accumulation[q, r, 2] <- mean(
+          H0qDiversities[q, r, ], na.rm=TRUE
+          )
       }
     }
   }
