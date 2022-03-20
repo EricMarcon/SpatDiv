@@ -11,11 +11,14 @@
 #' Then a map of the local value of the function is produced, following \insertCite{Getis1987}{SpatDiv}.
 #' 
 #' @param x An object to map.
-#' @param ... Further parameters.
+#' @param ... Further parameters passed to the function [image].
+#' Standard base graphic arguments such as `main` can be used.
 #' @param AllowJitter If `TRUE`, duplicated points are jittered to avoid their elimination by the kriging procedure.
 #' @param Nbx The number of columns (pixels) of the resulting map, 128 by default.
 #' @param Nby The number of rows (pixels) of the resulting map, 128 by default.
 #' @param Palette The color palette of the map.
+#' @param SuppressMargins If `TRUE`, the map has reduced margins.
+#' If `FALSE`, the current margin parameters are used.
 #' @param Contour If `TRUE`, contours are added to the map.
 #' @param Contournlevels The number of levels of contours.
 #' @param Contourcol The color of the contour lines.
@@ -55,6 +58,7 @@ MapPlot.Accumulation <-
 function (x, Order, NeighborHood, AllowJitter = TRUE,
           Nbx = 128, Nby = 128, Contour = TRUE, 
           Palette = grDevices::topo.colors(128, alpha=1), 
+          SuppressMargins = TRUE,
           Contournlevels = 10, Contourcol = "dark red",
           Points = FALSE, pch=20, Pointcol = "black",
           ..., CheckArguments = TRUE)
@@ -102,11 +106,18 @@ function (x, Order, NeighborHood, AllowJitter = TRUE,
   # Proceed to krigeing
   krigedCommunity <- automap::autoKrige(Accumulation~1, sdfCommunity, new_data=xygrid)
   # Map
-  graphics::image(krigedCommunity$krige_output, col=Palette, asp=1)
+  if (SuppressMargins) {
+    OldPar <- par("mar")
+    par(mar=c(0, 0, 2, 0))
+  }
+  graphics::image(krigedCommunity$krige_output, col=Palette, asp=1, ...)
   if (Contour)
     graphics::contour(krigedCommunity$krige_output, add=TRUE, nlevels=Contournlevels, col=Contourcol)
   if(Points)
     graphics::points(x=x$SpCommunity$x[is_not_na], y=x$SpCommunity$y[is_not_na], pch=pch, col=Pointcol)
+  if (SuppressMargins) {
+    par("mar"=OldPar)
+  }
   
   # Return the kriged community to allow further processing
   return(invisible(krigedCommunity))
@@ -136,6 +147,7 @@ MapPlot.fv <-
 function (x, spCommunity, ReferenceType = "", r = median(x$r), AllowJitter = TRUE,
           Nbx = 128, Nby = 128, Contour = TRUE, 
           Palette = grDevices::topo.colors(128, alpha=1), 
+          SuppressMargins = TRUE,
           Contournlevels = 10, Contourcol = "dark red",
           Points = FALSE, pch=20, Pointcol = "black",
           ..., CheckArguments = TRUE)
@@ -207,11 +219,18 @@ function (x, spCommunity, ReferenceType = "", r = median(x$r), AllowJitter = TRU
   # Proceed to krigeing
   krigedCommunity <- automap::autoKrige(dbmss~1, sdfCommunity, new_data=xygrid)
   # Map
-  graphics::image(krigedCommunity$krige_output, col=Palette, asp=1)
+  if (SuppressMargins) {
+    OldPar <- par("mar")
+    par(mar=c(0, 0, 2, 0))
+  }
+  graphics::image(krigedCommunity$krige_output, col=Palette, asp=1, ...)
   if (Contour)
     graphics::contour(krigedCommunity$krige_output, add=TRUE, nlevels=Contournlevels, col=Contourcol)
   if(Points)
     graphics::points(x=spCommunity$x[is_not_na], y=spCommunity$y[is_not_na], pch=pch, col=Pointcol)
+  if (SuppressMargins) {
+    par("mar"=OldPar)
+  }
   
   # Return the kriged community to allow further processing
   return(invisible(krigedCommunity))
