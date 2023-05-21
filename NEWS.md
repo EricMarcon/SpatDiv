@@ -1,3 +1,10 @@
+# SpatDiv 0.8-6
+
+## External changes
+ 
+- Updates in the _spatstat_ package: _spatstat.core_ functions moved to _spatstat.explore_
+
+
 # SpatDiv 0.8-5
 
 ## New features

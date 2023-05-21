@@ -53,12 +53,12 @@ Simpson_r <- function(spCommunity, r = NULL, spCorrection = "isotropic",
                   seq(110, 200, 10), seq(220, 400, 20))/800
   }
   # K all points
-  Kall <- fvCorrection(spatstat.core::Kest(spCommunity, r=r, correction=spCorrection))
+  Kall <- fvCorrection(spatstat.explore::Kest(spCommunity, r=r, correction=spCorrection))
   
   # The point pattern is separated into a list of ppp for each mark
   pppList <- split(spCommunity, as.factor(spCommunity$marks$PointType))
   # K for each ppp
-  KList <- lapply(pppList, spatstat.core::Kest, r=r, correction=spCorrection)
+  KList <- lapply(pppList, spatstat.explore::Kest, r=r, correction=spCorrection)
   Ks <- as.data.frame(lapply(KList, fvCorrection))
   # Ks is NA for species with a a single point. Should be 0
   Ks[is.na(Ks)] <- 0
@@ -75,7 +75,7 @@ Simpson_r <- function(spCommunity, r = NULL, spCorrection = "isotropic",
   # Return the values of Shimatani(r)
   Labl <- c("r", "hat(%s)", "hat(%s)(r)")
   Desc <- c("Distance argument r", "Asymptotic %s", "Estimated %s")
-  S <- spatstat.core::fv(
+  S <- spatstat.explore::fv(
     ShiEstimate, 
     argu="r", 
     ylab=quote(Shimatani(r)), 
@@ -86,7 +86,7 @@ Simpson_r <- function(spCommunity, r = NULL, spCorrection = "isotropic",
     desc=Desc, 
     unitname=spCommunity$window$unit, 
     fname="Simpson's Entropy")
-  spatstat.core::fvnames(S, ".") <- ColNames[-1]
+  spatstat.explore::fvnames(S, ".") <- ColNames[-1]
   return (S)
 }
 
@@ -127,7 +127,7 @@ Simpson_rEnvelope <- function(spCommunity, r = NULL, NumberOfSimulations = 100,
   if (is.null(SimulatedPP))
     stop(paste("The null hypothesis", sQuote(SimulationType), "has not been recognized."))
   # local envelope, keep extreme values for lo and hi (nrank=1)
-  Envelope <- spatstat.core::envelope(spCommunity, fun=Simpson_r, nsim=NumberOfSimulations, nrank=1,
+  Envelope <- spatstat.explore::envelope(spCommunity, fun=Simpson_r, nsim=NumberOfSimulations, nrank=1,
                                       r=r, spCorrection=spCorrection,
                                       CheckArguments = FALSE,
                                       simulate=SimulatedPP, savefuns=TRUE
