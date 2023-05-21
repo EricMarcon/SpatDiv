@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SpatDiv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8-5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8-6</span>
       </span>
     </div>
 
@@ -104,9 +104,9 @@
 </h2>
 <p>The function <code><a href="../reference/rSpCommunity.html">rSpCommunity()</a></code> draws a community (which is a weighted, marked, planar point pattern, i.e. a <code>wmppp</code> object defined in package <strong>dbmss</strong>) or a list of communities (an <code>SpCommunities</code> object) if argument <code>n</code>, the number of communities, is greater than 1.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/EricMarcon/SpatDiv" class="external-link">"SpatDiv"</a></span><span class="op">)</span>
-<span class="va">spCommunity</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rSpCommunity.html">rSpCommunity</a></span><span class="op">(</span><span class="fl">1</span>, size <span class="op">=</span> <span class="fl">30</span>, S <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">spCommunity</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/EricMarcon/SpatDiv" class="external-link">"SpatDiv"</a></span><span class="op">)</span></span>
+<span><span class="va">spCommunity</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rSpCommunity.html">rSpCommunity</a></span><span class="op">(</span><span class="fl">1</span>, size <span class="op">=</span> <span class="fl">30</span>, S <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">spCommunity</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Random_files/figure-html/DefaultSpCommunity-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>The random community obtained is made of 30 individuals in 5 species. All arguments are set by default:</p>
 <ul>
@@ -150,8 +150,8 @@
 </h2>
 <p>The function <code><a href="../reference/rSpSpecies.html">rSpSpecies()</a></code> draws a single species spatial pattern, which is a a <code>wmppp</code> object.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">spSpecies</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rSpSpecies.html">rSpSpecies</a></span><span class="op">(</span><span class="fl">50</span>, Spatial <span class="op">=</span> <span class="st">"Thomas"</span>, Sizes <span class="op">=</span> <span class="st">"Exponential"</span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">spSpecies</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">spSpecies</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rSpSpecies.html">rSpSpecies</a></span><span class="op">(</span><span class="fl">50</span>, Spatial <span class="op">=</span> <span class="st">"Thomas"</span>, Sizes <span class="op">=</span> <span class="st">"Exponential"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">spSpecies</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Random_files/figure-html/DefaultSpSpecies-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>The point pattern of a a species is aggregated. It follows a Thomas point process with default arguments.</p>
 <p>Available point processes are:</p>
@@ -168,9 +168,9 @@
 </h2>
 <p>Spatial communities stored in <code>wmppp</code> and <code>SpCommunities</code> objects can be superimposed by the <code><a href="https://rdrr.io/pkg/spatstat.geom/man/superimpose.html" class="external-link">superimpose()</a></code> function from package <strong>dbmss</strong>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/EricMarcon/dbmss" class="external-link">"dbmss"</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/spatstat.geom/man/superimpose.html" class="external-link">superimpose</a></span><span class="op">(</span><span class="va">spSpecies</span>, <span class="va">spCommunity</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/EricMarcon/dbmss" class="external-link">"dbmss"</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.geom/man/superimpose.html" class="external-link">superimpose</a></span><span class="op">(</span><span class="va">spSpecies</span>, <span class="va">spCommunity</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Random_files/figure-html/superimpose-1.png" width="80%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -196,7 +196,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

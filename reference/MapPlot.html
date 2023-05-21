@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SpatDiv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8-5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8-6</span>
       </span>
     </div>
 
@@ -66,134 +66,168 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">MapPlot</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for Accumulation</span>
-<span class="fu">MapPlot</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">Order</span>,
-  <span class="va">NeighborHood</span>,
-  AllowJitter <span class="op">=</span> <span class="cn">TRUE</span>,
-  Nbx <span class="op">=</span> <span class="fl">128</span>,
-  Nby <span class="op">=</span> <span class="fl">128</span>,
-  Contour <span class="op">=</span> <span class="cn">TRUE</span>,
-  Palette <span class="op">=</span> <span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">topo.colors</a></span><span class="op">(</span><span class="fl">128</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  Contournlevels <span class="op">=</span> <span class="fl">10</span>,
-  Contourcol <span class="op">=</span> <span class="st">"dark red"</span>,
-  Points <span class="op">=</span> <span class="cn">FALSE</span>,
-  pch <span class="op">=</span> <span class="fl">20</span>,
-  Pointcol <span class="op">=</span> <span class="st">"black"</span>,
-  <span class="va">...</span>,
-  CheckArguments <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for fv</span>
-<span class="fu">MapPlot</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">spCommunity</span>,
-  ReferenceType <span class="op">=</span> <span class="st">""</span>,
-  r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">r</span><span class="op">)</span>,
-  AllowJitter <span class="op">=</span> <span class="cn">TRUE</span>,
-  Nbx <span class="op">=</span> <span class="fl">128</span>,
-  Nby <span class="op">=</span> <span class="fl">128</span>,
-  Contour <span class="op">=</span> <span class="cn">TRUE</span>,
-  Palette <span class="op">=</span> <span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">topo.colors</a></span><span class="op">(</span><span class="fl">128</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  Contournlevels <span class="op">=</span> <span class="fl">10</span>,
-  Contourcol <span class="op">=</span> <span class="st">"dark red"</span>,
-  Points <span class="op">=</span> <span class="cn">FALSE</span>,
-  pch <span class="op">=</span> <span class="fl">20</span>,
-  Pointcol <span class="op">=</span> <span class="st">"black"</span>,
-  <span class="va">...</span>,
-  CheckArguments <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MapPlot</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for Accumulation</span></span>
+<span><span class="fu">MapPlot</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">Order</span>,</span>
+<span>  <span class="va">NeighborHood</span>,</span>
+<span>  AllowJitter <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  Nbx <span class="op">=</span> <span class="fl">128</span>,</span>
+<span>  Nby <span class="op">=</span> <span class="fl">128</span>,</span>
+<span>  Contour <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  Palette <span class="op">=</span> <span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">topo.colors</a></span><span class="op">(</span><span class="fl">128</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  Contournlevels <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  Contourcol <span class="op">=</span> <span class="st">"dark red"</span>,</span>
+<span>  Points <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  Pointcol <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  CheckArguments <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for fv</span></span>
+<span><span class="fu">MapPlot</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">spCommunity</span>,</span>
+<span>  ReferenceType <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">r</span><span class="op">)</span>,</span>
+<span>  AllowJitter <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  Nbx <span class="op">=</span> <span class="fl">128</span>,</span>
+<span>  Nby <span class="op">=</span> <span class="fl">128</span>,</span>
+<span>  Contour <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  Palette <span class="op">=</span> <span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">topo.colors</a></span><span class="op">(</span><span class="fl">128</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  Contournlevels <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  Contourcol <span class="op">=</span> <span class="st">"dark red"</span>,</span>
+<span>  Points <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  Pointcol <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  CheckArguments <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>An object to map.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Further parameters.</p></dd>
+
+
 <dt>Order</dt>
 <dd><p>The order of diversity, i.e. the value of $q$.</p></dd>
+
+
 <dt>NeighborHood</dt>
 <dd><p>The neighborhood size, i.e. the number of neighbors or the distance to consider.</p></dd>
+
+
 <dt>AllowJitter</dt>
 <dd><p>If <code>TRUE</code>, duplicated points are jittered to avoid their elimination by the kriging procedure.</p></dd>
+
+
 <dt>Nbx</dt>
 <dd><p>The number of columns (pixels) of the resulting map, 128 by default.</p></dd>
+
+
 <dt>Nby</dt>
 <dd><p>The number of rows (pixels) of the resulting map, 128 by default.</p></dd>
+
+
 <dt>Contour</dt>
 <dd><p>If <code>TRUE</code>, contours are added to the map.</p></dd>
+
+
 <dt>Palette</dt>
 <dd><p>The color palette of the map.</p></dd>
+
+
 <dt>Contournlevels</dt>
 <dd><p>The number of levels of contours.</p></dd>
+
+
 <dt>Contourcol</dt>
 <dd><p>The color of the contour lines.</p></dd>
+
+
 <dt>Points</dt>
 <dd><p>If <code>TRUE</code>, the points that brought the data are added to the map.</p></dd>
+
+
 <dt>pch</dt>
 <dd><p>The symbol used to represent points.</p></dd>
+
+
 <dt>Pointcol</dt>
 <dd><p>The color of the points.</p></dd>
+
+
 <dt>CheckArguments</dt>
 <dd><p>If <code>TRUE</code> (default), the function arguments are verified.
 Should be set to <code>FALSE</code> to save time in simulations for example, when the arguments have been checked elsewhere.</p></dd>
+
+
 <dt>spCommunity</dt>
 <dd><p>A spatialized community (A <a href="https://rdrr.io/pkg/dbmss/man/wmppp.object.html" class="external-link">wmppp.object</a> with <code>PointType</code> values as species names.)</p></dd>
+
+
 <dt>ReferenceType</dt>
 <dd><p>The point type used to calculate the function values.
 The default value is "", i.e. all point types, but it will generate an error if the actual reference type is different.</p></dd>
+
+
 <dt>r</dt>
 <dd><p>The distance at which the function value must be considered.
 The default value is the median distance used to calculate the function values.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An autoKrige object that can be used to produce alternative maps.</p>
+    
+
+<p>An autoKrige object that can be used to produce alternative maps.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
     <p>Maps of interpolated values from points of a spatialized community (a <a href="https://rdrr.io/pkg/dbmss/man/wmppp.object.html" class="external-link">wmppp.object</a>) are produced.
 <code>x</code> may be:</p><ul><li><p>an "Accum" object produced e.g. by the function <a href="DivAccum.html">DivAccum</a>.
 A map of diversity of the chosen order within the chosen neighborhoods of points is obtained by kriging.</p></li>
-<li><p>an <a href="https://rdrr.io/pkg/spatstat.core/man/fv.html" class="external-link">fv</a> object produced by a distance-based measure of spatial structure, such as dbmss:Mhat, with individual values.
+<li><p>an <a href="https://rdrr.io/pkg/spatstat.explore/man/fv.html" class="external-link">fv</a> object produced by a distance-based measure of spatial structure, such as dbmss:Mhat, with individual values.
 Then a map of the local value of the function is produced, following (Getis and Franklin 1987)
 .</p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Generate a random community</span></span>
-<span class="r-in"><span class="va">spCommunity</span> <span class="op">&lt;-</span> <span class="fu"><a href="rSpCommunity.html">rSpCommunity</a></span><span class="op">(</span><span class="fl">1</span>, size<span class="op">=</span><span class="fl">50</span>, S<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Calculate the species accumulation curve</span></span>
-<span class="r-in"><span class="va">accum</span> <span class="op">&lt;-</span> <span class="fu"><a href="DivAccum.html">DivAccum</a></span><span class="op">(</span><span class="va">spCommunity</span>, q.seq<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, n.seq<span class="op">=</span><span class="fl">4</span>, Individual<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Plot the local richness, accumulated up to 5 individuals.</span></span>
-<span class="r-in"><span class="fu">MapPlot</span><span class="op">(</span><span class="va">accum</span>, Order<span class="op">=</span><span class="fl">0</span>, NeighborHood<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Generate a random community</span></span></span>
+<span class="r-in"><span><span class="va">spCommunity</span> <span class="op">&lt;-</span> <span class="fu"><a href="rSpCommunity.html">rSpCommunity</a></span><span class="op">(</span><span class="fl">1</span>, size<span class="op">=</span><span class="fl">50</span>, S<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Calculate the species accumulation curve</span></span></span>
+<span class="r-in"><span><span class="va">accum</span> <span class="op">&lt;-</span> <span class="fu"><a href="DivAccum.html">DivAccum</a></span><span class="op">(</span><span class="va">spCommunity</span>, q.seq<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, n.seq<span class="op">=</span><span class="fl">4</span>, Individual<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Plot the local richness, accumulated up to 5 individuals.</span></span></span>
+<span class="r-in"><span><span class="fu">MapPlot</span><span class="op">(</span><span class="va">accum</span>, Order<span class="op">=</span><span class="fl">0</span>, NeighborHood<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [using ordinary kriging]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>all z values are equal</span>
 <span class="r-plt img"><img src="MapPlot-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Generate a random community</span></span>
-<span class="r-in"><span class="va">spCommunity</span> <span class="op">&lt;-</span> <span class="fu"><a href="rSpCommunity.html">rSpCommunity</a></span><span class="op">(</span><span class="fl">1</span>, size<span class="op">=</span><span class="fl">50</span>, S<span class="op">=</span><span class="fl">3</span>, Species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"sp"</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/EricMarcon/dbmss" class="external-link">"dbmss"</a></span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: spatstat.core</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Generate a random community</span></span></span>
+<span class="r-in"><span><span class="va">spCommunity</span> <span class="op">&lt;-</span> <span class="fu"><a href="rSpCommunity.html">rSpCommunity</a></span><span class="op">(</span><span class="fl">1</span>, size<span class="op">=</span><span class="fl">50</span>, S<span class="op">=</span><span class="fl">3</span>, Species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"sp"</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/EricMarcon/dbmss" class="external-link">"dbmss"</a></span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: spatstat.explore</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: spatstat.data</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: spatstat.geom</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> spatstat.geom 2.3-2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> spatstat.geom 3.2-1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: spatstat.random</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> spatstat.random 2.1-0</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> spatstat.random 3.1-5</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: nlme</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: rpart</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> spatstat.core 2.4-0</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: ggplot2</span>
-<span class="r-in"><span class="va">M_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dbmss/man/Mhat.html" class="external-link">Mhat</a></span><span class="op">(</span><span class="va">spCommunity</span>, ReferenceType <span class="op">=</span> <span class="st">"sp1"</span>, Individual <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">MapPlot</span><span class="op">(</span><span class="va">M_i</span>, <span class="va">spCommunity</span>, ReferenceType <span class="op">=</span> <span class="st">"sp1"</span>, r<span class="op">=</span><span class="fl">0.2</span>, Points<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> spatstat.explore 3.2-1</span>
+<span class="r-in"><span><span class="va">M_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dbmss/man/Mhat.html" class="external-link">Mhat</a></span><span class="op">(</span><span class="va">spCommunity</span>, ReferenceType <span class="op">=</span> <span class="st">"sp1"</span>, Individual <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">MapPlot</span><span class="op">(</span><span class="va">M_i</span>, <span class="va">spCommunity</span>, ReferenceType <span class="op">=</span> <span class="st">"sp1"</span>, r<span class="op">=</span><span class="fl">0.2</span>, Points<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [using ordinary kriging]</span>
 <span class="r-plt img"><img src="MapPlot-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -208,7 +242,7 @@ Then a map of the local value of the function is produced, following (Getis and 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

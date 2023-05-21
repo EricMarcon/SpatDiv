@@ -18,7 +18,7 @@ SpeciesDistribution objects include AbdVector and ProbaVector objects."><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SpatDiv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8-5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8-6</span>
       </span>
     </div>
 
@@ -68,44 +68,49 @@ SpeciesDistribution objects include AbdVector and ProbaVector objects."><meta pr
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for wmppp</span>
-<span class="fu">as.SpeciesDistribution</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for factor</span>
-<span class="fu">as.SpeciesDistribution</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for character</span>
-<span class="fu">as.SpeciesDistribution</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for wmppp</span>
-<span class="fu">as.ProbaVector</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for factor</span>
-<span class="fu">as.ProbaVector</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for character</span>
-<span class="fu">as.ProbaVector</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for wmppp</span>
-<span class="fu">as.AbdVector</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for factor</span>
-<span class="fu">as.AbdVector</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for character</span>
-<span class="fu">as.AbdVector</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for wmppp</span></span>
+<span><span class="fu">as.SpeciesDistribution</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for factor</span></span>
+<span><span class="fu">as.SpeciesDistribution</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for character</span></span>
+<span><span class="fu">as.SpeciesDistribution</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for wmppp</span></span>
+<span><span class="fu">as.ProbaVector</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for factor</span></span>
+<span><span class="fu">as.ProbaVector</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for character</span></span>
+<span><span class="fu">as.ProbaVector</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for wmppp</span></span>
+<span><span class="fu">as.AbdVector</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for factor</span></span>
+<span><span class="fu">as.AbdVector</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for character</span></span>
+<span><span class="fu">as.AbdVector</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A <a href="https://rdrr.io/pkg/dbmss/man/wmppp.object.html" class="external-link">wmppp.object</a> with <code>PointType</code> values as species names, or a vector of factors or characters containing species names of each individual.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Further arguments. Unsused.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A vector of species abundances (AbdVector) or probabilities (ProbaVector).</p>
+    
+
+<p>A vector of species abundances (AbdVector) or probabilities (ProbaVector).</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -123,15 +128,15 @@ SpeciesDistribution objects include AbdVector and ProbaVector objects."><meta pr
     <p>Chao A, Jost L (2015).
 “Estimating Diversity and Entropy Profiles via Discovery Rates of New Species.”
 <em>Methods in Ecology and Evolution</em>, <b>6</b>(8), 873--882.
-doi: <a href="https://doi.org/10.1111/2041-210X.12349" class="external-link">10.1111/2041-210X.12349</a>
+<a href="https://doi.org/10.1111/2041-210X.12349" class="external-link">doi:10.1111/2041-210X.12349</a>
 .<br><br> Chao A, Shen T (2003).
 “Nonparametric Estimation of Shannon's Index of Diversity When There Are Unseen Species in Sample.”
 <em>Environmental and Ecological Statistics</em>, <b>10</b>(4), 429--443.
-doi: <a href="https://doi.org/10.1023/A:1026096204727" class="external-link">10.1023/A:1026096204727</a>
+<a href="https://doi.org/10.1023/A%3A1026096204727" class="external-link">doi:10.1023/A:1026096204727</a>
 .<br><br> Chao A, Wang Y, Jost L (2013).
 “Entropy and the Species Accumulation Curve: A Novel Entropy Estimator via Discovery Rates of New Species.”
 <em>Methods in Ecology and Evolution</em>, <b>4</b>(11), 1091--1100.
-doi: <a href="https://doi.org/10.1111/2041-210x.12108" class="external-link">10.1111/2041-210x.12108</a>
+<a href="https://doi.org/10.1111/2041-210x.12108" class="external-link">doi:10.1111/2041-210x.12108</a>
 .</p>
     </div>
 
@@ -147,7 +152,7 @@ doi: <a href="https://doi.org/10.1111/2041-210x.12108" class="external-link">10.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

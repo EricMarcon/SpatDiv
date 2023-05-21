@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SpatDiv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8-5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8-6</span>
       </span>
     </div>
 
@@ -68,54 +68,73 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Simpson_r</span><span class="op">(</span>
-  <span class="va">spCommunity</span>,
-  r <span class="op">=</span> <span class="cn">NULL</span>,
-  spCorrection <span class="op">=</span> <span class="st">"isotropic"</span>,
-  CheckArguments <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">Simpson_rEnvelope</span><span class="op">(</span>
-  <span class="va">spCommunity</span>,
-  r <span class="op">=</span> <span class="cn">NULL</span>,
-  NumberOfSimulations <span class="op">=</span> <span class="fl">100</span>,
-  Alpha <span class="op">=</span> <span class="fl">0.05</span>,
-  spCorrection <span class="op">=</span> <span class="st">"isotropic"</span>,
-  SimulationType <span class="op">=</span> <span class="st">"RandomLabeling"</span>,
-  Global <span class="op">=</span> <span class="cn">FALSE</span>,
-  CheckArguments <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Simpson_r</span><span class="op">(</span></span>
+<span>  <span class="va">spCommunity</span>,</span>
+<span>  r <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  spCorrection <span class="op">=</span> <span class="st">"isotropic"</span>,</span>
+<span>  CheckArguments <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">Simpson_rEnvelope</span><span class="op">(</span></span>
+<span>  <span class="va">spCommunity</span>,</span>
+<span>  r <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  NumberOfSimulations <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  Alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  spCorrection <span class="op">=</span> <span class="st">"isotropic"</span>,</span>
+<span>  SimulationType <span class="op">=</span> <span class="st">"RandomLabeling"</span>,</span>
+<span>  Global <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  CheckArguments <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>spCommunity</dt>
 <dd><p>A spatialized community (A <a href="https://rdrr.io/pkg/dbmss/man/wmppp.object.html" class="external-link">wmppp.object</a> with <code>PointType</code> values as species names.)</p></dd>
+
+
 <dt>r</dt>
 <dd><p>A vector of distances. If <code>NULL</code> accumulation is along <code>n</code>, else neighbors are accumulated in circles of radius <code>r</code>.</p></dd>
+
+
 <dt>spCorrection</dt>
-<dd><p>The edge-effect correction to apply when estimating the K function with <a href="https://rdrr.io/pkg/spatstat.core/man/Kest.html" class="external-link">Kest</a>.
+<dd><p>The edge-effect correction to apply when estimating the K function with <a href="https://rdrr.io/pkg/spatstat.explore/man/Kest.html" class="external-link">Kest</a>.
 Default is "isotropic".</p></dd>
+
+
 <dt>CheckArguments</dt>
 <dd><p>If <code>TRUE</code> (default), the function arguments are verified. Should be set to <code>FALSE</code> to save time in simulations for example, when the arguments have been checked elsewhere.</p></dd>
+
+
 <dt>NumberOfSimulations</dt>
 <dd><p>The number of simulations to run, 100 by default.</p></dd>
+
+
 <dt>Alpha</dt>
 <dd><p>The risk level, 5% by default.</p></dd>
+
+
 <dt>SimulationType</dt>
 <dd><p>A string describing the null hypothesis to simulate.
 The null hypothesis may be "RandomPosition": points are drawn in a Poisson process (default);
 "RandomLabeling": randomizes point types, keeping locations unchanged.</p></dd>
+
+
 <dt>Global</dt>
 <dd><p>Logical; if <code>TRUE</code>, a global envelope sensu (Duranton and Overman 2005)
  is calculated.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>Simpson_r</code> returns an object of class <code>fv</code>, see <a href="https://rdrr.io/pkg/spatstat.core/man/fv.object.html" class="external-link">fv.object</a>.
+    
+
+<p><code>Simpson_r</code> returns an object of class <code>fv</code>, see <a href="https://rdrr.io/pkg/spatstat.explore/man/fv.object.html" class="external-link">fv.object</a>.
 There are methods for print and plot for this class.
-It contains the value of the spatially explicit Simpson's entropy for each distance in <code>r</code>.
-<code>Simpson_rEnvelope</code> returns an envelope object <a href="https://rdrr.io/pkg/spatstat.core/man/envelope.html" class="external-link">envelope</a>.
+It contains the value of the spatially explicit Simpson's entropy for each distance in <code>r</code>.</p>
+
+
+<p><code>Simpson_rEnvelope</code> returns an envelope object <a href="https://rdrr.io/pkg/spatstat.explore/man/envelope.html" class="external-link">envelope</a>.
 There are methods for print and plot for this class.
 It contains the observed value of the function, its average simulated value and the confidence envelope.</p>
     </div>
@@ -124,32 +143,32 @@ It contains the observed value of the function, its average simulated value and 
     <p>Duranton G, Overman HG (2005).
 “Testing for Localisation Using Micro-Geographic Data.”
 <em>Review of Economic Studies</em>, <b>72</b>(4), 1077--1106.
-doi: <a href="https://doi.org/10.1111/0034-6527.00362" class="external-link">10.1111/0034-6527.00362</a>
+<a href="https://doi.org/10.1111/0034-6527.00362" class="external-link">doi:10.1111/0034-6527.00362</a>
 .<br><br> Shimatani K (2001).
 “Multivariate Point Processes and Spatial Variation of Species Diversity.”
 <em>Forest Ecology and Management</em>, <b>142</b>(1-3), 215--229.
-doi: <a href="https://doi.org/10.1016/s0378-1127(00)00352-2" class="external-link">10.1016/s0378-1127(00)00352-2</a>
-, <a href="https://doi.org/10.1016/s0378-1127(00)00352-2" class="external-link">https://doi.org/10.1016/s0378-1127(00)00352-2</a>.</p>
+<a href="https://doi.org/10.1016/s0378-1127%2800%2900352-2" class="external-link">doi:10.1016/s0378-1127(00)00352-2</a>
+.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Generate a random community</span></span>
-<span class="r-in"><span class="va">spCommunity</span> <span class="op">&lt;-</span> <span class="fu"><a href="rSpCommunity.html">rSpCommunity</a></span><span class="op">(</span><span class="fl">1</span>, size<span class="op">=</span><span class="fl">1000</span>, S<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Calculate the entropy and plot it</span></span>
-<span class="r-in"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="fu">Simpson_r</span><span class="op">(</span><span class="va">spCommunity</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Generate a random community</span></span></span>
+<span class="r-in"><span><span class="va">spCommunity</span> <span class="op">&lt;-</span> <span class="fu"><a href="rSpCommunity.html">rSpCommunity</a></span><span class="op">(</span><span class="fl">1</span>, size<span class="op">=</span><span class="fl">1000</span>, S<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Calculate the entropy and plot it</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="fu">Simpson_r</span><span class="op">(</span><span class="va">spCommunity</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="Simpson_r-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Generate a random community</span></span>
-<span class="r-in"><span class="va">spCommunity</span> <span class="op">&lt;-</span> <span class="fu"><a href="rSpCommunity.html">rSpCommunity</a></span><span class="op">(</span><span class="fl">1</span>, size<span class="op">=</span><span class="fl">1000</span>, S<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Calculate the entropy and plot it</span></span>
-<span class="r-in"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="fu">Simpson_rEnvelope</span><span class="op">(</span><span class="va">spCommunity</span>, NumberOfSimulations<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Generate a random community</span></span></span>
+<span class="r-in"><span><span class="va">spCommunity</span> <span class="op">&lt;-</span> <span class="fu"><a href="rSpCommunity.html">rSpCommunity</a></span><span class="op">(</span><span class="fl">1</span>, size<span class="op">=</span><span class="fl">1000</span>, S<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Calculate the entropy and plot it</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="fu">Simpson_rEnvelope</span><span class="op">(</span><span class="va">spCommunity</span>, NumberOfSimulations<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Generating 10 simulations by evaluating expression  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1, 2, 3, 4, 5, 6, 7, 8, 9,  10.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Done.</span>
 <span class="r-plt img"><img src="Simpson_r-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -164,7 +183,7 @@ doi: <a href="https://doi.org/10.1016/s0378-1127(00)00352-2" class="external-lin
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
