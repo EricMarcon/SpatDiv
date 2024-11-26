@@ -8,6 +8,7 @@ Spatially Explicit Measures of Diversity
 
 ![Map of the mixing index](https://EricMarcon.github.io/SpatDiv/articles/SpatDiv_files/figure-html/MapPlot-1.png)
 
-This is a preliminary version of a package designed to measure spatially-explicit diversity.
+This was a preliminary version of a package designed to measure spatially-explicit diversity.
+All of its features are now included in the [divent](https://github.com/EricMarcon/divent) package.
 
 Refer to the [Vignette](https://EricMarcon.github.io/SpatDiv/)
